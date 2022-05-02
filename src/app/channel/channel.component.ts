@@ -23,13 +23,13 @@ export class ChannelComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // this.firestore.collection('chats', ref => ref.where('channelId', '==', this.channelId))
+    // this.firestore.collection('chats', ref => ref.where('channelId', '==', 'J5eEmNKKQULi1wNz6V32'))
       this.firestore.collection('chats')
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         console.log('recieved new  changes from DB', changes);
         this.chats = changes;
-        console.log('channels:', this.chats);
+        console.log('chats:', this.chats);
       })
   }
 
