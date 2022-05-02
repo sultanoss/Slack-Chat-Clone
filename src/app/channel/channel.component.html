@@ -1,0 +1,25 @@
+<div class="channel-content">
+
+  <form #messageForm="ngForm">
+    <mat-form-field class="massage-title" appearance="fill">
+      <mat-label>Message</mat-label>
+      <textarea type="text" [(ngModel)]="chat.message" name="message" matInput placeholder="Enter your Message"
+        required>
+    </textarea>
+    </mat-form-field>
+    <button mat-flat-button color="accent" type="submit" (click)="sendMessage()" [class.disabled]="messageForm.invalid"
+      [disabled]="messageForm.invalid">
+      Send
+    </button>
+  </form>
+
+  <div class="chats" *ngFor="let chat of chats">
+
+    <div class="chat">
+      <p>{{ chat.message }}</p>
+      <a href="">Antworten</a>
+    </div>
+
+  </div>
+
+</div>

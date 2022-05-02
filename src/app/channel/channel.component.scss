@@ -1,0 +1,78 @@
+form {
+  background-color: #303030;
+  border-radius: 16px;
+  padding: 16px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+
+  button {
+    width: 50px;
+    align-self: flex-end;
+  }
+}
+
+.width {
+  width: 90% !important;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-label {
+  color: #69f0ae;
+}
+
+textarea {
+  height: 50px;
+  outline: none;
+  resize: none;
+  padding: 16px;
+}
+
+.chats{
+  width: 90%;
+  color: white;
+}
+
+.chat {
+
+  display: flex;
+  flex-direction: column;
+  min-height: 50px;
+  border: 1px solid lightgray;
+  margin-top: 24px;
+  border-radius: 16px;
+  padding: 16px;
+
+
+  span {
+    background: #69f0ae;
+    width: 100px;
+    text-align: center;
+    padding: 6px;
+    border-radius: 16px;
+  }
+
+  p {
+    margin-top: 24px;
+  }
+
+  a {
+    align-self: flex-end;
+    color: white;
+  }
+}
+
+.channel-content {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vh;
+  height: 100vh;
+  padding-top: 50px;
+  border-left: 1px solid black;
+}

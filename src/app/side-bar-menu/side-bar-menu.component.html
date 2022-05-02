@@ -1,0 +1,28 @@
+<div class="side-bar-container">
+  <div class="side-menu">
+
+    <form #channelForm="ngForm">
+      <h2>Add Channel</h2>
+      <mat-form-field class="todo-title" appearance="fill">
+        <mat-label>Channel Name</mat-label>
+        <input type="text" [(ngModel)]="channel.name" name="name"
+        matInput placeholder="Enter your Channel Name"
+        required>
+      </mat-form-field>
+      <button mat-flat-button color="accent" type="submit" (click)="addChannel()"
+      [class.disabled]="channelForm.invalid" [disabled]="channelForm.invalid">
+        New Channel
+      </button>
+    </form>
+
+    <div class="channels-name" *ngFor="let channel of channels">
+
+      <a [routerLink]="['/channel/' + channel.customIdName]"><span>#{{ channel.name }}</span></a>
+
+    </div>
+
+  </div>
+
+  <button *ngIf=" route.url !== '/dashboard'" mat-flat-button color="accent" routerLink="/dashboard">Dashboard</button>
+
+</div>
