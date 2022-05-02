@@ -32,21 +32,19 @@ textarea {
   padding: 16px;
 }
 
-.chats{
+.chats {
   width: 90%;
   color: white;
+  border: 1px solid lightgray;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 24px;
 }
 
 .chat {
 
   display: flex;
   flex-direction: column;
-  min-height: 50px;
-  border: 1px solid lightgray;
-  margin-top: 24px;
-  border-radius: 16px;
-  padding: 16px;
-
 
   span {
     background: #69f0ae;

@@ -1,5 +1,7 @@
 export class channel {
 
+
+
   name: String;
 
   constructor(obj?: any) {

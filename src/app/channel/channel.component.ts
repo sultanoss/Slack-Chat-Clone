@@ -5,6 +5,7 @@ import { AuthentificationserviceService } from '../services/authentificationserv
 import { channel } from 'src/models/channel.class';
 
 
+
 @Component({
   selector: 'app-channel',
   templateUrl: './channel.component.html',
@@ -12,35 +13,35 @@ import { channel } from 'src/models/channel.class';
 })
 export class ChannelComponent implements OnInit {
 
-  channelId: string = 'JaytdBC6CTwSlleE9d0A'
+  text: string = '';
 
   chat = new chat()
 
   chats: any = [];
 
   constructor(private firestore: AngularFirestore,
-    public authService: AuthentificationserviceService) { }
+    public authService: AuthentificationserviceService,
+  ) { }
 
   ngOnInit(): void {
-
-    // this.firestore.collection('chats', ref => ref.where('channelId', '==', 'J5eEmNKKQULi1wNz6V32'))
-      this.firestore.collection('chats')
+    this.firestore.collection('chats', ref => ref.where('messageId', '==', 'Wh5f56lISU9bk1pAZYEO'))
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         console.log('recieved new  changes from DB', changes);
         this.chats = changes;
         console.log('chats:', this.chats);
       })
+
+    this.clearChannel();
   }
 
   sendMessage() {
 
-    this.firestore.collection('chats').add(this.chat.toJson()).then((result: any) => {
-
+    this.firestore.collection('chats').add({
+      message: this.chat.message,
+      author: '',
+      messageId: 'Wh5f56lISU9bk1pAZYEO'
     })
-
-    this.clearChannel();
-
   }
 
   clearChannel() {

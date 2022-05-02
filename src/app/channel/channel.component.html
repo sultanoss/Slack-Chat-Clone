@@ -14,7 +14,9 @@
   </form>
 
   <div class="chats" *ngFor="let chat of chats">
-
+    <div>
+      {{ chat.author }}
+    </div>
     <div class="chat">
       <p>{{ chat.message }}</p>
       <a href="">Antworten</a>
