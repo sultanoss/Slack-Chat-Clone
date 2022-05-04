@@ -10,6 +10,7 @@ form {
   button {
     width: 50px;
     align-self: flex-end;
+    margin-bottom: 24px;
   }
 }
 
@@ -45,6 +46,12 @@ textarea {
 
   display: flex;
   flex-direction: column;
+  background: #454545;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding: 16px;
+  border-radius: 16px;
+  word-break: break-all;
 
   span {
     background: #69f0ae;
@@ -67,10 +74,31 @@ textarea {
 .channel-content {
 
   display: flex;
+  // align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 100vh;
+}
+
+.user-name {
+  background: #69f0ae;
+  display: flex;
+  width: 100px;
+  justify-content: center;
+  border-radius: 16px;
+  color: black;
+  font-weight: 500;
+  padding: 4px;
+}
+
+.channel-texts {
+  display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100vh;
-  height: 100vh;
-  padding-top: 50px;
+  width: 600px;
   border-left: 1px solid black;
+
+  h2{
+    margin-top: 20px;
+  }
 }

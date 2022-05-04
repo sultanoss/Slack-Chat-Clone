@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { ActivatedRoute } from '@angular/router';
+import { chat } from 'src/models/chat.class';
+import { Thread } from 'src/models/thread.class';
+
 
 @Component({
   selector: 'app-thread',
@@ -8,19 +12,39 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class ThreadComponent implements OnInit {
 
-  constructor(private firestore: AngularFirestore) { }
+  constructor(private firestore: AngularFirestore,
+    private activatedRoute: ActivatedRoute) { }
 
-  threads:any = [];
+  thread = new Thread();
+
+  threads: any = [];
+
+  chatId: any;
+
+  answer = ''
 
   ngOnInit(): void {
 
-    this.firestore.collection('chats')
-    .valueChanges({ idField: 'customIdName' })
-    .subscribe((changes: any) => {
-      console.log('recieved new  changes from DB', changes);
-      this.threads = changes;
-      console.log('channels:',this.threads);
+    this.activatedRoute.paramMap.subscribe((param) => {
+      this.chatId = param.get('id');
+
+      console.log(this.chatId);
+
+      this.firestore.collection('threads', ref => ref.where('chatId', '==', this.chatId))
+        .valueChanges({ idField: 'customIdName' })
+        .subscribe((changes: any) => {
+          console.log('recieved new  changes from DB', changes);
+          this.threads = changes;
+          console.log('threads:', this.threads);
+        })
+
     })
   }
 
+  addThread() {
+
+  }
+
 }
+
+

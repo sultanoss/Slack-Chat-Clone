@@ -1,27 +1,32 @@
 <div class="channel-content">
 
-  <form #messageForm="ngForm">
-    <mat-form-field class="massage-title" appearance="fill">
-      <mat-label>Message</mat-label>
-      <textarea type="text" [(ngModel)]="chat.message" name="message" matInput placeholder="Enter your Message"
-        required>
+  <div class="channel-texts">
+
+    <!-- <h2>{{ channel.name }}</h2> -->
+
+    <form #messageForm="ngForm">
+      <mat-form-field class="massage-title" appearance="fill">
+        <mat-label>Message</mat-label>
+        <textarea type="text" [(ngModel)]="chat.message" name="message" matInput placeholder="Enter your Message"
+          required>
     </textarea>
-    </mat-form-field>
-    <button mat-flat-button color="accent" type="submit" (click)="sendMessage()" [class.disabled]="messageForm.invalid"
-      [disabled]="messageForm.invalid">
-      Send
-    </button>
-  </form>
+      </mat-form-field>
+      <button mat-flat-button color="accent" type="submit" (click)="sendMessage()"
+        [class.disabled]="messageForm.invalid" [disabled]="messageForm.invalid">
+        Send
+      </button>
+    </form>
 
-  <div class="chats" *ngFor="let chat of chats">
-    <div>
-      {{ chat.author }}
-    </div>
-    <div class="chat">
-      <p>{{ chat.message }}</p>
-      <a href="">Antworten</a>
-    </div>
+    <div class="chats" *ngFor="let chat of chats">
+      <div class="user-name">
+        {{ chat.author }}
+      </div>
+      <div class="chat">
+        <p>{{ chat.message }}</p>
+        <a (click)="showThread(chat)" [routerLink]="['/chat/' + chat.customIdName]">Antworten</a>
+      </div>
 
+    </div>
   </div>
 
 </div>

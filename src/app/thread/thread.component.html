@@ -1,4 +1,22 @@
 <div class="threads">
-  <div class="thread">
+  <h2>Threads</h2>
+
+  <form #answerForm="ngForm">
+    <mat-form-field class="massage-title" appearance="fill">
+      <mat-label>Message</mat-label>
+      <textarea type="text" [(ngModel)]="thread.answer" name="answer" matInput placeholder="Enter your Message"
+        required>
+  </textarea>
+    </mat-form-field>
+    <button mat-flat-button color="accent" type="submit" (click)="addThread()"
+      [class.disabled]="answerForm.invalid" [disabled]="answerForm.invalid">
+      Send
+    </button>
+  </form>
+
+  <div class="thread" *ngFor="let thread of threads">
+
+    <span>{{thread.author}}</span>
+    <p>{{ thread.chatMessage }}</p>
   </div>
 </div>

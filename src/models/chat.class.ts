@@ -1,13 +1,14 @@
 export class chat {
 
+
   message: String;
-  messageId: string;
+  chatChannelId: string;
   author: string;
 
   constructor(obj?: any) {
 
     this.message = obj ? obj.name : '';
-    this.messageId = obj ? obj.channelId : '';
+    this.chatChannelId = obj ? obj.channelId : '';
     this.author = obj ? obj.author : '';
 
   }
@@ -15,7 +16,7 @@ export class chat {
   public toJson() {
     return {
       message: this.message,
-      messageId: this.messageId,
+      chatChannelId: this.chatChannelId,
       autor: this.author,
     }
   }
