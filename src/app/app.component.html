@@ -18,7 +18,7 @@
 
 <div class="content">
 
-  <app-side-bar-menu *ngIf=" route.url !== '/'"></app-side-bar-menu>
+  <app-side-bar-menu *ngIf=" route.url !== '/' && route.url !=='/signup'"></app-side-bar-menu>
 
   <router-outlet></router-outlet>
 

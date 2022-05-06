@@ -11,7 +11,7 @@ const routes: Routes = [
   {path:'signup',component:SignUpComponent},
   {path:'dashboard',component:DashboardComponent},
   {path:'channel/:id', component:ChannelComponent},
-  {path:'chat/:id', component:ThreadComponent},
+
 ];
 
 @NgModule({

@@ -1,13 +1,13 @@
 .threads {
   display: flex;
   flex-direction: column;
-  width: 400px;
-  justify-content: center;
+  align-items: center;
   color: white;
 
   h2 {
 
     margin-top: 20px;
+    font-size: 28px;
   }
 }
 
@@ -18,8 +18,10 @@
   border: 1px solid white;
   border-radius: 16px;
   padding: 16px;
-  margin-left: 10px;
-  min-height: 200px;
+  margin-left: 20px;
+  margin-right: 20px;
+  min-height: 50px;
+  width: 400px;
 
   span {
     margin-bottom: 20px;
@@ -34,8 +36,45 @@ form {
   display: flex;
   flex-direction: column;
   margin-bottom: 50px;
+  width: 90%;
+  margin-top: 16px;
 
-  button{
+  button {
     width: 50px;
+    align-self: flex-end;
   }
+}
+
+textarea {
+  height: 50px;
+  outline: none;
+  resize:none !important;
+}
+
+mat-label {
+  color: #69f0ae;
+}
+
+.current-chat {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  border: 1px solid white;
+  border-radius: 16px;
+  padding: 16px;
+  margin-left: 20px;
+  margin-right: 20px;
+  min-height: 100px;
+  width: 400px;
+  background-color: #69f0ae;
+  color: black;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.thread-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
 }

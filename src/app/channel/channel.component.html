@@ -2,7 +2,7 @@
 
   <div class="channel-texts">
 
-    <!-- <h2>{{ channel.name }}</h2> -->
+    <h2>#Channel1</h2>
 
     <form #messageForm="ngForm">
       <mat-form-field class="massage-title" appearance="fill">
@@ -23,10 +23,12 @@
       </div>
       <div class="chat">
         <p>{{ chat.message }}</p>
-        <a (click)="showThread(chat)" [routerLink]="['/chat/' + chat.customIdName]">Antworten</a>
+        <a (click)="showThread(chat)">Antworten</a>
       </div>
 
     </div>
   </div>
+
+  <app-thread class="hide" [class.show]="show" *ngIf="!!currentChat" [chat]="currentChat"></app-thread>
 
 </div>

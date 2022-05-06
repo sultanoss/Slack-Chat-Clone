@@ -1,9 +1,13 @@
 <div class="threads">
-  <h2>Threads</h2>
+  <div class="thread-header">
+    <h2>Threads</h2>
+    <button (click)="hideThread()" mat-mini-fab><mat-icon>close</mat-icon></button>
+  </div>
+
 
   <form #answerForm="ngForm">
     <mat-form-field class="massage-title" appearance="fill">
-      <mat-label>Message</mat-label>
+      <mat-label>Answer</mat-label>
       <textarea type="text" [(ngModel)]="thread.answer" name="answer" matInput placeholder="Enter your Message"
         required>
   </textarea>
@@ -14,9 +18,13 @@
     </button>
   </form>
 
-  <div class="thread" *ngFor="let thread of threads">
+  <div class="current-chat">
+    <span>{{ chat.author }}</span>
+    <span>{{ chat.message }}</span>
+  </div>
 
+  <div class="thread" *ngFor="let thread of threads">
     <span>{{thread.author}}</span>
-    <p>{{ thread.chatMessage }}</p>
+    <p>{{ thread.answer }}</p>
   </div>
 </div>

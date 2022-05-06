@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { chat } from 'src/models/chat.class';
+import { Chat } from 'src/models/chat.class';
 import { AuthentificationserviceService } from '../services/authentificationservice.service';
 import { ActivatedRoute } from '@angular/router';
+
+
 
 
 @Component({
@@ -12,15 +14,18 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ChannelComponent implements OnInit {
 
-  // text: string = '';
 
-  chat = new chat()
+  @Input() show: boolean = false;
+
+  chat = new Chat()
 
   chats: any = [];
 
-  // channel!: channel;
+  @Input() currentChat!: Chat;
 
   channelId: any = '';
+
+  channelName: any;
 
   constructor(private firestore: AngularFirestore,
     public authService: AuthentificationserviceService,
@@ -30,13 +35,15 @@ export class ChannelComponent implements OnInit {
 
     this.activatedRoute.paramMap.subscribe((param) => {
       this.channelId = param.get('id');
+      this.firestore.doc('/channels/' + this.channelId).get().subscribe(snap => {
+        console.log(snap.id);
+        console.log(snap.data());
+      })
 
       this.firestore.collection('chats', ref => ref.where('chatChannelId', '==', this.channelId))
         .valueChanges({ idField: 'customIdName' })
         .subscribe((changes: any) => {
-          console.log('recieved new  changes from DB', changes);
           this.chats = changes;
-          console.log('chats:', this.chats);
         })
 
     })
@@ -52,6 +59,7 @@ export class ChannelComponent implements OnInit {
     })
 
     this.clearInput();
+
   }
 
   clearInput() {
@@ -61,14 +69,16 @@ export class ChannelComponent implements OnInit {
   }
 
   showThread(chat: any) {
+    this.currentChat = chat;
+    console.log(this.currentChat);
 
-    this.firestore.collection('threads').add({
-      chatMessage: chat.message,
-      author: chat.author,
-      chatId: chat.customIdName,
+    // this.firestore.doc('/chats/' + this.channelId).get().subscribe(snap => {
+    //   console.log(snap.id);
+    //   console.log(snap.data());
+    // })
 
-    })
-
+    this.show = true;
+    console.log(this.show)
   }
 
 }

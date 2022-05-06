@@ -1,3 +1,11 @@
+:host {
+  flex: 1;
+}
+
+h2 {
+  color: white;
+}
+
 form {
   background-color: #303030;
   border-radius: 16px;
@@ -29,7 +37,7 @@ mat-label {
 textarea {
   height: 50px;
   outline: none;
-  resize: none;
+  resize: none !important;
   padding: 16px;
 }
 
@@ -72,11 +80,10 @@ textarea {
 }
 
 .channel-content {
-
+  width: 100%;
   display: flex;
   // align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
   height: 100vh;
 }
 
@@ -95,10 +102,20 @@ textarea {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 600px;
+  width: 100%;
   border-left: 1px solid black;
+  border-right: 1px solid black;
 
-  h2{
+  h2 {
     margin-top: 20px;
+    font-size: 28px;
   }
+}
+
+.hide{
+  display: none;
+}
+
+.show {
+  display: flex;
 }
