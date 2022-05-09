@@ -22,6 +22,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChannelComponent } from './channel/channel.component';
 import { ThreadComponent } from './thread/thread.component';
+import { provideStorage, getStorage } from '@angular/fire/storage';
 
 
 
@@ -54,6 +55,7 @@ import { ThreadComponent } from './thread/thread.component';
     provideAuth(() => getAuth()),
     BrowserAnimationsModule,
     HotToastModule.forRoot(),
+    provideStorage(() => getStorage())
   ],
   providers: [],
   bootstrap: [AppComponent]

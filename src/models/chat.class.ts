@@ -5,6 +5,7 @@ export class Chat {
   chatChannelId: string;
   author: string;
   customIdName: string;
+  img:string
 
   constructor(obj?: any) {
 
@@ -12,6 +13,7 @@ export class Chat {
     this.chatChannelId = obj ? obj.channelId : '';
     this.author = obj ? obj.author : '';
     this.customIdName = obj ? obj.customIdName : '';
+    this.img = obj ? obj.img : '';
 
   }
 
@@ -20,6 +22,7 @@ export class Chat {
       message: this.message,
       chatChannelId: this.chatChannelId,
       autor: this.author,
+      img:this.img,
     }
   }
 }

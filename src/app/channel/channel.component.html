@@ -11,6 +11,17 @@
           required>
     </textarea>
       </mat-form-field>
+
+      <div class="btns">
+        <div (click)="uploadFile.click()">
+          <button mat-raised-button color="primary">Choose File</button>
+          <span>{{ file.name }}</span>
+          <input #uploadFile (change)="chooseFile($event)" type='file' name="img" style="display:none" />
+        </div>
+        <button mat-mini-fab color="primary" (click)="addData()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
       <button mat-flat-button color="accent" type="submit" (click)="sendMessage()"
         [class.disabled]="messageForm.invalid" [disabled]="messageForm.invalid">
         Send
@@ -23,9 +34,17 @@
       </div>
       <div class="chat">
         <p>{{ chat.message }}</p>
+        <div class="big-img">
+          <img (click)="openImg(chat)" *ngIf="chat.img" [src]="chat.img">
+        </div>
+
         <a (click)="showThread(chat)">Antworten</a>
       </div>
-
+      <div>
+        <button mat-mini-fab color="warn" (click)="deleteChat(chat)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
 

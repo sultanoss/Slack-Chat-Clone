@@ -2,7 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Chat } from 'src/models/chat.class';
 import { AuthentificationserviceService } from '../services/authentificationservice.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
+
 
 
 
@@ -27,9 +29,16 @@ export class ChannelComponent implements OnInit {
 
   channelName: any;
 
+  public file: any = {};
+
+  imgUrl: string = '';
+
+
   constructor(private firestore: AngularFirestore,
     public authService: AuthentificationserviceService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    public storage: Storage,
+    private route:Router) { }
 
   ngOnInit(): void {
 
@@ -51,20 +60,26 @@ export class ChannelComponent implements OnInit {
   }
 
   sendMessage() {
+
     let userName = this.authService.currentUser.displayName;
     this.firestore.collection('chats').add({
       message: this.chat.message,
       author: userName,
       chatChannelId: this.channelId,
+      img: this.imgUrl,
     })
 
     this.clearInput();
-
   }
 
   clearInput() {
 
     this.chat.message = '';
+  }
+
+  deleteChat(chat:any){
+
+    this.firestore.collection('chats').doc(chat['customIdName']).delete();
 
   }
 
@@ -79,6 +94,64 @@ export class ChannelComponent implements OnInit {
 
     this.show = true;
     console.log(this.show)
+  }
+
+  chooseFile(event: any) {
+    this.file = event.target.files[0];
+    console.log(this.file)
+  }
+
+  addData() {
+    const storageRef = ref(this.storage, this.file.name);
+    const uploadTask = uploadBytesResumable(storageRef, this.file);
+
+    uploadTask.on('state_changed',
+      (snapshot) => {
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+        switch (snapshot.state) {
+          case 'paused':
+            console.log('Upload is paused');
+            break;
+          case 'running':
+            console.log('Upload is running');
+            break;
+        }
+      },
+
+      (error) => {
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.code) {
+          case 'storage/unauthorized':
+            // User doesn't have permission to access the object
+            break;
+          case 'storage/canceled':
+            // User canceled the upload
+            break;
+
+          // ...
+
+          case 'storage/unknown':
+            // Unknown error occurred, inspect error.serverResponse
+            break;
+        }
+      },
+
+      () => {
+        // Upload completed successfully, now we can get the download URL
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log('File available at', downloadURL);
+          this.imgUrl = downloadURL;
+          console.log(this.imgUrl);
+        });
+      }
+    )
+  }
+
+  openImg(chat:any){
+    window.open(chat.img)
   }
 
 }

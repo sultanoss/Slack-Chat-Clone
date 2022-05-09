@@ -14,11 +14,13 @@ form {
   display: flex;
   flex-direction: column;
   width: 90%;
+  border: 1px solid;
+  margin-bottom: 20px;
 
   button {
-    width: 50px;
+    // width: 50px;
     align-self: flex-end;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
 }
 
@@ -77,6 +79,14 @@ textarea {
     align-self: flex-end;
     color: white;
   }
+
+  img {
+    width: 280px;
+    height: 200px;
+    border-radius: 16px;
+    object-fit: cover;
+    cursor: pointer;
+  }
 }
 
 .channel-content {
@@ -105,6 +115,7 @@ textarea {
   width: 100%;
   border-left: 1px solid black;
   border-right: 1px solid black;
+  position: relative;
 
   h2 {
     margin-top: 20px;
@@ -112,10 +123,50 @@ textarea {
   }
 }
 
-.hide{
+
+.btns {
+  display: flex;
+  margin-top: 16px;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  span {
+    margin-left: 20px;
+  }
+}
+
+.bigImg {
+
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top:0;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.big-img {
+  display: flex;
+  flex-direction: column;
+
+  button{
+    margin-top: 20px;
+  }
+
+}
+
+.hide {
   display: none;
 }
 
 .show {
   display: flex;
+}
+
+.show-btn{
+  display: block;
 }

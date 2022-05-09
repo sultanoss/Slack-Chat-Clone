@@ -64,6 +64,10 @@ export class ThreadComponent implements OnInit, OnChanges {
     console.log(this.show);
   }
 
+  openImg(chat:any){
+    window.open(chat.img)
+  }
+
 }
 
 
