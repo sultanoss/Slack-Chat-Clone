@@ -151,12 +151,24 @@ textarea {
 
 .big-img {
   display: flex;
-  flex-direction: column;
 
   button{
-    margin-top: 20px;
+   width: 24px;
+   height: 24px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+    margin-left: 16px;
+    border-radius: 50%;
+    outline: none;
+    display: none;
+    cursor: pointer;
   }
 
+}
+
+.big-img:hover button{
+  display: flex !important;
 }
 
 .hide {
@@ -169,4 +181,21 @@ textarea {
 
 .show-btn{
   display: block;
+}
+
+.edit-delete-btn{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+
+.edit-chat-container{
+
+button{
+  margin-right: 16px;
+}
+
 }

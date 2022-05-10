@@ -8,7 +8,7 @@
       <mat-form-field class="massage-title" appearance="fill">
         <mat-label>Message</mat-label>
         <textarea type="text" [(ngModel)]="chat.message" name="message" matInput placeholder="Enter your Message"
-          required>
+          required contenteditable="true" spellcheck="true">
     </textarea>
       </mat-form-field>
 
@@ -34,16 +34,39 @@
       </div>
       <div class="chat">
         <p>{{ chat.message }}</p>
+
         <div class="big-img">
           <img (click)="openImg(chat)" *ngIf="chat.img" [src]="chat.img">
+          <button (click)="deleteImg(chat)">x</button>
         </div>
 
         <a (click)="showThread(chat)">Antworten</a>
       </div>
-      <div>
+      <div class="edit-delete-btn">
+
+        <button mat-mini-fab (click)="showEditContainer(chat)">
+          <mat-icon>edit</mat-icon>
+        </button>
+
         <button mat-mini-fab color="warn" (click)="deleteChat(chat)">
           <mat-icon>delete</mat-icon>
         </button>
+      </div>
+      <div class="edit-chat-container" *ngIf="chat.schowEditContainer">
+        <mat-form-field class="massage-title" appearance="fill">
+          <mat-label>Message</mat-label>
+          <textarea type="text" [(ngModel)]="editedMessage" name="message" matInput placeholder="Enter your Message"
+            required contenteditable="true" spellcheck="true">
+      </textarea>
+        </mat-form-field>
+
+        <button mat-mini-fab color="warn" (click)="editChat(chat)">
+          <mat-icon>save</mat-icon>
+        </button>
+        <button mat-mini-fab color="warn" (click)="CloseEditChat(chat)">
+          <mat-icon>close</mat-icon>
+        </button>
+
       </div>
     </div>
   </div>

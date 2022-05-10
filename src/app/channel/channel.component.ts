@@ -33,12 +33,16 @@ export class ChannelComponent implements OnInit {
 
   imgUrl: string = '';
 
+  editedMessage: string = '';
+
+  schowEditContainer: boolean = false;
+
 
   constructor(private firestore: AngularFirestore,
     public authService: AuthentificationserviceService,
     private activatedRoute: ActivatedRoute,
     public storage: Storage,
-    private route:Router) { }
+    private route: Router) { }
 
   ngOnInit(): void {
 
@@ -77,20 +81,34 @@ export class ChannelComponent implements OnInit {
     this.chat.message = '';
   }
 
-  deleteChat(chat:any){
+  deleteChat(chat: any) {
 
     this.firestore.collection('chats').doc(chat['customIdName']).delete();
 
   }
 
+  showEditContainer(chat: any) {
+    chat.schowEditContainer = true;
+  }
+
+  editChat(chat: any) {
+    this.firestore.collection("chats").doc(chat['customIdName']) // hier um eine feld zu updaten bzw editieren
+      .update({ message: this.editedMessage })
+    this.editedMessage = '';
+  }
+
+  deleteImg(chat:any){
+     this.firestore.collection("chats").doc(chat['customIdName']) // hier um eine feld zu updaten bzw editieren
+    .update({img : ''})
+  }
+
+  CloseEditChat(chat: any) {
+    chat.schowEditContainer = false;
+  }
+
   showThread(chat: any) {
     this.currentChat = chat;
     console.log(this.currentChat);
-
-    // this.firestore.doc('/chats/' + this.channelId).get().subscribe(snap => {
-    //   console.log(snap.id);
-    //   console.log(snap.data());
-    // })
 
     this.show = true;
     console.log(this.show)
@@ -150,7 +168,7 @@ export class ChannelComponent implements OnInit {
     )
   }
 
-  openImg(chat:any){
+  openImg(chat: any) {
     window.open(chat.img)
   }
 

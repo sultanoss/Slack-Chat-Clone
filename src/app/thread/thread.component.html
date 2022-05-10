@@ -9,7 +9,7 @@
     <mat-form-field class="massage-title" appearance="fill">
       <mat-label>Answer</mat-label>
       <textarea type="text" [(ngModel)]="thread.answer" name="answer" matInput placeholder="Enter your Message"
-        required>
+        required contenteditable="true" spellcheck="true">
   </textarea>
     </mat-form-field>
     <button mat-flat-button color="accent" type="submit" (click)="addThread()"
