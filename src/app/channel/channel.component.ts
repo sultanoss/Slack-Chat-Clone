@@ -4,6 +4,7 @@ import { Chat } from 'src/models/chat.class';
 import { AuthentificationserviceService } from '../services/authentificationservice.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
+import { first } from 'rxjs';
 
 
 
@@ -37,6 +38,8 @@ export class ChannelComponent implements OnInit {
 
   schowEditContainer: boolean = false;
 
+  channels: any = [];
+
 
   constructor(private firestore: AngularFirestore,
     public authService: AuthentificationserviceService,
@@ -48,10 +51,6 @@ export class ChannelComponent implements OnInit {
 
     this.activatedRoute.paramMap.subscribe((param) => {
       this.channelId = param.get('id');
-      this.firestore.doc('/channels/' + this.channelId).get().subscribe(snap => {
-        console.log(snap.id);
-        console.log(snap.data());
-      })
 
       this.firestore.collection('chats', ref => ref.where('chatChannelId', '==', this.channelId))
         .valueChanges({ idField: 'customIdName' })
@@ -59,12 +58,31 @@ export class ChannelComponent implements OnInit {
           this.chats = changes;
         })
 
+        this.getChannelName();
     })
+  }
+
+  getChannelName() {
+    this.firestore.collection<any>('channels').doc(this.channelId) // for geting the doc with id = channelId and the name
+      .get()
+      .pipe(first())
+      .subscribe(res => {
+        this.channels = res.data()
+        console.log(this.channels.name);
+        this.channelName = this.channels.name
+      })
+  }
+
+  sendMessage() {  // if file contain img  use addDate else use addMessage
+    if (this.file) {
+      this.addData();
+    } else {
+      this.addMessage();
+    }
 
   }
 
-  sendMessage() {
-
+  addMessage() {
     let userName = this.authService.currentUser.displayName;
     this.firestore.collection('chats').add({
       message: this.chat.message,
@@ -74,6 +92,7 @@ export class ChannelComponent implements OnInit {
     })
 
     this.clearInput();
+    console.log(this.authService.currentUser.uid)
   }
 
   clearInput() {
@@ -93,17 +112,18 @@ export class ChannelComponent implements OnInit {
 
   editChat(chat: any) {
     this.firestore.collection("chats").doc(chat['customIdName']) // hier um eine feld zu updaten bzw editieren
-      .update({ message: this.editedMessage })
-    this.editedMessage = '';
+      .update({ message: chat.editedMessage })
+    chat.editedMessage = '';
   }
 
-  deleteImg(chat:any){
-     this.firestore.collection("chats").doc(chat['customIdName']) // hier um eine feld zu updaten bzw editieren
-    .update({img : ''})
+  deleteImg(chat: any) {
+    this.firestore.collection("chats").doc(chat['customIdName']) // hier um eine feld zu updaten bzw editieren
+      .update({ img: '' })
   }
 
   CloseEditChat(chat: any) {
     chat.schowEditContainer = false;
+    chat.editedMessage = '';
   }
 
   showThread(chat: any) {
@@ -160,8 +180,10 @@ export class ChannelComponent implements OnInit {
       () => {
         // Upload completed successfully, now we can get the download URL
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          this.file = undefined; // for empty file
           console.log('File available at', downloadURL);
           this.imgUrl = downloadURL;
+          this.addMessage(); // use addMessage if img exist
           console.log(this.imgUrl);
         });
       }

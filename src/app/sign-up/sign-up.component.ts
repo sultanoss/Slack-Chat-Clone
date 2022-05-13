@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
@@ -37,11 +38,16 @@ export class SignUpComponent implements OnInit {
 
   }, { validators: passwordsMatchValidator() })
 
+
   constructor(private autService: AuthentificationserviceService,
     private toast: HotToastService,
-    private route: Router) { }
+    private route: Router,
+    private firestore: AngularFirestore) { }
+
+  users = [];
 
   ngOnInit(): void {
+
   }
 
   get name() {
@@ -73,6 +79,11 @@ export class SignUpComponent implements OnInit {
     ).subscribe(() => {
       this.route.navigate(['/'])
     })
+
+    this.firestore.collection('users').add({
+      userName: name,
+    })
+    console.log(name)
   }
 
 }

@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Chat } from 'src/models/chat.class';
 import { Thread } from 'src/models/thread.class';
@@ -25,6 +26,7 @@ export class ThreadComponent implements OnInit, OnChanges {
 
   @Input() chat!: Chat;
   @Input() show!:boolean;
+  @Output() hide = new EventEmitter<false>()   //Angular to way binding
 
   thread = new Thread();
 
@@ -61,7 +63,9 @@ export class ThreadComponent implements OnInit, OnChanges {
 
   hideThread(){
     this.show = false;
-    console.log(this.show);
+    this.hide.emit(this.show)
+    console.log(this.hide)
+    console.log(this.show)
   }
 
   openImg(chat:any){

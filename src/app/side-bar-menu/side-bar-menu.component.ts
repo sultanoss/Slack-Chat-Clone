@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { channel } from 'src/models/channel.class';
 import { Chat } from 'src/models/chat.class';
+import { User } from 'src/models/user.class';
 import { AuthentificationserviceService } from '../services/authentificationservice.service';
 
 
@@ -19,6 +20,9 @@ export class SideBarMenuComponent implements OnInit {
   channel = new channel();
   channels: any = [];
 
+  user = new User();
+  users: any[] = [];
+
   constructor(private firestore: AngularFirestore,
     public authService: AuthentificationserviceService,
     public route: Router) { }
@@ -30,6 +34,13 @@ export class SideBarMenuComponent implements OnInit {
       .subscribe((changes: any) => {
         this.channels = changes;
 
+      })
+
+    this.firestore.collection('users')
+      .valueChanges({ idField: 'customIdName' })
+      .subscribe((changess: any) => {
+        this.users = changess;
+        console.log(this.users)
       })
   }
 
@@ -48,7 +59,6 @@ export class SideBarMenuComponent implements OnInit {
     this.channel = new channel();
 
   }
-
 
 
 }

@@ -143,7 +143,7 @@ textarea {
   position: absolute;
   left: 0;
   right: 0;
-  top:0;
+  top: 0;
   bottom: 0;
   align-items: center;
   justify-content: center;
@@ -151,23 +151,22 @@ textarea {
 
 .big-img {
   display: flex;
+  width: fit-content;
+  margin-top: 16px;
 
-  button{
-   width: 24px;
-   height: 24px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-    margin-left: 16px;
-    border-radius: 50%;
-    outline: none;
-    display: none;
+  #delete {
+    width: 24px;
+    height: 24px;
+    margin-left: 8px;
+    border-radius: 0 !important;
     cursor: pointer;
+    margin-top: 5px;
+    display: none;
   }
 
 }
 
-.big-img:hover button{
+.big-img:hover #delete {
   display: flex !important;
 }
 
@@ -179,11 +178,11 @@ textarea {
   display: flex;
 }
 
-.show-btn{
+.show-btn {
   display: block;
 }
 
-.edit-delete-btn{
+.edit-delete-btn {
   display: flex;
   width: 100%;
   align-items: center;
@@ -192,10 +191,10 @@ textarea {
   margin-top: 16px;
 }
 
-.edit-chat-container{
+.edit-chat-container {
 
-button{
-  margin-right: 16px;
-}
+  button {
+    margin-right: 16px;
+  }
 
 }

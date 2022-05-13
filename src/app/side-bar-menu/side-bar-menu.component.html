@@ -5,12 +5,11 @@
       <h2>Add Channel</h2>
       <mat-form-field class="todo-title" appearance="fill">
         <mat-label>Channel Name</mat-label>
-        <input type="text" [(ngModel)]="channel.name" name="name"
-        matInput placeholder="Enter your Channel Name"
-        required>
+        <input type="text" [(ngModel)]="channel.name" name="name" matInput placeholder="Enter your Channel Name"
+          required>
       </mat-form-field>
-      <button mat-flat-button color="accent" type="submit" (click)="addChannel()"
-      [class.disabled]="channelForm.invalid" [disabled]="channelForm.invalid">
+      <button mat-flat-button color="accent" type="submit" (click)="addChannel()" [class.disabled]="channelForm.invalid"
+        [disabled]="channelForm.invalid">
         New Channel
       </button>
     </form>
@@ -24,5 +23,20 @@
   </div>
 
   <button *ngIf=" route.url !== '/dashboard'" mat-flat-button color="accent" routerLink="/dashboard">Dashboard</button>
+
+</div>
+
+<div class="users">
+
+  <h2>Direct Messages</h2>
+
+  <div class="users-container" *ngFor="let user of users">
+    <div class="user-img">
+      <mat-icon>account_circle</mat-icon>
+      <a href="">{{ user.userName }}</a>
+    </div>
+
+
+  </div>
 
 </div>
