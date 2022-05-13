@@ -33,7 +33,7 @@
   <div class="users-container" *ngFor="let user of users">
     <div class="user-img">
       <mat-icon>account_circle</mat-icon>
-      <a href="">{{ user.userName }}</a>
+      <a [routerLink]="['/user/' + user.customIdName]">{{ user.userName }}</a>
     </div>
 
 

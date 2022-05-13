@@ -5,13 +5,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ThreadComponent } from './thread/thread.component';
+import { UserChatComponent } from './user-chat/user-chat.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'signup',component:SignUpComponent},
   {path:'dashboard',component:DashboardComponent},
   {path:'channel/:id', component:ChannelComponent},
-
+  {path:'user/:id', component:UserChatComponent},
 ];
 
 @NgModule({

@@ -1,0 +1,16 @@
+<div class="user-chat-container">
+<span class="user-name">{{ userName }}</span>
+<form #answerForm="ngForm">
+  <mat-form-field class="massage-title" appearance="fill">
+    <mat-label>Message</mat-label>
+    <textarea type="text"  name="answer" matInput placeholder="Enter your Message"
+      required contenteditable="true" spellcheck="true">
+</textarea>
+  </mat-form-field>
+  <button mat-flat-button color="accent" type="submit" (click)="sendMessage()"
+    [class.disabled]="answerForm.invalid" [disabled]="answerForm.invalid">
+    Send
+  </button>
+</form>
+</div>
+

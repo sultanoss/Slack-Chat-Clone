@@ -23,6 +23,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChannelComponent } from './channel/channel.component';
 import { ThreadComponent } from './thread/thread.component';
 import { provideStorage, getStorage } from '@angular/fire/storage';
+import { UserChatComponent } from './user-chat/user-chat.component';
 
 
 
@@ -36,7 +37,8 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
     SignUpComponent,
     DashboardComponent,
     ChannelComponent,
-    ThreadComponent
+    ThreadComponent,
+    UserChatComponent
   ],
   imports: [
     BrowserModule,

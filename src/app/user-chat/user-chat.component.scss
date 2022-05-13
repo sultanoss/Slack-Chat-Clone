@@ -1,0 +1,23 @@
+:host {
+  flex: 1;
+}
+
+.user-chat-container {
+  color: white;
+  height: 100vh;
+  padding: 20px;
+  border-left: 1px solid black;
+}
+
+form{
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+  margin-top: 16px;
+
+  button {
+    width: 50px;
+    align-self: flex-end;
+  }
+}
