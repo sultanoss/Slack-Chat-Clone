@@ -24,6 +24,7 @@ import { ChannelComponent } from './channel/channel.component';
 import { ThreadComponent } from './thread/thread.component';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { UserChatComponent } from './user-chat/user-chat.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 
@@ -51,6 +52,7 @@ import { UserChatComponent } from './user-chat/user-chat.component';
     MatInputModule,
     MatToolbarModule,
     MatNativeDateModule,
+    MatMenuModule,
     HotToastModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),

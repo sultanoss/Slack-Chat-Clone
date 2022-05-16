@@ -4,6 +4,10 @@
   align-items: center;
   color: white;
 
+  @media(max-width:880px) {
+    border-left: 1px solid black;
+  }
+
   @media(max-width:630px) {
     position: absolute;
     top: 0;
@@ -40,6 +44,7 @@
   @media(max-width:1050px) {
     width: 200px;
   }
+
   @media(max-width:630px) {
     width: 80%;
   }
@@ -115,6 +120,11 @@ mat-label {
     margin-top: 10px;
     object-fit: cover;
     cursor: pointer;
+
+    @media(max-width:1120px) {
+      width: 200px;
+      height: 140px;
+    }
 
     @media(max-width:1050px) {
       width: 175px;

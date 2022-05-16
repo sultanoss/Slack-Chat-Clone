@@ -7,6 +7,10 @@ mat-toolbar{
   justify-content: center;
   align-items: center;
 
+  @media(max-width:630px){
+    display: none;
+  }
+
   mat-icon{
     margin-right: 10px;
   }
