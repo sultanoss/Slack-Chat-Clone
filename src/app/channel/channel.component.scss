@@ -17,6 +17,11 @@ form {
   border: 1px solid;
   margin-bottom: 20px;
 
+  @media(max-width:1250px) {
+    width: 75%;
+  }
+
+
   button {
     // width: 50px;
     align-self: flex-end;
@@ -50,6 +55,11 @@ textarea {
   border-radius: 16px;
   padding: 16px;
   margin-bottom: 24px;
+
+  @media(max-width:1250px) {
+    width: 75%;
+  }
+
 }
 
 .chat {
@@ -78,6 +88,7 @@ textarea {
   a {
     align-self: flex-end;
     color: white;
+    margin-top: 20px;
   }
 
   img {
@@ -86,15 +97,29 @@ textarea {
     border-radius: 16px;
     object-fit: cover;
     cursor: pointer;
+
+    @media(max-width:1050px) {
+      width: 175px;
+      height: 140px;
+    }
   }
 }
 
 .channel-content {
   width: 100%;
   display: flex;
-  // align-items: center;
   justify-content: center;
-  height: 100vh;
+
+  @media(max-width:880px) {
+    margin-top: 50px;
+    border-top: 1px solid;
+  }
+
+  @media(max-width:630px) {
+    flex-direction: column;
+    justify-content: unset;
+    position: relative;
+  }
 }
 
 .user-name {

@@ -77,12 +77,18 @@ export class SignUpComponent implements OnInit {
         error: ({ message }) => `${message}`
       })
     ).subscribe(() => {
-      this.route.navigate(['/'])
+      this.route.navigate(['/dashboard'])
     })
 
-    this.firestore.collection('users').add({
-      userName: name,
-    })
+    // if (this.firestore.collection('users', ref => ref.where('userName', '==', name))) {
+    //   alert('User Name exist.Please choose another Username');
+    // }
+
+    // else {
+      this.firestore.collection('users').add({
+        userName: name,
+      })
+    // }
     console.log(name)
   }
 

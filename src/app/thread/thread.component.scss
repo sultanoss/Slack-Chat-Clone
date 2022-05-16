@@ -4,6 +4,15 @@
   align-items: center;
   color: white;
 
+  @media(max-width:630px) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #303030;
+  }
+
   h2 {
 
     margin-top: 20px;
@@ -23,6 +32,18 @@
   min-height: 50px;
   width: 400px;
   word-break: break-all;
+
+  @media(max-width:1250px) {
+    width: 300px;
+  }
+
+  @media(max-width:1050px) {
+    width: 200px;
+  }
+  @media(max-width:630px) {
+    width: 80%;
+  }
+
 
   span {
     margin-bottom: 20px;
@@ -74,6 +95,19 @@ mat-label {
   font-weight: 500;
   word-break: break-all;
 
+  @media(max-width:1250px) {
+    width: 300px;
+  }
+
+  @media(max-width:1050px) {
+    width: 200px;
+  }
+
+  @media(max-width:630px) {
+    width: 80%;
+  }
+
+
   img {
     width: 280px;
     height: 200px;
@@ -81,6 +115,11 @@ mat-label {
     margin-top: 10px;
     object-fit: cover;
     cursor: pointer;
+
+    @media(max-width:1050px) {
+      width: 175px;
+      height: 140px;
+    }
   }
 
 }

@@ -110,6 +110,10 @@ input {
     background-color: #7b1fa2;
     padding: 16px;
     border-radius: 16px;
+
+    @media(max-width:880px){
+      width: 30%;
+    }
   }
 }
 

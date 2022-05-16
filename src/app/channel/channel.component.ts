@@ -30,7 +30,7 @@ export class ChannelComponent implements OnInit {
 
   channelName: any;
 
-  public file: any = {};
+  public file: any; // muss be undefind and contain nothing (if we do not have a pic so we can send text message)
 
   imgUrl: string = '';
 
@@ -58,8 +58,9 @@ export class ChannelComponent implements OnInit {
           this.chats = changes;
         })
 
-        this.getChannelName();
+      this.getChannelName();
     })
+
   }
 
   getChannelName() {
@@ -98,6 +99,7 @@ export class ChannelComponent implements OnInit {
   clearInput() {
 
     this.chat.message = '';
+    this.imgUrl = ''; // to not have dublicated imgs
   }
 
   deleteChat(chat: any) {

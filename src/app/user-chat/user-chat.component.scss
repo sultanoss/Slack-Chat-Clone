@@ -9,7 +9,7 @@
   border-left: 1px solid black;
 }
 
-form{
+form {
   margin-top: 24px;
   display: flex;
   flex-direction: column;
@@ -19,5 +19,38 @@ form{
   button {
     width: 50px;
     align-self: flex-end;
+  }
+}
+
+.direct-chat {
+  color: white;
+  border: 1px solid lightgray;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 24px;
+
+}
+
+.direct-message {
+  display: flex;
+  flex-direction: column;
+  background: #454545;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding: 16px;
+  border-radius: 16px;
+  word-break: break-all;
+
+}
+
+.author{
+  display: flex;
+  color: black;
+  span {
+    background: #69f0ae;
+    width: 100px;
+    text-align: center;
+    padding: 6px;
+    border-radius: 16px;
   }
 }

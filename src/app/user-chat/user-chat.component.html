@@ -1,16 +1,26 @@
 <div class="user-chat-container">
-<span class="user-name">{{ userName }}</span>
-<form #answerForm="ngForm">
-  <mat-form-field class="massage-title" appearance="fill">
-    <mat-label>Message</mat-label>
-    <textarea type="text"  name="answer" matInput placeholder="Enter your Message"
-      required contenteditable="true" spellcheck="true">
-</textarea>
-  </mat-form-field>
-  <button mat-flat-button color="accent" type="submit" (click)="sendMessage()"
-    [class.disabled]="answerForm.invalid" [disabled]="answerForm.invalid">
-    Send
-  </button>
-</form>
-</div>
+  <span class="user-name">{{ userName }}</span>
 
+  <form #directMessageForm="ngForm">
+    <mat-form-field class="massage-title" appearance="fill">
+      <mat-label>Message</mat-label>
+      <textarea type="text" name="message" [(ngModel)]="directChat.directMessage" matInput
+        placeholder="Enter your Message" required contenteditable="true" spellcheck="true">
+</textarea>
+    </mat-form-field>
+    <button mat-flat-button color="accent" type="submit" (click)="addDirectMessage()"
+      [class.disabled]="directMessageForm.invalid" [disabled]="directMessageForm.invalid">
+      Send
+    </button>
+  </form>
+
+  <div class="direct-chat" *ngFor="let directChat of directChats">
+    <div class="author">
+      <span>{{ directChat.author }}</span>
+    </div>
+
+    <div class="direct-message">
+      {{ directChat.directMessage }}
+    </div>
+  </div>
+</div>
