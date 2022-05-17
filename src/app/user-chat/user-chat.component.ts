@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthentificationserviceService } from '../services/authentificationservice.service';
 import { first } from 'rxjs';
 import { Auth } from '@angular/fire/auth';
+import { DirectChat } from 'src/models/directChat.class';
 
 
 
@@ -22,6 +23,9 @@ export class UserChatComponent implements OnInit {
 
   directMessages: any = []
 
+  directChat = new DirectChat();
+  directChats:any = [];
+
   constructor(private firestore: AngularFirestore,
     public authService: AuthentificationserviceService,
     private activatedRoute: ActivatedRoute,
@@ -33,6 +37,16 @@ export class UserChatComponent implements OnInit {
       this.directMessageId = param.get('id');
 
       this.getUserName();
+
+      this.firestore.collection('directChats',
+      ref => ref.where('directMessageId', '==', this.directMessageId))
+      .valueChanges({ idField: 'customIdName' })
+      .subscribe((changes:any) => {
+
+        this.directChats = changes
+        console.log('directChats',this.directChats)
+
+      })
     })
 
   }
@@ -48,6 +62,17 @@ export class UserChatComponent implements OnInit {
       })
   }
 
+  sendDirectMessage(){
+
+    this.firestore.collection('directChats').add({
+
+      directChatMessage:this.directChat.directChatMessage,
+      directMessageId:this.directMessageId
+    })
+
+  }
+
 }
+
 
 
