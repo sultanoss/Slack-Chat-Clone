@@ -25,6 +25,7 @@ import { ThreadComponent } from './thread/thread.component';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { UserChatComponent } from './user-chat/user-chat.component';
 import {MatMenuModule} from '@angular/material/menu';
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -39,7 +40,8 @@ import {MatMenuModule} from '@angular/material/menu';
     DashboardComponent,
     ChannelComponent,
     ThreadComponent,
-    UserChatComponent
+    UserChatComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

@@ -7,7 +7,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  height: 100vh;
+  min-height: calc(100vh - 150px);
   padding-top: 50px;
   border-left: 1px solid black;
   color: white;

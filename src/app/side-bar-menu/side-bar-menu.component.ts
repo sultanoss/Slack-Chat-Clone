@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { first, map } from 'rxjs';
 import { channel } from 'src/models/channel.class';
 import { Chat } from 'src/models/chat.class';
+import { DirectMessage } from 'src/models/directMessage.class';
 import { User } from 'src/models/user.class';
 import { AuthentificationserviceService } from '../services/authentificationservice.service';
+import { Auth } from '@angular/fire/auth';
 
 
 
@@ -22,26 +25,47 @@ export class SideBarMenuComponent implements OnInit {
 
   user = new User();
   users: any[] = [];
+  userId: any;
+
+  directMessage = new DirectMessage()
+  directMessages: any[] = [];
+
+
 
   constructor(private firestore: AngularFirestore,
     public authService: AuthentificationserviceService,
-    public route: Router) { }
+    public route: Router,
+    private activatedRoute: ActivatedRoute,
+    private auth: Auth) { }
 
   ngOnInit(): void {
 
-    this.firestore.collection('channels')
-      .valueChanges({ idField: 'customIdName' })
-      .subscribe((changes: any) => {
-        this.channels = changes;
+    this.auth.onAuthStateChanged((user) => {
 
-      })
+      if (user)
 
-    this.firestore.collection('users')
-      .valueChanges({ idField: 'customIdName' })
-      .subscribe((changess: any) => {
-        this.users = changess;
-        console.log(this.users)
-      })
+        this.firestore.collection('channels')
+          .valueChanges({ idField: 'customIdName' })
+          .subscribe((changes: any) => {
+            this.channels = changes;
+
+          })
+
+      this.firestore.collection('users')
+        .valueChanges({ idField: 'customIdName' })
+        .subscribe((changess: any) => {
+          this.users = changess;
+          console.log(this.users)
+        })
+
+      this.firestore.collection('directMessages', ref =>
+        ref.where('usersData', 'array-contains', user?.uid))
+        .valueChanges({ idField: 'customIdName' })
+        .subscribe((changesss: any) => {
+          this.directMessages = changesss;
+          console.log(this.directMessages)
+        })
+    })
   }
 
   addChannel() {
@@ -60,5 +84,26 @@ export class SideBarMenuComponent implements OnInit {
 
   }
 
+  addDirectMessage(user: any) {
+
+    let authorName = this.authService.currentUser.displayName;
+    this.firestore.collection('directMessages').add({
+      author: authorName,
+      authorId: this.authService.currentUser.uid,
+      directMessageId: this.directMessage.customIdName,
+      userName:user.userName,
+      usersData: [
+        this.authService.currentUser.uid,
+        user.customIdName
+      ]
+    })
+  }
+
+  getMessageId(directMessage:any){
+
+    this.firestore.collection("directMessages").doc(directMessage['customIdName']) // hier um eine feld zu updaten bzw editieren
+    .update({ directMessageId: directMessage.customIdName })
+
+  }
 
 }

@@ -4,7 +4,7 @@
 
 .user-chat-container {
   color: white;
-  height: 100vh;
+  min-height: calc(100vh - 150px);
   padding: 20px;
   border-left: 1px solid black;
 }
@@ -14,7 +14,7 @@ form {
   display: flex;
   flex-direction: column;
   margin-bottom: 50px;
-  margin-top: 16px;
+  margin-top: 50px;
 
   button {
     width: 50px;

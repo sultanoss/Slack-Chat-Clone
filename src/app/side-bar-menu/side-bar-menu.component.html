@@ -28,12 +28,29 @@
 
 <div class="users">
 
-  <h2>Direct Messages</h2>
+  <h2>Users</h2>
 
   <div class="users-container" *ngFor="let user of users">
     <div class="user-img">
       <mat-icon>account_circle</mat-icon>
-      <a [routerLink]="['/user/' + user.customIdName]">{{ user.userName }}</a>
+      <a (click)="addDirectMessage(user)">{{ user.userName }}</a>
+    </div>
+
+
+  </div>
+
+</div>
+
+<div class="dm-users">
+
+  <h2>DirectMessages</h2>
+
+  <div class="dm-container" *ngFor="let directMessage of directMessages">
+    <div class="user-img">
+      <mat-icon>account_circle</mat-icon>
+      <a [routerLink]="['/directMessage/' + directMessage.customIdName]" (click)="getMessageId(directMessage)">
+        {{ directMessage.userName }}
+      </a>
     </div>
 
 

@@ -3,7 +3,6 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthentificationserviceService } from '../services/authentificationservice.service';
 import { first } from 'rxjs';
-import { DirectChat } from 'src/models/directChat.class';
 import { Auth } from '@angular/fire/auth';
 
 
@@ -16,12 +15,12 @@ import { Auth } from '@angular/fire/auth';
 })
 export class UserChatComponent implements OnInit {
 
-  userId: any = '';
-  userName!: string;
-  users: any = [];
+  userName:string = ''
 
-  directChat = new DirectChat();
-  directChats: any = [];
+  directMessageId: any = '';
+  directMessagesData: any = [];
+
+  directMessages: any = []
 
   constructor(private firestore: AngularFirestore,
     public authService: AuthentificationserviceService,
@@ -30,53 +29,23 @@ export class UserChatComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.auth.onAuthStateChanged((user) => {
+    this.activatedRoute.paramMap.subscribe((param) => {
+      this.directMessageId = param.get('id');
 
-      if (user)
-
-        this.activatedRoute.paramMap.subscribe((param) => {
-          this.userId = param.get('id');
-          this.getUserName();
-
-          this.firestore.collection('directMessages', ref => ref.where('authorId', '==', user.uid)
-          .where('userId' ,'==',this.userId))
-           .valueChanges({ idField: 'customIdName' }).subscribe((changes: any) => {
-            this.directChats = changes;
-            console.log(this.directChats)
-            console.log(user.uid)
-          })
-
-        })
+      this.getUserName();
     })
+
   }
 
   getUserName() {
-    this.firestore.collection<any>('users').doc(this.userId) // for geting the doc with id = channelId and the name
+    this.firestore.collection<any>('directMessages').doc(this.directMessageId) // for geting the doc with id = channelId and the name
       .get()
       .pipe(first())
       .subscribe(res => {
-        this.users = res.data()
-        console.log(this.users.userName);
-        this.userName = this.users.userName
+        this.directMessagesData = res.data()
+        this.userName = this.directMessagesData.userName;
+        console.log(this.directMessagesData.userName)
       })
-  }
-
-  addDirectMessage() {
-
-    let authorName = this.authService.currentUser.displayName;
-    this.firestore.collection('directMessages').add({
-      directMessage: this.directChat.directMessage,
-      author: authorName,
-      authorId: this.authService.currentUser.uid,
-      userId: this.userId
-    })
-
-    this.clearInput();
-    console.log(this.authService.currentUser.uid)
-  }
-
-  clearInput() {
-    this.directChat.directMessage = '';
   }
 
 }
