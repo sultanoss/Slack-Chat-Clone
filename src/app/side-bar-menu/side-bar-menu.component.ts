@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first, map } from 'rxjs';
@@ -8,6 +8,8 @@ import { DirectMessage } from 'src/models/directMessage.class';
 import { User } from 'src/models/user.class';
 import { AuthentificationserviceService } from '../services/authentificationservice.service';
 import { Auth } from '@angular/fire/auth';
+import { MatSelect } from '@angular/material/select';
+
 
 
 
@@ -19,7 +21,6 @@ import { Auth } from '@angular/fire/auth';
 })
 export class SideBarMenuComponent implements OnInit {
 
-
   channel = new channel();
   channels: any = [];
 
@@ -30,7 +31,7 @@ export class SideBarMenuComponent implements OnInit {
   directMessage = new DirectMessage()
   directMessages: any[] = [];
 
-
+  selectedValue:any;
 
   constructor(private firestore: AngularFirestore,
     public authService: AuthentificationserviceService,
@@ -84,26 +85,29 @@ export class SideBarMenuComponent implements OnInit {
 
   }
 
-  addDirectMessage(user: any) {
+  addDirectMessage() {
 
     let authorName = this.authService.currentUser.displayName;
     this.firestore.collection('directMessages').add({
       author: authorName,
       authorId: this.authService.currentUser.uid,
       directMessageId: this.directMessage.customIdName,
-      userName:user.userName,
+      directMessageName:this.selectedValue,
       usersData: [
         this.authService.currentUser.uid,
-        user.customIdName
       ]
     })
   }
 
-  getMessageId(directMessage:any){
 
-    this.firestore.collection("directMessages").doc(directMessage['customIdName']) // hier um eine feld zu updaten bzw editieren
-    .update({ directMessageId: directMessage.customIdName })
+  // getMessageId(directMessage:any){
 
-  }
+  //   this.firestore.collection("directMessages").doc(directMessage['customIdName'])
+  //   .update(
+  //     { directMessageId: directMessage.customIdName ,
+  //       // userId:directMessage.usersData.user.customIdName
+  //           })
+
+  // }
 
 }

@@ -26,6 +26,7 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 import { UserChatComponent } from './user-chat/user-chat.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { FooterComponent } from './footer/footer.component';
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -55,6 +56,7 @@ import { FooterComponent } from './footer/footer.component';
     MatToolbarModule,
     MatNativeDateModule,
     MatMenuModule,
+    MatSelectModule,
     HotToastModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),

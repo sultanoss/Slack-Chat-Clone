@@ -26,6 +26,8 @@ export class UserChatComponent implements OnInit {
   directChat = new DirectChat();
   directChats:any = [];
 
+  users:any;
+
   constructor(private firestore: AngularFirestore,
     public authService: AuthentificationserviceService,
     private activatedRoute: ActivatedRoute,
@@ -33,10 +35,17 @@ export class UserChatComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.auth.onAuthStateChanged((user) => {
+
+      if (user)
+
     this.activatedRoute.paramMap.subscribe((param) => {
       this.directMessageId = param.get('id');
 
       this.getUserName();
+
+      // this.getUserId();
+      // console.log(this.directMessageId);
 
       this.firestore.collection('directChats',
       ref => ref.where('directMessageId', '==', this.directMessageId))
@@ -49,6 +58,8 @@ export class UserChatComponent implements OnInit {
       })
     })
 
+  })
+
   }
 
   getUserName() {
@@ -57,10 +68,23 @@ export class UserChatComponent implements OnInit {
       .pipe(first())
       .subscribe(res => {
         this.directMessagesData = res.data()
-        this.userName = this.directMessagesData.userName;
-        console.log(this.directMessagesData.userName)
+        this.userName = this.directMessagesData.directMessageName;
+        console.log(this.directMessagesData.directMessageName)
       })
   }
+
+  // getUserId(){
+
+  //   this.firestore.collection<any>('directMessages').doc(this.directMessageId) // for geting the doc with id = channelId and the name
+  //   .get()
+  //   .pipe(first())
+  //   .subscribe(res => {
+  //     this.directMessagesData = res.data()
+  //     this.users = this.directMessagesData.usersData;
+  //     console.log('users',this.directMessagesData.usersData)
+  //   })
+
+  // }
 
   sendDirectMessage(){
 
