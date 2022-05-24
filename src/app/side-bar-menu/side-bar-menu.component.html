@@ -26,30 +26,14 @@
 
 </div>
 
-<!-- <div class="users">
-
-  <h2>Users</h2>
-
-  <div class="users-container" *ngFor="let user of users">
-    <div class="user-img">
-      <mat-icon>account_circle</mat-icon>
-      <a (click)="addDirectMessage(user)">
-        {{ user.userName }}
-      </a>
-    </div>
-
-  </div>
-
-</div> -->
-
 <div class="select-container">
 
   <h2>Direct Messages</h2>
 
   <mat-form-field appearance="fill" class="select">
     <mat-label>Select User</mat-label>
-    <mat-select [(value)]="selectedValue">
-      <mat-option *ngFor="let user of users" [value]="user.userName" required>
+    <mat-select multiple [(value)]="selectedValue">
+      <mat-option *ngFor="let user of users" [value]="user" required>
         {{user.userName}}
       </mat-option>
     </mat-select>
@@ -59,18 +43,15 @@
 
 
 <div class="dm-users">
-
-  <button mat-raised-button color="warn" (click)=" addDirectMessage()">Add DirectMessages</button>
-
+  <button mat-raised-button color="warn"
+   (click)=" addDirectMessage()">
+   Add DirectMessages
+  </button>
   <div class="dm-container" *ngFor="let directMessage of directMessages">
-    <div class="user-img">
-      <mat-icon *ngIf="directMessage.directMessageName">account_circle</mat-icon>
       <a [routerLink]="['/directMessage/' + directMessage.customIdName]">
         {{ directMessage.directMessageName }}
       </a>
-    </div>
-
-
+      <div [innerText]="directMessage.directMessageName"></div>
   </div>
 
 </div>

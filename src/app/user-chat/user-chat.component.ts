@@ -9,6 +9,7 @@ import { DirectChat } from 'src/models/directChat.class';
 
 
 
+
 @Component({
   selector: 'app-user-chat',
   templateUrl: './user-chat.component.html',
@@ -16,7 +17,7 @@ import { DirectChat } from 'src/models/directChat.class';
 })
 export class UserChatComponent implements OnInit {
 
-  userName:string = ''
+  usersName:any = ''
 
   directMessageId: any = '';
   directMessagesData: any = [];
@@ -28,6 +29,8 @@ export class UserChatComponent implements OnInit {
 
   users:any;
 
+  directChateDate = new Date();
+
   constructor(private firestore: AngularFirestore,
     public authService: AuthentificationserviceService,
     private activatedRoute: ActivatedRoute,
@@ -35,30 +38,20 @@ export class UserChatComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.auth.onAuthStateChanged((user) => {
-
-      if (user)
-
     this.activatedRoute.paramMap.subscribe((param) => {
       this.directMessageId = param.get('id');
-
-      this.getUserName();
-
-      // this.getUserId();
-      // console.log(this.directMessageId);
 
       this.firestore.collection('directChats',
       ref => ref.where('directMessageId', '==', this.directMessageId))
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes:any) => {
-
         this.directChats = changes
-        console.log('directChats',this.directChats)
-
+        this.sortByDate()
       })
     })
 
-  })
+    this.getUserName();
+
 
   }
 
@@ -68,32 +61,28 @@ export class UserChatComponent implements OnInit {
       .pipe(first())
       .subscribe(res => {
         this.directMessagesData = res.data()
-        this.userName = this.directMessagesData.directMessageName;
-        console.log(this.directMessagesData.directMessageName)
+        this.usersName = this.directMessagesData.directMessageName
       })
   }
 
-  // getUserId(){
-
-  //   this.firestore.collection<any>('directMessages').doc(this.directMessageId) // for geting the doc with id = channelId and the name
-  //   .get()
-  //   .pipe(first())
-  //   .subscribe(res => {
-  //     this.directMessagesData = res.data()
-  //     this.users = this.directMessagesData.usersData;
-  //     console.log('users',this.directMessagesData.usersData)
-  //   })
-
-  // }
 
   sendDirectMessage(){
 
     this.firestore.collection('directChats').add({
 
       directChatMessage:this.directChat.directChatMessage,
-      directMessageId:this.directMessageId
+      directMessageId:this.directMessageId,
+      directChatAuthor:this.authService.currentUser.displayName,
+      directChatDate:this.directChateDate.getTime()
     })
+    this.directChat.directChatMessage = '';
+  }
 
+  sortByDate() {
+
+    this.directChats.sort(function (a:any, b:any) {
+      return (b.directChatDate) - (a.directChatDate);
+    });
   }
 
 }

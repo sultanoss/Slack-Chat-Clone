@@ -1,5 +1,7 @@
+
 <div class="user-chat-container">
-  <span class="user-name">{{ userName }}</span>
+
+  <span class="users-name">{{ usersName }}</span>
 
   <form #directchatForm="ngForm">
     <mat-form-field class="massage-title" appearance="fill">
@@ -17,7 +19,7 @@
 
   <div class="direct-chat" *ngFor="let directChat of directChats">
     <div class="author">
-      <span>{{directMessagesData.author}}</span>
+      <span>{{directChat.directChatAuthor}}</span>
     </div>
 
     <div class="direct-message">

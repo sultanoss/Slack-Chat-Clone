@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first, map } from 'rxjs';
 import { channel } from 'src/models/channel.class';
@@ -26,12 +26,14 @@ export class SideBarMenuComponent implements OnInit {
 
   user = new User();
   users: any[] = [];
-  userId: any;
+  userId: any = '';
 
   directMessage = new DirectMessage()
   directMessages: any[] = [];
 
-  selectedValue:any;
+  selectedValue: any;
+
+  userName!:string;
 
   constructor(private firestore: AngularFirestore,
     public authService: AuthentificationserviceService,
@@ -41,38 +43,31 @@ export class SideBarMenuComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.auth.onAuthStateChanged((user) => {
+    this.firestore.collection('channels')
+      .valueChanges({ idField: 'customIdName' })
+      .subscribe((changes: any) => {
+        this.channels = changes;
 
-      if (user)
+      })
 
-        this.firestore.collection('channels')
-          .valueChanges({ idField: 'customIdName' })
-          .subscribe((changes: any) => {
-            this.channels = changes;
+    this.firestore.collection('users')
+      .valueChanges({ idField: 'customIdName' })
+      .subscribe((changess: any) => {
+        this.users = changess;
+      })
 
-          })
-
-      this.firestore.collection('users')
-        .valueChanges({ idField: 'customIdName' })
-        .subscribe((changess: any) => {
-          this.users = changess;
-          console.log(this.users)
-        })
-
-      this.firestore.collection('directMessages', ref =>
-        ref.where('usersData', 'array-contains', user?.uid))
-        .valueChanges({ idField: 'customIdName' })
-        .subscribe((changesss: any) => {
-          this.directMessages = changesss;
-          console.log(this.directMessages)
-        })
-    })
+    this.firestore.collection('directMessages',
+      ref => ref.where('directMessageName', 'array-contains',
+        this.authService.currentUser.displayName))
+      .valueChanges({ idField: 'customIdName' })
+      .subscribe((changesss: any) => {
+        this.directMessages = changesss;
+      })
   }
 
   addChannel() {
 
     this.firestore.collection('channels').add(this.channel.toJson()).then((result: any) => {
-      console.log(result)
     })
 
     this.clearChannel();
@@ -87,27 +82,45 @@ export class SideBarMenuComponent implements OnInit {
 
   addDirectMessage() {
 
+    this.selectedValue.push({
+      userEmail: this.authService.currentUser.email,
+      userName: this.authService.currentUser.displayName,
+    });
+
     let authorName = this.authService.currentUser.displayName;
     this.firestore.collection('directMessages').add({
       author: authorName,
       authorId: this.authService.currentUser.uid,
       directMessageId: this.directMessage.customIdName,
-      directMessageName:this.selectedValue,
-      usersData: [
-        this.authService.currentUser.uid,
-      ]
+      directMessageName: this.selectedValue.map((sv: any) =>(sv.userName)),
+      usersData: this.selectedValue.map((sv: any) => sv.userEmail),
     })
+
   }
 
 
-  // getMessageId(directMessage:any){
+  getMessageId(directMessage: any) {
 
-  //   this.firestore.collection("directMessages").doc(directMessage['customIdName'])
-  //   .update(
-  //     { directMessageId: directMessage.customIdName ,
-  //       // userId:directMessage.usersData.user.customIdName
-  //           })
+    this.firestore.collection("directMessages").doc(directMessage['customIdName'])
+      .update(
+        {
+          directMessageId: directMessage.customIdName,
 
-  // }
+        })
+  }
+
+ stringToHTML(str :string) {
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(str, 'text/html');
+    return doc.body;
+  };
+
+   createElementFromHTML(htmlString:any) {
+    var div = document.createElement('div');
+    div.innerHTML = htmlString.trim();
+
+    // Change this to div.childNodes to support multiple top-level nodes
+    return div.firstChild;
+  }
 
 }

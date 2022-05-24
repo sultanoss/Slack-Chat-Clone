@@ -24,6 +24,8 @@ export class ChannelComponent implements OnInit {
 
   chats: any = [];
 
+  chatDate =  new Date()
+
   @Input() currentChat!: Chat;
 
   channelId: any = '';
@@ -56,6 +58,7 @@ export class ChannelComponent implements OnInit {
         .valueChanges({ idField: 'customIdName' })
         .subscribe((changes: any) => {
           this.chats = changes;
+          this.sortByDate()
         })
 
       this.getChannelName();
@@ -69,7 +72,6 @@ export class ChannelComponent implements OnInit {
       .pipe(first())
       .subscribe(res => {
         this.channels = res.data()
-        console.log(this.channels.name);
         this.channelName = this.channels.name
       })
   }
@@ -90,10 +92,10 @@ export class ChannelComponent implements OnInit {
       author: userName,
       chatChannelId: this.channelId,
       img: this.imgUrl,
+      chatDate:this.chatDate.getTime()
     })
 
     this.clearInput();
-    console.log(this.authService.currentUser.uid)
   }
 
   clearInput() {
@@ -130,15 +132,12 @@ export class ChannelComponent implements OnInit {
 
   showThread(chat: any) {
     this.currentChat = chat;
-    console.log(this.currentChat);
 
     this.show = true;
-    console.log(this.show)
   }
 
   chooseFile(event: any) {
     this.file = event.target.files[0];
-    console.log(this.file)
   }
 
   addData() {
@@ -186,7 +185,6 @@ export class ChannelComponent implements OnInit {
           console.log('File available at', downloadURL);
           this.imgUrl = downloadURL;
           this.addMessage(); // use addMessage if img exist
-          console.log(this.imgUrl);
         });
       }
     )
@@ -194,6 +192,13 @@ export class ChannelComponent implements OnInit {
 
   openImg(chat: any) {
     window.open(chat.img)
+  }
+
+  sortByDate() {
+
+    this.chats.sort(function (a:any, b:any) {
+      return (b.chatDate) - (a.chatDate);
+    });
   }
 
 }

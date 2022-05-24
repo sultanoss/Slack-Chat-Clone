@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Auth, authState } from '@angular/fire/auth';
+import { Auth, authState, user } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from '@firebase/auth';
 import { from, switchMap } from 'rxjs';
+import { getAuth, setPersistence, browserSessionPersistence } from "firebase/auth";
 
 @Injectable({
   providedIn: 'root'
@@ -11,36 +12,45 @@ export class AuthentificationserviceService {
 
   currentUser$ = authState(this.auth) // This is for switch to logout if user logged in
   currentUser: any;
-  constructor(private auth:Auth, private firestore : AngularFirestore) {
-    this.auth.onAuthStateChanged((user)=>{ // check user if loged in
+  constructor(private auth: Auth, private firestore: AngularFirestore) {
+    this.auth.onAuthStateChanged((user) => { // check user if loged in
       this.currentUser = user;
-  })
-  }
-
-  login(username:string,password:string){
-
-    return from(signInWithEmailAndPassword(this.auth,username,password));
+    })
 
   }
 
-  signUp(name:string,email:string,password:string){
+  login(username: string, password: string) {
 
-    return from(createUserWithEmailAndPassword(this.auth,email,password)).pipe(
-      switchMap(({ user })=> updateProfile(user,{ displayName:name }) )
-    );
+
+    return from(signInWithEmailAndPassword(this.auth, username, password));
+
   }
 
-  //   async signUp(name:string,email:string,password:string){
+  //   const auth = getAuth();
+  // setPersistence(auth, browserSessionPersistence)
+  //   .then(() => {
+  // Existing and future Auth states are now persisted in the current
+  // session only. Closing the window would clear any existing state even
+  // if a user forgets to sign out.
+  // ...
+  // New sign-in will be persisted with session persistence.
+  //   return signInWithEmailAndPassword(auth, email, password);
+  // })
+  // .catch((error) => {
+  //   // Handle Errors here.
+  //   const errorCode = error.code;
+  //   const errorMessage = error.message;
+  // });
 
-  //  const userCredtianl = await createUserWithEmailAndPassword(this.auth,email,password);
-  //  updateProfile(userCredtianl.user,{ displayName:name });
-  //  this.firestore.collection("users").doc(userCredtianl.user.uid).set({
-  //    name : "",
-  //  })
+  signUp(name: string, email: string, password: string) {
 
-  // }
+    return from(createUserWithEmailAndPassword(this.auth, email, password))
+      .pipe(
+        switchMap(({ user }) => updateProfile(user, { displayName: name }))
+      );
+  }
 
-  logout(){
+  logout() {
     return from(this.auth.signOut());
   }
 }

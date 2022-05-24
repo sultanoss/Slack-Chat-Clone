@@ -14,7 +14,6 @@ form {
   display: flex;
   flex-direction: column;
   margin-bottom: 50px;
-  margin-top: 50px;
 
   button {
     width: 50px;
@@ -48,9 +47,23 @@ form {
   color: black;
   span {
     background: #69f0ae;
-    width: 100px;
     text-align: center;
     padding: 6px;
     border-radius: 16px;
+    width: 100px;
   }
+}
+
+.users-name{
+  background-color: #f44336;
+  color: black;
+  font-size: 16px;
+  padding: 6px;
+  border-radius: 16px;
+  display: flex;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  font-weight: 500;
 }

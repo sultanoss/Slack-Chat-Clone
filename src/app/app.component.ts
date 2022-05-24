@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { AuthentificationserviceService } from './services/authentificationservice.service';
 
@@ -7,17 +8,20 @@ import { AuthentificationserviceService } from './services/authentificationservi
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent  {
   title = 'slackClone';
 
   constructor(public authService: AuthentificationserviceService,
-    public route: Router ) { }
+    public route: Router, public auth: AngularFireAuth) { }
 
 
-    logout() {
 
-      this.authService.logout().subscribe(() => {
-        this.route.navigate(['/']);
-      })
-    }
+
+
+  logout() {
+
+    this.authService.logout().subscribe(() => {
+      this.route.navigate(['/']);
+    })
+  }
 }

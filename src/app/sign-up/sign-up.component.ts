@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActionCodeInfo, Auth, idToken, user, User } from '@angular/fire/auth';
+import { idTokenResult } from '@angular/fire/compat/auth-guard';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -22,12 +24,15 @@ export function passwordsMatchValidator(): ValidatorFn {
   };
 }
 
+
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
+
+
 
   signUpForm = new FormGroup({
 
@@ -42,9 +47,11 @@ export class SignUpComponent implements OnInit {
   constructor(private autService: AuthentificationserviceService,
     private toast: HotToastService,
     private route: Router,
-    private firestore: AngularFirestore) { }
+    private firestore: AngularFirestore,
+    private auth: Auth) { }
 
   users = [];
+
 
   ngOnInit(): void {
 
@@ -67,7 +74,8 @@ export class SignUpComponent implements OnInit {
   }
 
   submit() {
-    if (!this.signUpForm.valid) return;
+    if (!this.signUpForm.valid)
+      return;
 
     const { name, email, password } = this.signUpForm.value;
     this.autService.signUp(name, email, password).pipe(
@@ -80,16 +88,23 @@ export class SignUpComponent implements OnInit {
       this.route.navigate(['/dashboard'])
     })
 
-    // if (this.firestore.collection('users', ref => ref.where('userName', '==', name))) {
-    //   alert('User Name exist.Please choose another Username');
-    // }
+    // this.checkUserName(name, email)
 
-    // else {
-      this.firestore.collection('users').add({
-        userName: name,
-      })
-    // }
-    console.log(name)
+    this.firestore.collection('users').add({
+      userName: name,
+      userEmail: email,
+    })
   }
-
 }
+
+
+  // checkUserName(name: any, email: any) {
+  //   if (
+  //     this.firestore.collection('users',
+  //     ref => ref.where('userName', '==', name))) {
+  //     console.log('user name exist')
+  //     console.log(name)
+  //     this.toast.error("User Name exist.")
+  //   }
+
+
