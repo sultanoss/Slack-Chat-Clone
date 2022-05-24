@@ -7,6 +7,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { ThreadComponent } from './thread/thread.component';
 import { UserChatComponent } from './user-chat/user-chat.component';
 import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/']);
 
@@ -17,6 +18,7 @@ const routes: Routes = [
   canActivate: [AngularFireAuthGuard],data: { authGuardPipe: redirectUnauthorizedToLogin }},
   {path:'channel/:id', component:ChannelComponent, canActivate: [AngularFireAuthGuard],data: { authGuardPipe: redirectUnauthorizedToLogin }},
   {path:'directMessage/:id', component:UserChatComponent},
+  {path:'forgotPassword', component:ForgotPasswordComponent},
 ];
 
 @NgModule({

@@ -35,6 +35,7 @@ export class SideBarMenuComponent implements OnInit {
 
   userName!:string;
 
+
   constructor(private firestore: AngularFirestore,
     public authService: AuthentificationserviceService,
     public route: Router,
@@ -95,7 +96,7 @@ export class SideBarMenuComponent implements OnInit {
       directMessageName: this.selectedValue.map((sv: any) =>(sv.userName)),
       usersData: this.selectedValue.map((sv: any) => sv.userEmail),
     })
-
+    console.log(this.selectedValue)
   }
 
 
@@ -109,18 +110,18 @@ export class SideBarMenuComponent implements OnInit {
         })
   }
 
- stringToHTML(str :string) {
-    var parser = new DOMParser();
-    var doc = parser.parseFromString(str, 'text/html');
-    return doc.body;
-  };
+//  stringToHTML(str :string) {
+//     var parser = new DOMParser();
+//     var doc = parser.parseFromString(str, 'text/html');
+//     return doc.body;
+//   };
 
-   createElementFromHTML(htmlString:any) {
-    var div = document.createElement('div');
-    div.innerHTML = htmlString.trim();
+//    createElementFromHTML(htmlString:any) {
+//     var div = document.createElement('div');
+//     div.innerHTML = htmlString.trim();
 
-    // Change this to div.childNodes to support multiple top-level nodes
-    return div.firstChild;
-  }
+//     // Change this to div.childNodes to support multiple top-level nodes
+//     return div.firstChild;
+//   }
 
 }

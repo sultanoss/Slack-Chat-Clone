@@ -27,6 +27,7 @@ import { UserChatComponent } from './user-chat/user-chat.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { FooterComponent } from './footer/footer.component';
 import {MatSelectModule} from '@angular/material/select';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 
@@ -42,7 +43,8 @@ import {MatSelectModule} from '@angular/material/select';
     ChannelComponent,
     ThreadComponent,
     UserChatComponent,
-    FooterComponent
+    FooterComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

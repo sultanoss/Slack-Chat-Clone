@@ -1,5 +1,5 @@
 <mat-toolbar>
-  <span>Slack Clone</span>
+  <a routerLink="/"><span>Slack Clone</span></a>
 
   <!-- Show if User logged in -->
   <ng-container *ngIf="authService.currentUser$ | async as user">
