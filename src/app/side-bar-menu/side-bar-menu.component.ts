@@ -58,8 +58,8 @@ export class SideBarMenuComponent implements OnInit {
       })
 
     this.firestore.collection('directMessages',
-      ref => ref.where('directMessageName', 'array-contains',
-        this.authService.currentUser.displayName))
+      ref => ref.where('usersData', 'array-contains',
+        this.authService.currentUser.uid))
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changesss: any) => {
         this.directMessages = changesss;
@@ -84,7 +84,7 @@ export class SideBarMenuComponent implements OnInit {
   addDirectMessage() {
 
     this.selectedValue.push({
-      userEmail: this.authService.currentUser.email,
+      userId: this.authService.currentUser.uid,
       userName: this.authService.currentUser.displayName,
     });
 
@@ -94,7 +94,7 @@ export class SideBarMenuComponent implements OnInit {
       authorId: this.authService.currentUser.uid,
       directMessageId: this.directMessage.customIdName,
       directMessageName: this.selectedValue.map((sv: any) =>(sv.userName)),
-      usersData: this.selectedValue.map((sv: any) => sv.userEmail),
+      usersData: this.selectedValue.map((sv: any) => sv.userId),
     })
     console.log(this.selectedValue)
   }

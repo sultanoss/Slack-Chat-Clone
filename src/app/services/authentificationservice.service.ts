@@ -1,38 +1,43 @@
 import { Injectable } from '@angular/core';
 import { Auth, authState, user } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from '@firebase/auth';
-import { from, switchMap } from 'rxjs';
-import { getAuth, setPersistence, browserSessionPersistence } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from '@firebase/auth';
+import { firstValueFrom, from, map, switchMap } from 'rxjs';
+import {
+  getAuth,
+  setPersistence,
+  browserSessionPersistence,
+} from 'firebase/auth';
 import { Router } from '@angular/router';
-import * as firebase from 'firebase/compat';
+//import * as firebase from 'firebase/compat';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { HotToastService } from '@ngneat/hot-toast';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthentificationserviceService {
-
-  currentUser$ = authState(this.auth) // This is for switch to logout if user logged in
+  currentUser$ = authState(this.auth); // This is for switch to logout if user logged in
   currentUser: any;
-  constructor(private auth: Auth,
+  constructor(
+    private auth: Auth,
     private firestore: AngularFirestore,
     private route: Router,
     private fireAuth: AngularFireAuth,
-    private toast: HotToastService) {
-
-    this.auth.onAuthStateChanged((user) => { // check user if loged in
+    private toast: HotToastService
+  ) {
+    this.auth.onAuthStateChanged((user) => {
+      // check user if loged in
       this.currentUser = user;
-    })
-
+    });
   }
 
   login(username: string, password: string) {
-
-
     return from(signInWithEmailAndPassword(this.auth, username, password));
-
   }
 
   //   const auth = getAuth();
@@ -52,11 +57,29 @@ export class AuthentificationserviceService {
   // });
 
   signUp(name: string, email: string, password: string) {
+    // this.fireAuth.createUserWithEmailAndPassword(email, password)
+    // .then( userCredential =>{
 
-    return from(createUserWithEmailAndPassword(this.auth, email, password))
-      .pipe(
-        switchMap(({ user }) => updateProfile(user, { displayName: name }))
-      );
+    // })
+    // .catch( error =>{
+    //   //
+    // } )
+
+    return from(
+      createUserWithEmailAndPassword(this.auth, email, password)
+    ).pipe(
+      map((userCredential) => {
+        updateProfile(userCredential.user, { displayName: name });
+        //create firestore user doc
+        return userCredential;
+      }),
+      map((userCredential) => {
+        this.firestore
+          .collection('users')
+          .doc(userCredential.user.uid)
+          .set({ userName: name , userId:userCredential.user.uid });
+      })
+    );
   }
 
   logout() {
@@ -64,14 +87,14 @@ export class AuthentificationserviceService {
   }
 
   resetPassword(email: string) {
-
-    this.fireAuth.sendPasswordResetEmail(email).then(() => {
-      this.toast.info("Please check your Email")
-      this.route.navigate(['/']);
-    }, err => {
-     this.toast.error("This didn't work.")
-    })
+    this.fireAuth.sendPasswordResetEmail(email).then(
+      () => {
+        this.toast.info('Please check your Email');
+        this.route.navigate(['/']);
+      },
+      (err) => {
+        this.toast.error("This didn't work.");
+      }
+    );
+  }
 }
-
-}
-

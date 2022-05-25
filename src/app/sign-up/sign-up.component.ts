@@ -85,15 +85,16 @@ export class SignUpComponent implements OnInit {
         error: ({ message }) => `${message}`
       })
     ).subscribe(() => {
+
       this.route.navigate(['/dashboard'])
     })
 
     // this.checkUserName(name, email)
 
-    this.firestore.collection('users').add({
-      userName: name,
-      userEmail: email,
-    })
+    // this.firestore.collection('users').add({
+    //   userName: name,
+    //   userEmail: email,
+    // })
   }
 }
 

@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
         error: 'There was an error'
       })
     ).subscribe(() => {
+
       this.route.navigate(['/dashboard']);
     })
   }
