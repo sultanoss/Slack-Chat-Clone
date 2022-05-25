@@ -86,6 +86,9 @@ export class ChannelComponent implements OnInit {
   }
 
   addMessage() {
+
+    this.checkUser()
+
     let userName = this.authService.currentUser.displayName;
     this.firestore.collection('chats').add({
       message: this.chat.message,
@@ -199,6 +202,12 @@ export class ChannelComponent implements OnInit {
     this.chats.sort(function (a:any, b:any) {
       return (b.chatDate) - (a.chatDate);
     });
+  }
+
+  checkUser(){
+    if(this.authService.currentUser.isAnonymous == true){
+      this.authService.currentUser.displayName = 'Guest'
+    }
   }
 
 }

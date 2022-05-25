@@ -97,4 +97,9 @@ export class AuthentificationserviceService {
       }
     );
   }
+
+  guestSignIn(){
+    this.fireAuth.signInAnonymously();
+  }
+
 }

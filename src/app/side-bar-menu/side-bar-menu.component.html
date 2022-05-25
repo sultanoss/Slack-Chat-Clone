@@ -33,7 +33,7 @@
   <mat-form-field appearance="fill" class="select">
     <mat-label>Select User</mat-label>
     <mat-select multiple [(value)]="selectedValue">
-      <mat-option *ngFor="let user of users" [value]="user" required>
+      <mat-option *ngFor="let user of selectedUsers" [value]="user" required>
         {{user.userName}}
       </mat-option>
     </mat-select>

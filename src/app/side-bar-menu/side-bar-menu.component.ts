@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+} from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first, map } from 'rxjs';
 import { channel } from 'src/models/channel.class';
@@ -10,17 +13,12 @@ import { AuthentificationserviceService } from '../services/authentificationserv
 import { Auth } from '@angular/fire/auth';
 import { MatSelect } from '@angular/material/select';
 
-
-
-
-
 @Component({
   selector: 'app-side-bar-menu',
   templateUrl: './side-bar-menu.component.html',
-  styleUrls: ['./side-bar-menu.component.scss']
+  styleUrls: ['./side-bar-menu.component.scss'],
 })
 export class SideBarMenuComponent implements OnInit {
-
   channel = new channel();
   channels: any = [];
 
@@ -28,60 +26,70 @@ export class SideBarMenuComponent implements OnInit {
   users: any[] = [];
   userId: any = '';
 
-  directMessage = new DirectMessage()
+  directMessage = new DirectMessage();
   directMessages: any[] = [];
 
   selectedValue: any;
 
-  userName!:string;
+  selectedUsers: any[] = [];
 
+  userName!: string;
 
-  constructor(private firestore: AngularFirestore,
+  constructor(
+    private firestore: AngularFirestore,
     public authService: AuthentificationserviceService,
     public route: Router,
     private activatedRoute: ActivatedRoute,
-    private auth: Auth) { }
+    private auth: Auth
+  ) {}
 
   ngOnInit(): void {
 
-    this.firestore.collection('channels')
+
+    this.firestore
+      .collection('channels')
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.channels = changes;
+      });
 
-      })
-
-    this.firestore.collection('users')
+    this.firestore
+      .collection('users')
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changess: any) => {
         this.users = changess;
-      })
+        this.removeUserFromSelectedValue();
+      });
 
-    this.firestore.collection('directMessages',
-      ref => ref.where('usersData', 'array-contains',
-        this.authService.currentUser.uid))
+    this.firestore
+      .collection('directMessages', (ref) =>
+        ref.where(
+          'usersData',
+          'array-contains',
+          this.authService.currentUser.uid
+        )
+      )
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changesss: any) => {
         this.directMessages = changesss;
-      })
+      });
   }
 
   addChannel() {
-
-    this.firestore.collection('channels').add(this.channel.toJson()).then((result: any) => {
-    })
+    this.firestore
+      .collection('channels')
+      .add(this.channel.toJson())
+      .then((result: any) => {});
 
     this.clearChannel();
-
   }
 
   clearChannel() {
-
     this.channel = new channel();
-
   }
 
   addDirectMessage() {
+    this.checkUser();
 
     this.selectedValue.push({
       userId: this.authService.currentUser.uid,
@@ -93,35 +101,46 @@ export class SideBarMenuComponent implements OnInit {
       author: authorName,
       authorId: this.authService.currentUser.uid,
       directMessageId: this.directMessage.customIdName,
-      directMessageName: this.selectedValue.map((sv: any) =>(sv.userName)),
+      directMessageName: this.selectedValue.map((sv: any) => sv.userName),
       usersData: this.selectedValue.map((sv: any) => sv.userId),
-    })
-    console.log(this.selectedValue)
+    });
+    console.log(this.selectedValue);
   }
-
 
   getMessageId(directMessage: any) {
-
-    this.firestore.collection("directMessages").doc(directMessage['customIdName'])
-      .update(
-        {
-          directMessageId: directMessage.customIdName,
-
-        })
+    this.firestore
+      .collection('directMessages')
+      .doc(directMessage['customIdName'])
+      .update({
+        directMessageId: directMessage.customIdName,
+      });
   }
 
-//  stringToHTML(str :string) {
-//     var parser = new DOMParser();
-//     var doc = parser.parseFromString(str, 'text/html');
-//     return doc.body;
-//   };
+  removeUserFromSelectedValue() {
+    if (this.authService.currentUser)
+      this.selectedUsers = this.users.filter(
+        (item: any) =>
+          item.userName !== this.authService.currentUser.displayName
+      );
+  }
 
-//    createElementFromHTML(htmlString:any) {
-//     var div = document.createElement('div');
-//     div.innerHTML = htmlString.trim();
+  checkUser() {
+    if (this.authService.currentUser.isAnonymous == true) {
+      this.authService.currentUser.displayName = 'Guest';
+    }
+  }
 
-//     // Change this to div.childNodes to support multiple top-level nodes
-//     return div.firstChild;
-//   }
+  //  stringToHTML(str :string) {
+  //     var parser = new DOMParser();
+  //     var doc = parser.parseFromString(str, 'text/html');
+  //     return doc.body;
+  //   };
 
+  //    createElementFromHTML(htmlString:any) {
+  //     var div = document.createElement('div');
+  //     div.innerHTML = htmlString.trim();
+
+  //     // Change this to div.childNodes to support multiple top-level nodes
+  //     return div.firstChild;
+  //   }
 }
