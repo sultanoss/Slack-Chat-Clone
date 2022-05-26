@@ -19,7 +19,7 @@ const routes: Routes = [
   {path:'dashboard',component:DashboardComponent, // check AngularFireAuthGuard doc
   canActivate: [AngularFireAuthGuard],data: { authGuardPipe: redirectUnauthorizedToLogin }},
   {path:'channel/:id', component:ChannelComponent, canActivate: [AngularFireAuthGuard],data: { authGuardPipe: redirectUnauthorizedToLogin }},
-  {path:'directMessage/:id', component:UserChatComponent},
+  {path:'directMessage/:id', component:UserChatComponent,canActivate: [AngularFireAuthGuard],data: { authGuardPipe: redirectUnauthorizedToLogin }},
   {path:'forgotPassword', component:ForgotPasswordComponent},
   {path:'imprint', component:ImprintComponent},
   {path:'legalnotice', component:LeagalNoticeComponent},

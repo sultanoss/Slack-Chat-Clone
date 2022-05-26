@@ -16,7 +16,6 @@ h2 {
 }
 
 .side-menu {
-
   display: flex;
   flex-wrap: wrap;
   flex-basis: 100%;
@@ -54,7 +53,6 @@ h2 {
 }
 
 .thread-container {
-
   display: flex;
   flex-direction: column;
   width: 25%;
@@ -111,7 +109,7 @@ input {
     padding: 16px;
     border-radius: 16px;
 
-    @media(max-width:880px){
+    @media (max-width: 880px) {
       width: 30%;
     }
   }
@@ -127,7 +125,6 @@ input {
     color: white;
     cursor: pointer;
   }
-
 }
 
 .user-img {
@@ -141,10 +138,9 @@ input {
     margin-left: 10px;
     width: 80px;
   }
-
 }
 
-.dm-users{
+.dm-users {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -158,14 +154,13 @@ input {
     border-radius: 16px;
     cursor: pointer;
 
-    @media(max-width:880px){
+    @media (max-width: 880px) {
       width: 30%;
     }
   }
 }
 
-.dm-container{
-
+.dm-container {
   display: flex;
   justify-content: center;
   margin-top: 16px;
@@ -175,7 +170,6 @@ input {
     color: white;
     cursor: pointer;
   }
-
 }
 
 .user-img {
@@ -189,28 +183,26 @@ input {
     margin-left: 10px;
     width: 80px;
   }
-
-
 }
 
-.select-container{
+.select-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   border-top: 1px solid black;
   margin-top: 20px;
 
-  h2{
+  h2 {
     margin-top: 20px;
-    @media(max-width:880px){
+    @media (max-width: 880px) {
       margin-top: 75px;
     }
   }
 }
 
-.select{
+.select {
   width: 90%;
-  @media(max-width: 880px){
-    width: 19%;
+  @media (max-width: 880px) {
+    width: 160px;
   }
 }
