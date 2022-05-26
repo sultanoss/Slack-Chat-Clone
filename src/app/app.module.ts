@@ -28,6 +28,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import { FooterComponent } from './footer/footer.component';
 import {MatSelectModule} from '@angular/material/select';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ImprintComponent } from './imprint/imprint.component';
+import { LeagalNoticeComponent } from './leagal-notice/leagal-notice.component';
 
 
 
@@ -44,7 +46,9 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     ThreadComponent,
     UserChatComponent,
     FooterComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ImprintComponent,
+    LeagalNoticeComponent
   ],
   imports: [
     BrowserModule,
