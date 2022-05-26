@@ -44,8 +44,6 @@ export class SideBarMenuComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
-
     this.firestore
       .collection('channels')
       .valueChanges({ idField: 'customIdName' })
@@ -90,7 +88,6 @@ export class SideBarMenuComponent implements OnInit {
 
   addDirectMessage() {
     this.checkUser();
-
     this.selectedValue.push({
       userId: this.authService.currentUser.uid,
       userName: this.authService.currentUser.displayName,
@@ -104,7 +101,7 @@ export class SideBarMenuComponent implements OnInit {
       directMessageName: this.selectedValue.map((sv: any) => sv.userName),
       usersData: this.selectedValue.map((sv: any) => sv.userId),
     });
-    console.log(this.selectedValue);
+    this.selectedValue = [];
   }
 
   getMessageId(directMessage: any) {

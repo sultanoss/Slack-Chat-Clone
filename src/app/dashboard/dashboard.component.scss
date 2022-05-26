@@ -7,8 +7,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  min-height: calc(100vh - 150px);
-  padding-top: 50px;
+  height: 100%;
   border-left: 1px solid black;
   color: white;
 
@@ -21,4 +20,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.full-height{
+  min-height: calc(100vh - 150px);
 }

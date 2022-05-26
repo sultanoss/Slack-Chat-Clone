@@ -32,6 +32,10 @@ body {
     border-radius: 16px;
     color: white;
     background-color: #3a3a3a;
+    @media(max-width: 440px){
+      padding: 16px;
+      max-width: 270px;
+    }
 }
 
 .form-container mat-form-field {
@@ -91,9 +95,15 @@ html {
     display: flex;
     width: 100%;
     justify-content: center;
+    min-height: calc(100vh - 215px);
 
     @media(max-width:880px){
       flex-direction: column;
+      justify-content: unset;
+    }
+
+    @media(max-width: 600px){
+      min-height: calc(100vh - 207px);
     }
   }
 

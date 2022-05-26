@@ -6,94 +6,85 @@ import { first } from 'rxjs';
 import { Auth } from '@angular/fire/auth';
 import { DirectChat } from 'src/models/directChat.class';
 
-
-
-
-
 @Component({
   selector: 'app-user-chat',
   templateUrl: './user-chat.component.html',
-  styleUrls: ['./user-chat.component.scss']
+  styleUrls: ['./user-chat.component.scss'],
 })
 export class UserChatComponent implements OnInit {
-
-  usersName:any = ''
+  usersName: any = '';
 
   directMessageId: any = '';
   directMessagesData: any = [];
 
-  directMessages: any = []
+  directMessages: any = [];
 
   directChat = new DirectChat();
-  directChats:any = [];
+  directChats: any = [];
 
-  users:any;
+  users: any;
 
   directChateDate = new Date();
 
-  constructor(private firestore: AngularFirestore,
+  constructor(
+    private firestore: AngularFirestore,
     public authService: AuthentificationserviceService,
     private activatedRoute: ActivatedRoute,
-    private auth: Auth) { }
+    private auth: Auth
+  ) {}
 
   ngOnInit(): void {
-
     this.activatedRoute.paramMap.subscribe((param) => {
       this.directMessageId = param.get('id');
 
-      this.firestore.collection('directChats',
-      ref => ref.where('directMessageId', '==', this.directMessageId))
-      .valueChanges({ idField: 'customIdName' })
-      .subscribe((changes:any) => {
-        this.directChats = changes
-        this.sortByDate()
-      })
-    })
-
-    this.getUserName();
+      this.firestore
+        .collection('directChats', (ref) =>
+          ref.where('directMessageId', '==', this.directMessageId)
+        )
+        .valueChanges({ idField: 'customIdName' })
+        .subscribe((changes: any) => {
+          this.directChats = changes;
+          this.sortByDate();
+        });
+        this.getUserName();
+    });
 
 
   }
 
-  getUserName() {
-    this.firestore.collection<any>('directMessages').doc(this.directMessageId) // for geting the doc with id = channelId and the name
+  async getUserName() {
+    this.firestore
+      .collection<any>('directMessages')
+      .doc(this.directMessageId) // for geting the doc with id = channelId and the name
       .get()
       .pipe(first())
-      .subscribe(res => {
-        this.directMessagesData = res.data()
-        this.usersName = this.directMessagesData.directMessageName
-      })
+      .subscribe((res) => {
+        this.directMessagesData = res.data();
+        this.usersName = this.directMessagesData.directMessageName;
+      });
   }
 
-
-  sendDirectMessage(){
-
-    this.checkUser()
+  sendDirectMessage() {
+    this.checkUser();
 
     this.firestore.collection('directChats').add({
-
-      directChatMessage:this.directChat.directChatMessage,
-      directMessageId:this.directMessageId,
-      directChatAuthor:this.authService.currentUser.displayName,
-      directChatDate:this.directChateDate.getTime()
-    })
+      directChatMessage: this.directChat.directChatMessage,
+      directMessageId: this.directMessageId,
+      directChatAuthor: this.authService.currentUser.displayName,
+      directChatDate: this.directChateDate.getTime(),
+    });
     this.directChat.directChatMessage = '';
   }
 
   sortByDate() {
-
-    this.directChats.sort(function (a:any, b:any) {
-      return (b.directChatDate) - (a.directChatDate);
+    this.directChats.sort(function (a: any, b: any) {
+      return b.directChatDate - a.directChatDate;
     });
   }
 
-  checkUser(){
-    if(this.authService.currentUser.isAnonymous == true){
-      this.authService.currentUser.displayName = 'Guest'
+  checkUser() {
+    if (this.authService.currentUser.isAnonymous == true) {
+      this.authService.currentUser.displayName = 'Guest';
     }
   }
-
 }
-
-
-

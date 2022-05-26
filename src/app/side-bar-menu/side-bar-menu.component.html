@@ -1,56 +1,67 @@
 <div class="side-bar-container">
   <div class="side-menu">
-
     <form #channelForm="ngForm">
       <h2>Add Channel</h2>
       <mat-form-field class="todo-title" appearance="fill">
         <mat-label>Channel Name</mat-label>
-        <input type="text" [(ngModel)]="channel.name" name="name" matInput placeholder="Enter your Channel Name"
-          required>
+        <input
+          type="text"
+          [(ngModel)]="channel.name"
+          name="name"
+          matInput
+          placeholder="Enter your Channel Name"
+          required
+        />
       </mat-form-field>
-      <button mat-flat-button color="accent" type="submit" (click)="addChannel()" [class.disabled]="channelForm.invalid"
-        [disabled]="channelForm.invalid">
+      <button
+        mat-flat-button
+        color="accent"
+        type="submit"
+        (click)="addChannel()"
+        [class.disabled]="channelForm.invalid"
+        [disabled]="channelForm.invalid"
+      >
         New Channel
       </button>
     </form>
 
     <div class="channels-name" *ngFor="let channel of channels">
-
-      <a [routerLink]="['/channel/' + channel.customIdName]"><span>#{{ channel.name }}</span></a>
-
+      <a [routerLink]="['/channel/' + channel.customIdName]"
+        ><span>#{{ channel.name }}</span></a
+      >
     </div>
-
   </div>
 
-  <button *ngIf=" route.url !== '/dashboard'" mat-flat-button color="accent" routerLink="/dashboard">Dashboard</button>
-
+  <button
+    *ngIf="route.url !== '/dashboard'"
+    mat-flat-button
+    color="accent"
+    routerLink="/dashboard"
+  >
+    Dashboard
+  </button>
 </div>
 
 <div class="select-container">
-
   <h2>Direct Messages</h2>
 
   <mat-form-field appearance="fill" class="select">
     <mat-label>Select User</mat-label>
     <mat-select multiple [(value)]="selectedValue">
       <mat-option *ngFor="let user of selectedUsers" [value]="user" required>
-        {{user.userName}}
+        {{ user.userName | titlecase }}
       </mat-option>
     </mat-select>
   </mat-form-field>
-
 </div>
 
-
 <div class="dm-users">
-  <button mat-raised-button color="warn"
-   (click)=" addDirectMessage()">
-   Add DirectMessages
+  <button mat-raised-button color="warn" (click)="addDirectMessage()">
+    Add DirectMessages
   </button>
   <div class="dm-container" *ngFor="let directMessage of directMessages">
-      <a [routerLink]="['/directMessage/' + directMessage.customIdName]">
-        {{ directMessage.directMessageName }}
-      </a>
+    <a [routerLink]="['/directMessage/' + directMessage.customIdName]">
+      {{ directMessage.directMessageName }}
+    </a>
   </div>
-
 </div>
