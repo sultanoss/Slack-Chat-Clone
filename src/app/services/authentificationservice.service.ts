@@ -77,7 +77,9 @@ export class AuthentificationserviceService {
         this.firestore
           .collection('users')
           .doc(userCredential.user.uid)
-          .set({ userName: name , userId:userCredential.user.uid });
+          .set({ userName: name,
+                 userId: userCredential.user.uid }
+                 );
       })
     );
   }
@@ -98,8 +100,7 @@ export class AuthentificationserviceService {
     );
   }
 
-  guestSignIn(){
+  guestSignIn() {
     this.fireAuth.signInAnonymously();
   }
-
 }

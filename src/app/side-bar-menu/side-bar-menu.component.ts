@@ -44,6 +44,7 @@ export class SideBarMenuComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.firestore
       .collection('channels')
       .valueChanges({ idField: 'customIdName' })
@@ -126,18 +127,4 @@ export class SideBarMenuComponent implements OnInit {
       this.authService.currentUser.displayName = 'Guest';
     }
   }
-
-  //  stringToHTML(str :string) {
-  //     var parser = new DOMParser();
-  //     var doc = parser.parseFromString(str, 'text/html');
-  //     return doc.body;
-  //   };
-
-  //    createElementFromHTML(htmlString:any) {
-  //     var div = document.createElement('div');
-  //     div.innerHTML = htmlString.trim();
-
-  //     // Change this to div.childNodes to support multiple top-level nodes
-  //     return div.firstChild;
-  //   }
 }

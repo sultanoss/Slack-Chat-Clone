@@ -88,13 +88,6 @@ export class SignUpComponent implements OnInit {
 
       this.route.navigate(['/dashboard'])
     })
-
-    // this.checkUserName(name, email)
-
-    // this.firestore.collection('users').add({
-    //   userName: name,
-    //   userEmail: email,
-    // })
   }
 }
 

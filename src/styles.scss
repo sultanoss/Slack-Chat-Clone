@@ -122,3 +122,7 @@ html {
     padding: 4px;
   }
 
+  .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: #f44336;
+}
+
