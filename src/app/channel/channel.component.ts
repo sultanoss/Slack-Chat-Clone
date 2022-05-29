@@ -3,28 +3,27 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Chat } from 'src/models/chat.class';
 import { AuthentificationserviceService } from '../services/authentificationservice.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
+import {
+  Storage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from '@angular/fire/storage';
 import { first } from 'rxjs';
-
-
-
-
 
 @Component({
   selector: 'app-channel',
   templateUrl: './channel.component.html',
-  styleUrls: ['./channel.component.scss']
+  styleUrls: ['./channel.component.scss'],
 })
 export class ChannelComponent implements OnInit {
-
-
   @Input() show: boolean = false;
 
-  chat = new Chat()
+  chat = new Chat();
 
   chats: any = [];
 
-  chatDate =  new Date()
+  chatDate = new Date();
 
   @Input() currentChat!: Chat;
 
@@ -42,75 +41,73 @@ export class ChannelComponent implements OnInit {
 
   channels: any = [];
 
-
-  constructor(private firestore: AngularFirestore,
+  constructor(
+    private firestore: AngularFirestore,
     public authService: AuthentificationserviceService,
     private activatedRoute: ActivatedRoute,
     public storage: Storage,
-    private route: Router) { }
+    private route: Router
+  ) {}
 
   ngOnInit(): void {
-
     this.activatedRoute.paramMap.subscribe((param) => {
       this.channelId = param.get('id');
 
-      this.firestore.collection('chats', ref => ref.where('chatChannelId', '==', this.channelId))
+      this.firestore
+        .collection('chats', (ref) =>
+          ref.where('chatChannelId', '==', this.channelId)
+        )
         .valueChanges({ idField: 'customIdName' })
         .subscribe((changes: any) => {
           this.chats = changes;
-          this.sortByDate()
-        })
+          this.sortByDate();
+        });
 
       this.getChannelName();
-    })
-
+    });
   }
 
   getChannelName() {
-    this.firestore.collection<any>('channels').doc(this.channelId) // for geting the doc with id = channelId and the name
+    this.firestore
+      .collection<any>('channels')
+      .doc(this.channelId) // for geting the doc with id = channelId and the name
       .get()
       .pipe(first())
-      .subscribe(res => {
-        this.channels = res.data()
-        this.channelName = this.channels.name
-      })
+      .subscribe((res) => {
+        this.channels = res.data();
+        this.channelName = this.channels.name;
+      });
   }
 
-  sendMessage() {  // if file contain img  use addDate else use addMessage
+  sendMessage() {
+    // if file contain img  use addDate else use addMessage
     if (this.file) {
       this.addData();
     } else {
       this.addMessage();
     }
-
   }
 
   addMessage() {
-
-    this.checkUser()
-
     let userName = this.authService.currentUser.displayName;
     this.firestore.collection('chats').add({
       message: this.chat.message,
       author: userName,
       chatChannelId: this.channelId,
       img: this.imgUrl,
-      chatDate:this.chatDate.getTime()
-    })
+      chatDate: this.chatDate.getTime(),
+    });
 
     this.clearInput();
   }
 
   clearInput() {
-
     this.chat.message = '';
     this.imgUrl = ''; // to not have dublicated imgs
   }
 
   deleteChat(chat: any) {
-
     this.firestore.collection('chats').doc(chat['customIdName']).delete();
-
   }
 
   showEditContainer(chat: any) {
@@ -118,14 +115,18 @@ export class ChannelComponent implements OnInit {
   }
 
   editChat(chat: any) {
-    this.firestore.collection("chats").doc(chat['customIdName']) // hier um eine feld zu updaten bzw editieren
-      .update({ message: chat.editedMessage })
+    this.firestore
+      .collection('chats')
+      .doc(chat['customIdName']) // hier um eine feld zu updaten bzw editieren
+      .update({ message: chat.editedMessage });
     chat.editedMessage = '';
   }
 
   deleteImg(chat: any) {
-    this.firestore.collection("chats").doc(chat['customIdName']) // hier um eine feld zu updaten bzw editieren
-      .update({ img: '' })
+    this.firestore
+      .collection('chats')
+      .doc(chat['customIdName']) // hier um eine feld zu updaten bzw editieren
+      .update({ img: '' });
   }
 
   CloseEditChat(chat: any) {
@@ -147,10 +148,12 @@ export class ChannelComponent implements OnInit {
     const storageRef = ref(this.storage, this.file.name);
     const uploadTask = uploadBytesResumable(storageRef, this.file);
 
-    uploadTask.on('state_changed',
+    uploadTask.on(
+      'state_changed',
       (snapshot) => {
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log('Upload is ' + progress + '% done');
         switch (snapshot.state) {
           case 'paused':
@@ -190,24 +193,16 @@ export class ChannelComponent implements OnInit {
           this.addMessage(); // use addMessage if img exist
         });
       }
-    )
+    );
   }
 
   openImg(chat: any) {
-    window.open(chat.img)
+    window.open(chat.img);
   }
 
   sortByDate() {
-
-    this.chats.sort(function (a:any, b:any) {
-      return (b.chatDate) - (a.chatDate);
+    this.chats.sort(function (a: any, b: any) {
+      return b.chatDate - a.chatDate;
     });
   }
-
-  checkUser(){
-    if(this.authService.currentUser.isAnonymous == true){
-      this.authService.currentUser.displayName = 'Guest'
-    }
-  }
-
 }

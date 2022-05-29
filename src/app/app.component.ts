@@ -23,5 +23,7 @@ export class AppComponent  {
     this.authService.logout().subscribe(() => {
       this.route.navigate(['/']);
     })
+
+    this.authService.deleteGuestUser();
   }
 }

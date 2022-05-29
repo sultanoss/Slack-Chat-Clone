@@ -44,6 +44,7 @@ export class SideBarMenuComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+   console.log(this.authService.currentUser.displayName);
 
     this.firestore
       .collection('channels')
@@ -88,7 +89,6 @@ export class SideBarMenuComponent implements OnInit {
   }
 
   addDirectMessage() {
-    this.checkUser();
     this.selectedValue.push({
       userId: this.authService.currentUser.uid,
       userName: this.authService.currentUser.displayName,
@@ -120,11 +120,5 @@ export class SideBarMenuComponent implements OnInit {
         (item: any) =>
           item.userName !== this.authService.currentUser.displayName
       );
-  }
-
-  checkUser() {
-    if (this.authService.currentUser.isAnonymous == true) {
-      this.authService.currentUser.displayName = 'Guest';
-    }
   }
 }

@@ -46,10 +46,8 @@ export class UserChatComponent implements OnInit {
           this.directChats = changes;
           this.sortByDate();
         });
-        this.getUserName();
+      this.getUserName();
     });
-
-
   }
 
   async getUserName() {
@@ -65,8 +63,6 @@ export class UserChatComponent implements OnInit {
   }
 
   sendDirectMessage() {
-    this.checkUser();
-
     this.firestore.collection('directChats').add({
       directChatMessage: this.directChat.directChatMessage,
       directMessageId: this.directMessageId,
@@ -80,11 +76,5 @@ export class UserChatComponent implements OnInit {
     this.directChats.sort(function (a: any, b: any) {
       return b.directChatDate - a.directChatDate;
     });
-  }
-
-  checkUser() {
-    if (this.authService.currentUser.isAnonymous == true) {
-      this.authService.currentUser.displayName = 'Guest';
-    }
   }
 }

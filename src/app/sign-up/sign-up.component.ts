@@ -92,13 +92,4 @@ export class SignUpComponent implements OnInit {
 }
 
 
-  // checkUserName(name: any, email: any) {
-  //   if (
-  //     this.firestore.collection('users',
-  //     ref => ref.where('userName', '==', name))) {
-  //     console.log('user name exist')
-  //     console.log(name)
-  //     this.toast.error("User Name exist.")
-  //   }
-
 

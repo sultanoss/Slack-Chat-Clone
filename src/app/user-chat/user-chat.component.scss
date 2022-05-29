@@ -32,6 +32,9 @@ form {
   border-radius: 16px;
   padding: 16px;
   margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
 }
 
 .direct-message {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, authState, user } from '@angular/fire/auth';
+import { Auth, authState, onAuthStateChanged, user } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import {
   createUserWithEmailAndPassword,
@@ -16,6 +16,8 @@ import { Router } from '@angular/router';
 //import * as firebase from 'firebase/compat';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { HotToastService } from '@ngneat/hot-toast';
+import * as firebase from 'firebase/compat';
+import { HttpHandler } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -40,48 +42,33 @@ export class AuthentificationserviceService {
     return from(signInWithEmailAndPassword(this.auth, username, password));
   }
 
-  //   const auth = getAuth();
-  // setPersistence(auth, browserSessionPersistence)
-  //   .then(() => {
-  // Existing and future Auth states are now persisted in the current
-  // session only. Closing the window would clear any existing state even
-  // if a user forgets to sign out.
-  // ...
-  // New sign-in will be persisted with session persistence.
-  //   return signInWithEmailAndPassword(auth, email, password);
-  // })
-  // .catch((error) => {
-  //   // Handle Errors here.
-  //   const errorCode = error.code;
-  //   const errorMessage = error.message;
-  // });
-
   signUp(name: string, email: string, password: string) {
-    // this.fireAuth.createUserWithEmailAndPassword(email, password)
-    // .then( userCredential =>{
-
-    // })
-    // .catch( error =>{
-    //   //
-    // } )
-
-    return from(
-      createUserWithEmailAndPassword(this.auth, email, password)
-    ).pipe(
-      map((userCredential) => {
-        updateProfile(userCredential.user, { displayName: name });
-        //create firestore user doc
-        return userCredential;
-      }),
-      map((userCredential) => {
-        this.firestore
-          .collection('users')
-          .doc(userCredential.user.uid)
-          .set({ userName: name,
-                 userId: userCredential.user.uid }
-                 );
-      })
-    );
+    return this.firestore
+      .collection('users', (ref) => ref.where('userName', '==', name))
+      .get()
+      .pipe(
+        map((changes) => {
+          if (!changes.empty) {
+            throw new Error('User name already exists!');
+          } else {
+            return from(
+              createUserWithEmailAndPassword(this.auth, email, password)
+            ).pipe(
+              map((userCredential) => {
+                updateProfile(userCredential.user, { displayName: name });
+                //create firestore user doc
+                return userCredential;
+              }),
+              map((userCredential) => {
+                this.firestore
+                  .collection('users')
+                  .doc(userCredential.user.uid)
+                  .set({ userName: name, userId: userCredential.user.uid });
+              })
+            );
+          }
+        })
+      );
   }
 
   logout() {
@@ -101,6 +88,43 @@ export class AuthentificationserviceService {
   }
 
   guestSignIn() {
-    this.fireAuth.signInAnonymously();
+    this.fireAuth.signInAnonymously().then(() => {
+      const uid = this.currentUser.uid;
+      console.log(uid);
+      updateProfile(this.currentUser, { displayName: 'Guest' });
+      this.firestore
+        .collection('users')
+        .doc(uid)
+        .set({ userName: 'Guest', userId: uid });
+    });
+  }
+
+  deleteGuestUser() {
+    this.firestore
+      .collection('users', (ref) => ref.where('userName', '==', 'Guest'))
+      .get()
+      .subscribe((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          doc.ref.delete().then(() => {
+            console.log('Document successfully deleted!');
+          });
+        });
+      });
   }
 }
+
+//   const auth = getAuth();
+// setPersistence(auth, browserSessionPersistence)
+//   .then(() => {
+// Existing and future Auth states are now persisted in the current
+// session only. Closing the window would clear any existing state even
+// if a user forgets to sign out.
+// ...
+// New sign-in will be persisted with session persistence.
+//   return signInWithEmailAndPassword(auth, email, password);
+// })
+// .catch((error) => {
+//   // Handle Errors here.
+//   const errorCode = error.code;
+//   const errorMessage = error.message;
+// });

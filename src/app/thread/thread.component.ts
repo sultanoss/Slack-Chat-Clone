@@ -52,9 +52,6 @@ export class ThreadComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
 
   addThread() {
-
-    this.checkUser();
-
     let userName = this.authService.currentUser.displayName;
     this.firestore.collection('threads').add({
       answer: this.thread.answer,
@@ -82,11 +79,5 @@ export class ThreadComponent implements OnInit, OnChanges {
     this.threads.sort(function (a: any, b: any) {
       return b.threadDate - a.threadDate;
     });
-  }
-
-  checkUser() {
-    if (this.authService.currentUser.isAnonymous == true) {
-      this.authService.currentUser.displayName = 'Guest';
-    }
   }
 }
