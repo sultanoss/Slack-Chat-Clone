@@ -18,6 +18,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { HotToastService } from '@ngneat/hot-toast';
 import * as firebase from 'firebase/compat';
 import { HttpHandler } from '@angular/common/http';
+import { error } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root',
@@ -42,33 +43,37 @@ export class AuthentificationserviceService {
     return from(signInWithEmailAndPassword(this.auth, username, password));
   }
 
-  signUp(name: string, email: string, password: string) {
-    return this.firestore
-      .collection('users', (ref) => ref.where('userName', '==', name))
-      .get()
-      .pipe(
-        map((changes) => {
-          if (!changes.empty) {
-            throw new Error('User name already exists!');
-          } else {
-            return from(
-              createUserWithEmailAndPassword(this.auth, email, password)
-            ).pipe(
-              map((userCredential) => {
-                updateProfile(userCredential.user, { displayName: name });
-                //create firestore user doc
-                return userCredential;
-              }),
-              map((userCredential) => {
-                this.firestore
-                  .collection('users')
-                  .doc(userCredential.user.uid)
-                  .set({ userName: name, userId: userCredential.user.uid });
-              })
-            );
-          }
-        })
+  async signUp(name: string, email: string, password: string) {
+    try {
+      const allSameName = await firstValueFrom(
+        this.firestore
+          .collection('users', (ref) => ref.where('userName', '==', name))
+          .valueChanges()
       );
+      if (allSameName.length != 0) {
+        throw new Error('User name already exists!');
+      }
+
+      const userCredential = await createUserWithEmailAndPassword(
+        this.auth,
+        email,
+        password
+      );
+      await updateProfile(userCredential.user, { displayName: name });
+
+      const newFirestorUser = {
+        userName: name,
+        userId: userCredential.user.uid,
+      };
+      await this.firestore
+        .collection('users')
+        .doc(userCredential.user.uid)
+        .set(newFirestorUser);
+    } catch (error: any) {
+      console.error(error);
+      if (error.message) throw new Error(error.message);
+      else throw new Error(error);
+    }
   }
 
   logout() {
@@ -87,7 +92,7 @@ export class AuthentificationserviceService {
     );
   }
 
-  guestSignIn() {
+   guestSignIn() {
     this.fireAuth.signInAnonymously().then(() => {
       const uid = this.currentUser.uid;
       console.log(uid);
@@ -128,3 +133,38 @@ export class AuthentificationserviceService {
 //   const errorCode = error.code;
 //   const errorMessage = error.message;
 // });
+
+// return this.firestore
+//   .collection('users', (ref) => ref.where('userName', '==', name))
+//   .get()
+//   .pipe(
+//     map((changes) => {
+//       if (!changes.empty) {
+//         throw new Error('User name already exists!');
+//       } else {
+//         return from(
+//           createUserWithEmailAndPassword(this.auth, email, password)
+//         ).pipe(
+//           map((userCredential) => {
+//             updateProfile(userCredential.user, { displayName: name });
+//             return userCredential;
+//           }),
+//             //create firestore user doc
+
+//           map((userCredential) => {
+//             const error2 = 'user not set'
+//             this.firestore
+//               .collection('users')
+//               .doc(userCredential.user.uid)
+//               .set({ userName: name, userId: userCredential.user.uid })
+//               .then(()=>{
+//                 console.log('firedoc set')
+//               })
+//               .catch(error2 =>{
+//                 console.error(error2)
+//               })
+//           })
+//         );
+//       }
+//     })
+//   );

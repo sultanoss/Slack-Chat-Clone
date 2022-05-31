@@ -4,7 +4,7 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
-import { first, map } from 'rxjs';
+import { first, firstValueFrom, map, of } from 'rxjs';
 import { channel } from 'src/models/channel.class';
 import { Chat } from 'src/models/chat.class';
 import { DirectMessage } from 'src/models/directMessage.class';
@@ -12,6 +12,7 @@ import { User } from 'src/models/user.class';
 import { AuthentificationserviceService } from '../services/authentificationservice.service';
 import { Auth } from '@angular/fire/auth';
 import { MatSelect } from '@angular/material/select';
+import { async } from '@firebase/util';
 
 @Component({
   selector: 'app-side-bar-menu',
@@ -43,8 +44,8 @@ export class SideBarMenuComponent implements OnInit {
     private auth: Auth
   ) {}
 
-  ngOnInit(): void {
-   console.log(this.authService.currentUser.displayName);
+  async ngOnInit(): Promise<void> {
+    console.log(this.authService.currentUser.displayName);
 
     this.firestore
       .collection('channels')
@@ -59,7 +60,15 @@ export class SideBarMenuComponent implements OnInit {
       .subscribe((changess: any) => {
         this.users = changess;
         this.removeUserFromSelectedValue();
+        console.log(this.selectedUsers);
       });
+
+    // const users = await firstValueFrom(
+    //   this.firestore.collection('users').valueChanges()
+    // );
+    // console.log(users);
+
+    // this.removeUserFromSelectedValue(users);
 
     this.firestore
       .collection('directMessages', (ref) =>
