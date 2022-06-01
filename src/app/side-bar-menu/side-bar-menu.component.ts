@@ -54,21 +54,24 @@ export class SideBarMenuComponent implements OnInit {
         this.channels = changes;
       });
 
-    this.firestore
-      .collection('users')
-      .valueChanges({ idField: 'customIdName' })
-      .subscribe((changess: any) => {
-        this.users = changess;
-        this.removeUserFromSelectedValue();
-        console.log(this.selectedUsers);
-      });
+    // this.firestore
+    //   .collection('users')
+    //   .valueChanges({ idField: 'customIdName' })
+    //   .subscribe((changess: any) => {
+    //     this.users = changess;
+    //     this.removeUserFromSelectedValue();
+    //     console.log(this.selectedUsers);
+    //   });
 
-    // const users = await firstValueFrom(
-    //   this.firestore.collection('users').valueChanges()
-    // );
-    // console.log(users);
+    this.users = await firstValueFrom(
+      this.firestore.collection('users').valueChanges()
+    );
 
-    // this.removeUserFromSelectedValue(users);
+    console.log('users', this.users);
+
+    this.removeUserFromSelectedValue();
+
+    console.log('selected users', this.selectedUsers);
 
     this.firestore
       .collection('directMessages', (ref) =>
@@ -130,4 +133,5 @@ export class SideBarMenuComponent implements OnInit {
           item.userName !== this.authService.currentUser.displayName
       );
   }
+
 }

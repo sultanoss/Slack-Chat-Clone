@@ -92,7 +92,7 @@ export class AuthentificationserviceService {
     );
   }
 
-   guestSignIn() {
+  guestSignIn() {
     this.fireAuth.signInAnonymously().then(() => {
       const uid = this.currentUser.uid;
       console.log(uid);
@@ -101,7 +101,9 @@ export class AuthentificationserviceService {
         .collection('users')
         .doc(uid)
         .set({ userName: 'Guest', userId: uid });
+        this.route.navigate(['/dashboard']);
     });
+
   }
 
   deleteGuestUser() {
@@ -134,37 +136,3 @@ export class AuthentificationserviceService {
 //   const errorMessage = error.message;
 // });
 
-// return this.firestore
-//   .collection('users', (ref) => ref.where('userName', '==', name))
-//   .get()
-//   .pipe(
-//     map((changes) => {
-//       if (!changes.empty) {
-//         throw new Error('User name already exists!');
-//       } else {
-//         return from(
-//           createUserWithEmailAndPassword(this.auth, email, password)
-//         ).pipe(
-//           map((userCredential) => {
-//             updateProfile(userCredential.user, { displayName: name });
-//             return userCredential;
-//           }),
-//             //create firestore user doc
-
-//           map((userCredential) => {
-//             const error2 = 'user not set'
-//             this.firestore
-//               .collection('users')
-//               .doc(userCredential.user.uid)
-//               .set({ userName: name, userId: userCredential.user.uid })
-//               .then(()=>{
-//                 console.log('firedoc set')
-//               })
-//               .catch(error2 =>{
-//                 console.error(error2)
-//               })
-//           })
-//         );
-//       }
-//     })
-//   );

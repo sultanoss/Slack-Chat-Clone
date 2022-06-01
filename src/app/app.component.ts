@@ -6,24 +6,21 @@ import { AuthentificationserviceService } from './services/authentificationservi
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent  {
+export class AppComponent {
   title = 'slackClone';
 
-  constructor(public authService: AuthentificationserviceService,
-    public route: Router, public auth: AngularFireAuth) { }
-
-
-
-
+  constructor(
+    public authService: AuthentificationserviceService,
+    public route: Router,
+    public auth: AngularFireAuth
+  ) {}
 
   logout() {
-
     this.authService.logout().subscribe(() => {
       this.route.navigate(['/']);
-    })
-
-    this.authService.deleteGuestUser();
+      this.authService.deleteGuestUser();
+    });
   }
 }
