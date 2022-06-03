@@ -6,19 +6,15 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from '@firebase/auth';
-import { firstValueFrom, from, map, switchMap } from 'rxjs';
+import { first, firstValueFrom, from, map, of, switchMap } from 'rxjs';
 import {
   getAuth,
   setPersistence,
   browserSessionPersistence,
 } from 'firebase/auth';
 import { Router } from '@angular/router';
-//import * as firebase from 'firebase/compat';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { HotToastService } from '@ngneat/hot-toast';
-import * as firebase from 'firebase/compat';
-import { HttpHandler } from '@angular/common/http';
-import { error } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +22,7 @@ import { error } from '@angular/compiler/src/util';
 export class AuthentificationserviceService {
   currentUser$ = authState(this.auth); // This is for switch to logout if user logged in
   currentUser: any;
+
   constructor(
     private auth: Auth,
     private firestore: AngularFirestore,
@@ -77,7 +74,11 @@ export class AuthentificationserviceService {
   }
 
   logout() {
-    return from(this.auth.signOut());
+    if (this.currentUser?.isAnonymous) {
+      return from(this.deleteGuestUser());
+    } else {
+      return from(this.auth.signOut());
+    }
   }
 
   resetPassword(email: string) {
@@ -93,30 +94,48 @@ export class AuthentificationserviceService {
   }
 
   guestSignIn() {
-    this.fireAuth.signInAnonymously().then(() => {
+    this.fireAuth.signInAnonymously()
+    .then(async () => {
+      console.log(this.currentUser);
       const uid = this.currentUser.uid;
       console.log(uid);
-      updateProfile(this.currentUser, { displayName: 'Guest' });
+      await updateProfile(this.currentUser, { displayName: 'Guest' });
       this.firestore
         .collection('users')
         .doc(uid)
-        .set({ userName: 'Guest', userId: uid });
-        this.route.navigate(['/dashboard']);
+        .set({ userName: 'Guest', userId: uid })
+        .then(() => {
+          this.route.navigate(['/dashboard']);
+
+
+        });
     });
 
   }
 
-  deleteGuestUser() {
-    this.firestore
-      .collection('users', (ref) => ref.where('userName', '==', 'Guest'))
-      .get()
-      .subscribe((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          doc.ref.delete().then(() => {
-            console.log('Document successfully deleted!');
-          });
-        });
-      });
+  async deleteGuestUser() {
+    // this.firestore
+    //   .collection('users', (ref) => ref.where('userName', '==', 'Guest'))
+    //   .get()
+    //   .subscribe((querySnapshot) => {
+    //     querySnapshot.forEach((doc) => {
+    //       doc.ref.delete().then(() => {
+    //         console.log('Document successfully deleted!');
+
+    //       });
+    //     });
+    //   });
+    try {
+      await this.firestore
+        .collection('user')
+        .doc(this.currentUser?.uid)
+        .delete();
+
+      await this.currentUser?.delete();
+    } catch (error : any) {
+      console.error(error);
+      throw Error('Error Deleting Guest User: ' + error.message);
+    }
   }
 }
 
@@ -135,4 +154,3 @@ export class AuthentificationserviceService {
 //   const errorCode = error.code;
 //   const errorMessage = error.message;
 // });
-

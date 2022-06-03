@@ -18,9 +18,9 @@ export class AppComponent {
   ) {}
 
   logout() {
-    this.authService.logout().subscribe(() => {
-      this.route.navigate(['/']);
+    this.authService.logout().subscribe(async () => {
       this.authService.deleteGuestUser();
+      this.route.navigate(['/']);
     });
   }
 }

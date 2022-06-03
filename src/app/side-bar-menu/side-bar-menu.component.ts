@@ -11,8 +11,7 @@ import { DirectMessage } from 'src/models/directMessage.class';
 import { User } from 'src/models/user.class';
 import { AuthentificationserviceService } from '../services/authentificationservice.service';
 import { Auth } from '@angular/fire/auth';
-import { MatSelect } from '@angular/material/select';
-import { async } from '@firebase/util';
+
 
 @Component({
   selector: 'app-side-bar-menu',
@@ -53,15 +52,6 @@ export class SideBarMenuComponent implements OnInit {
       .subscribe((changes: any) => {
         this.channels = changes;
       });
-
-    // this.firestore
-    //   .collection('users')
-    //   .valueChanges({ idField: 'customIdName' })
-    //   .subscribe((changess: any) => {
-    //     this.users = changess;
-    //     this.removeUserFromSelectedValue();
-    //     console.log(this.selectedUsers);
-    //   });
 
     this.users = await firstValueFrom(
       this.firestore.collection('users').valueChanges()
