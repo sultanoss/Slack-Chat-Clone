@@ -11,7 +11,7 @@ import { DirectMessage } from 'src/models/directMessage.class';
 import { User } from 'src/models/user.class';
 import { AuthentificationserviceService } from '../services/authentificationservice.service';
 import { Auth } from '@angular/fire/auth';
-
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-side-bar-menu',
@@ -40,7 +40,8 @@ export class SideBarMenuComponent implements OnInit {
     public authService: AuthentificationserviceService,
     public route: Router,
     private activatedRoute: ActivatedRoute,
-    private auth: Auth
+    private auth: Auth,
+    private toast: HotToastService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -78,11 +79,14 @@ export class SideBarMenuComponent implements OnInit {
   }
 
   addChannel() {
-    this.firestore
-      .collection('channels')
-      .add(this.channel.toJson())
-      .then((result: any) => {});
-
+    if (this.authService.currentUser.isAnonymous) {
+      this.toast.info('Only available for registered users !')
+    } else {
+      this.firestore
+        .collection('channels')
+        .add(this.channel.toJson())
+        .then((result: any) => {});
+    }
     this.clearChannel();
   }
 
@@ -123,5 +127,4 @@ export class SideBarMenuComponent implements OnInit {
           item.userName !== this.authService.currentUser.displayName
       );
   }
-
 }

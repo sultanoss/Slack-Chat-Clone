@@ -19,7 +19,6 @@ export class AppComponent {
 
   logout() {
     this.authService.logout().subscribe(async () => {
-      this.authService.deleteGuestUser();
       this.route.navigate(['/']);
     });
   }

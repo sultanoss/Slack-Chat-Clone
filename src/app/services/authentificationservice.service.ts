@@ -74,8 +74,8 @@ export class AuthentificationserviceService {
   }
 
   logout() {
-    if (this.currentUser?.isAnonymous) {
-      return from(this.deleteGuestUser());
+    if (this.currentUser.isAnonymous) {
+      return from(this.deleteGuest());
     } else {
       return from(this.auth.signOut());
     }
@@ -94,8 +94,7 @@ export class AuthentificationserviceService {
   }
 
   guestSignIn() {
-    this.fireAuth.signInAnonymously()
-    .then(async () => {
+    this.fireAuth.signInAnonymously().then(async () => {
       console.log(this.currentUser);
       const uid = this.currentUser.uid;
       console.log(uid);
@@ -106,25 +105,17 @@ export class AuthentificationserviceService {
         .set({ userName: 'Guest', userId: uid })
         .then(() => {
           this.route.navigate(['/dashboard']);
-
-
         });
     });
-
   }
 
-  async deleteGuestUser() {
-    // this.firestore
-    //   .collection('users', (ref) => ref.where('userName', '==', 'Guest'))
-    //   .get()
-    //   .subscribe((querySnapshot) => {
-    //     querySnapshot.forEach((doc) => {
-    //       doc.ref.delete().then(() => {
-    //         console.log('Document successfully deleted!');
+  async deleteGuest() {
+    this.deleteGuestUser();
+    this.deleteGuestChat();
+    this.deleteGuestThread();
+    this.deleteGuestDirectmessage();
+    this.deleteGuestDirectchat();
 
-    //       });
-    //     });
-    //   });
     try {
       await this.firestore
         .collection('user')
@@ -132,10 +123,77 @@ export class AuthentificationserviceService {
         .delete();
 
       await this.currentUser?.delete();
-    } catch (error : any) {
+    } catch (error: any) {
       console.error(error);
       throw Error('Error Deleting Guest User: ' + error.message);
     }
+  }
+
+  deleteGuestUser() {
+    this.firestore
+      .collection('users', (ref) => ref.where('userName', '==', 'Guest'))
+      .get()
+      .subscribe((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          doc.ref.delete().then(() => {
+            console.log('Document successfully deleted!');
+          });
+        });
+      });
+  }
+
+  deleteGuestChat() {
+    this.firestore
+      .collection('chats', (ref) => ref.where('author', '==', 'Guest'))
+      .get()
+      .subscribe((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          doc.ref.delete().then(() => {
+            console.log('chat successfully deleted!');
+          });
+        });
+      });
+  }
+
+  deleteGuestThread() {
+    this.firestore
+      .collection('threads', (ref) => ref.where('author', '==', 'Guest'))
+      .get()
+      .subscribe((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          doc.ref.delete().then(() => {
+            console.log('thread successfully deleted!');
+          });
+        });
+      });
+  }
+
+  deleteGuestDirectmessage() {
+    this.firestore
+      .collection('directMessages', (ref) => ref.where('author', '==', 'Guest'))
+      .get()
+      .subscribe((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          doc.ref.delete().then(() => {
+            console.log('directmessage successfully deleted!');
+          });
+        });
+      });
+  }
+
+  deleteGuestDirectchat() {
+    this.firestore
+      .collection('directChats', (ref) =>
+        ref.where('directChatAuthor', '==', 'Guest')
+      )
+      .get()
+      .subscribe((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          doc.ref.delete().then(() => {
+            console.log('directchat successfully deleted!');
+          });
+        });
+      });
   }
 }
 
