@@ -14,6 +14,7 @@ import {
 import { Chat } from 'src/models/chat.class';
 import { Thread } from 'src/models/thread.class';
 import { AuthentificationserviceService } from '../services/authentificationservice.service';
+import { serverTimestamp } from 'firebase/firestore';
 
 @Component({
   selector: 'app-thread',
@@ -31,7 +32,7 @@ export class ThreadComponent implements OnInit, OnChanges {
         ref.where('chatId', '==', this.chat.customIdName)
       )
       .valueChanges({ idField: 'customIdName' })
-      .subscribe((changes: any) => {
+      .subscribe(async (changes: any) => {
         this.threads = changes;
         this.sortByDate();
       });
@@ -57,7 +58,7 @@ export class ThreadComponent implements OnInit, OnChanges {
       answer: this.thread.answer,
       author: userName,
       chatId: this.chat.customIdName,
-      threadDate: this.threadDate.getTime(),
+      threadDate: serverTimestamp(),
     });
     this.clearAnswerInput();
   }

@@ -5,6 +5,7 @@ import { AuthentificationserviceService } from '../services/authentificationserv
 import { first } from 'rxjs';
 import { Auth } from '@angular/fire/auth';
 import { DirectChat } from 'src/models/directChat.class';
+import { serverTimestamp } from "firebase/firestore";
 
 @Component({
   selector: 'app-user-chat',
@@ -67,7 +68,7 @@ export class UserChatComponent implements OnInit {
       directChatMessage: this.directChat.directChatMessage,
       directMessageId: this.directMessageId,
       directChatAuthor: this.authService.currentUser.displayName,
-      directChatDate: this.directChateDate.getTime(),
+      directChatDate: serverTimestamp()
     });
     this.directChat.directChatMessage = '';
   }

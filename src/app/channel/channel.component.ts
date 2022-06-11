@@ -10,6 +10,7 @@ import {
   getDownloadURL,
 } from '@angular/fire/storage';
 import { first } from 'rxjs';
+import { serverTimestamp } from "firebase/firestore";
 
 @Component({
   selector: 'app-channel',
@@ -17,6 +18,7 @@ import { first } from 'rxjs';
   styleUrls: ['./channel.component.scss'],
 })
 export class ChannelComponent implements OnInit {
+  [x: string]: any;
   @Input() show: boolean = false;
 
   chat = new Chat();
@@ -86,6 +88,7 @@ export class ChannelComponent implements OnInit {
     } else {
       this.addMessage();
     }
+    // this.sortByDate();
   }
 
   addMessage() {
@@ -95,7 +98,8 @@ export class ChannelComponent implements OnInit {
       author: userName,
       chatChannelId: this.channelId,
       img: this.imgUrl,
-      chatDate: this.chatDate.getTime(),
+      // chatDate: this.chatDate.getTime(),
+      chatDate: serverTimestamp()
     });
 
     this.clearInput();
@@ -204,5 +208,6 @@ export class ChannelComponent implements OnInit {
     this.chats.sort(function (a: any, b: any) {
       return b.chatDate - a.chatDate;
     });
+
   }
 }
