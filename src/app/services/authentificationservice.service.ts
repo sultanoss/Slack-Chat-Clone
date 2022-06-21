@@ -110,7 +110,6 @@ export class AuthentificationserviceService {
   }
 
   async deleteGuest() {
-    this.deleteGuestUser();
     this.deleteGuestChat();
     this.deleteGuestThread();
     this.deleteGuestDirectmessage();
@@ -118,7 +117,7 @@ export class AuthentificationserviceService {
 
     try {
       await this.firestore
-        .collection('user')
+        .collection('users')
         .doc(this.currentUser?.uid)
         .delete();
 
@@ -129,22 +128,24 @@ export class AuthentificationserviceService {
     }
   }
 
-  deleteGuestUser() {
-    this.firestore
-      .collection('users', (ref) => ref.where('userName', '==', 'Guest'))
-      .get()
-      .subscribe((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          doc.ref.delete().then(() => {
-            console.log('Document successfully deleted!');
-          });
-        });
-      });
-  }
+  // deleteGuestUser() {
+  //   this.firestore
+  //     .collection('users', (ref) => ref.where('authorId', '==', this.currentUser.uid))
+  //     .get()
+  //     .subscribe((querySnapshot) => {
+  //       querySnapshot.forEach((doc) => {
+  //         doc.ref.delete().then(() => {
+  //           console.log('Document successfully deleted!');
+  //         });
+  //       });
+  //     });
+  // }
 
   deleteGuestChat() {
     this.firestore
-      .collection('chats', (ref) => ref.where('author', '==', 'Guest'))
+      .collection('chats', (ref) =>
+        ref.where('authorId', '==', this.currentUser.uid)
+      )
       .get()
       .subscribe((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -153,11 +154,14 @@ export class AuthentificationserviceService {
           });
         });
       });
+    console.log(this.currentUser.uid);
   }
 
   deleteGuestThread() {
     this.firestore
-      .collection('threads', (ref) => ref.where('author', '==', 'Guest'))
+      .collection('threads', (ref) =>
+        ref.where('authorId', '==', this.currentUser.uid)
+      )
       .get()
       .subscribe((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -170,7 +174,9 @@ export class AuthentificationserviceService {
 
   deleteGuestDirectmessage() {
     this.firestore
-      .collection('directMessages', (ref) => ref.where('author', '==', 'Guest'))
+      .collection('directMessages', (ref) =>
+        ref.where('authorId', '==', this.currentUser.uid)
+      )
       .get()
       .subscribe((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -184,7 +190,7 @@ export class AuthentificationserviceService {
   deleteGuestDirectchat() {
     this.firestore
       .collection('directChats', (ref) =>
-        ref.where('directChatAuthor', '==', 'Guest')
+        ref.where('authorId', '==', this.currentUser.uid)
       )
       .get()
       .subscribe((querySnapshot) => {

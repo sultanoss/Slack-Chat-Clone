@@ -98,6 +98,7 @@ export class ChannelComponent implements OnInit {
       author: userName,
       chatChannelId: this.channelId,
       img: this.imgUrl,
+      authorId:this.authService.currentUser.uid,
       // chatDate: this.chatDate.getTime(),
       chatDate: serverTimestamp()
     });

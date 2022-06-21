@@ -2,6 +2,8 @@
   <div class="title">
     <h1>Welcom to Slack</h1>
     <h2>Choose your #Channel</h2>
+    <div  *ngIf="this.authService.currentUser.isAnonymous" class="note">
+      <p>Note: All Guests Inputs will be deleted after logout !</p>
+    </div>
   </div>
-
 </div>

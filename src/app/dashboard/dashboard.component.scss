@@ -26,8 +26,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  width: 100%;
 }
 
 .full-height {
   min-height: calc(100vh - 150px);
+}
+
+.note{
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  font-size: 16px;
 }

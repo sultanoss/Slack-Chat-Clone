@@ -5,21 +5,19 @@ import { AuthentificationserviceService } from '../services/authentificationserv
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
+  constructor(
+    public authService: AuthentificationserviceService,
+    private route: Router,
+  ) {}
 
-  constructor(public authService: AuthentificationserviceService,
-    private route: Router ) { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   logout() {
-
     this.authService.logout().subscribe(() => {
       this.route.navigate(['/']);
-    })
+    });
   }
-
 }
