@@ -43,6 +43,8 @@ export class ChannelComponent implements OnInit {
 
   channels: any = [];
 
+  codeBlock:boolean = false
+
   constructor(
     private firestore: AngularFirestore,
     public authService: AuthentificationserviceService,
@@ -88,7 +90,6 @@ export class ChannelComponent implements OnInit {
     } else {
       this.addMessage();
     }
-    // this.sortByDate();
   }
 
   addMessage() {
@@ -99,8 +100,8 @@ export class ChannelComponent implements OnInit {
       chatChannelId: this.channelId,
       img: this.imgUrl,
       authorId:this.authService.currentUser.uid,
-      // chatDate: this.chatDate.getTime(),
-      chatDate: serverTimestamp()
+      chatDate: serverTimestamp(),
+      codeBlock:this.codeBlock
     });
 
     this.clearInput();
@@ -109,6 +110,7 @@ export class ChannelComponent implements OnInit {
   clearInput() {
     this.chat.message = '';
     this.imgUrl = ''; // to not have dublicated imgs
+    this.codeBlock = false;
   }
 
   deleteChat(chat: any) {
@@ -210,5 +212,9 @@ export class ChannelComponent implements OnInit {
       return b.chatDate - a.chatDate;
     });
 
+  }
+
+  activateCodeBlock(){
+    this.codeBlock = !this.codeBlock;
   }
 }

@@ -1,29 +1,54 @@
 <div class="channel-content" id="channel-content">
-
   <div class="channel-texts">
-
     <h2># {{ channelName }}</h2>
 
     <form #messageForm="ngForm">
       <mat-form-field class="massage-title" appearance="fill">
         <mat-label>Message</mat-label>
-        <textarea type="text" [(ngModel)]="chat.message" name="message" matInput placeholder="Enter your Message"
-          required contenteditable="true" spellcheck="true">
-    </textarea>
+        <textarea contenteditable="true"
+          [class.code]="codeBlock"
+          type="text"
+          [(ngModel)]="chat.message"
+          name="message"
+          matInput
+          placeholder="Enter your Message"
+          required
+          spellcheck="true"
+        >
+        </textarea>
       </mat-form-field>
-
+      <!-- <div class="chat-message" contenteditable="true">
+        <pre class="code-content">
+          <code class="code-block"></code>
+       </pre>
+      </div> -->
       <div class="btns">
         <div (click)="uploadFile.click()">
           <button mat-raised-button color="primary">Add Picture</button>
           <span>{{ file?.name }}</span>
-          <input #uploadFile (change)="chooseFile($event)" type='file' name="img" style="display:none" />
+          <input
+            #uploadFile
+            (change)="chooseFile($event)"
+            type="file"
+            name="img"
+            style="display: none"
+          />
         </div>
-        <!-- <button mat-raised-button color="primary" (click)="addData()">
-          <mat-icon>add</mat-icon>
-        </button> -->
+        <div class="code-btns">
+          <!-- <button>code</button> -->
+          <img class="img-code" src="assets/img/code-48.png" (click)="activateCodeBlock()" />
+        </div>
+
       </div>
-      <button mat-flat-button color="accent" type="submit" (click)="sendMessage()"
-        [class.disabled]="messageForm.invalid" [disabled]="messageForm.invalid">
+      <button
+        mat-flat-button
+        color="accent"
+        type="submit"
+        (click)="sendMessage()"
+        [class.disabled]="messageForm.invalid"
+        [disabled]="messageForm.invalid"
+        F
+      >
         Send
       </button>
     </form>
@@ -33,17 +58,19 @@
         {{ chat.author }}
       </div>
       <div class="chat">
-        <p>{{ chat.message }}</p>
-
+        <p [class.code]="chat.codeBlock">{{ chat.message }}</p>
         <div class="big-img">
-          <img (click)="openImg(chat)" *ngIf="chat.img" [src]="chat.img">
-          <img id="delete" src="assets/img/delete.png" (click)="deleteImg(chat)">
+          <img (click)="openImg(chat)" *ngIf="chat.img" [src]="chat.img" />
+          <img
+            id="delete"
+            src="assets/img/delete.png"
+            (click)="deleteImg(chat)"
+          />
         </div>
 
         <a (click)="showThread(chat)">Antworten</a>
       </div>
       <div class="edit-delete-btn">
-
         <button mat-mini-fab (click)="showEditContainer(chat)">
           <mat-icon>edit</mat-icon>
         </button>
@@ -55,9 +82,17 @@
       <div class="edit-chat-container" *ngIf="chat.schowEditContainer">
         <mat-form-field class="massage-title" appearance="fill">
           <mat-label>Message</mat-label>
-          <textarea type="text" [(ngModel)]="chat.editedMessage" name="message" matInput placeholder="Enter your Message"
-            required contenteditable="true" spellcheck="true">
-      </textarea>
+          <textarea
+            type="text"
+            [(ngModel)]="chat.editedMessage"
+            name="message"
+            matInput
+            placeholder="Enter your Message"
+            required
+            contenteditable="true"
+            spellcheck="true"
+          >
+          </textarea>
         </mat-form-field>
 
         <button mat-mini-fab color="warn" (click)="editChat(chat)">
@@ -66,14 +101,17 @@
         <button mat-mini-fab color="warn" (click)="CloseEditChat(chat)">
           <mat-icon>close</mat-icon>
         </button>
-
       </div>
     </div>
   </div>
 
-  <app-thread class="hide" (hide)="show=$event" [class.show]="show" *ngIf="!!currentChat || show" [chat]="currentChat">
+  <app-thread
+    class="hide"
+    (hide)="show = $event"
+    [class.show]="show"
+    *ngIf="!!currentChat || show"
+    [chat]="currentChat"
+  >
     <!-- (hide)="show=$event"  Angular to way binding -->
   </app-thread>
-
 </div>
-

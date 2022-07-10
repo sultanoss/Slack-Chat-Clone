@@ -7,6 +7,7 @@ export class Chat {
   customIdName: string;
   img: string;
   schowEditContainer: boolean;
+  codeBlock:boolean;
 
   constructor(obj?: any) {
 
@@ -16,6 +17,7 @@ export class Chat {
     this.customIdName = obj ? obj.customIdName : '';
     this.img = obj ? obj.img : '';
     this.schowEditContainer = obj ? obj.schowEditContainer : '';
+    this.codeBlock = obj ? obj.codeBlock : '';
 
   }
 
@@ -25,7 +27,8 @@ export class Chat {
       chatChannelId: this.chatChannelId,
       autor: this.author,
       img: this.img,
-      schowEditContainer: this.schowEditContainer
+      schowEditContainer: this.schowEditContainer,
+      codeBlock: this.codeBlock
     }
   }
 }

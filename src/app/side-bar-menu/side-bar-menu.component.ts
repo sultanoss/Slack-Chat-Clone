@@ -29,7 +29,7 @@ export class SideBarMenuComponent implements OnInit {
   directMessage = new DirectMessage();
   directMessages: any[] = [];
 
-  selectedValue: any;
+  selectedValue: any; // are the users from the selected box
 
   selectedUsers: any[] = [];
 
@@ -45,7 +45,6 @@ export class SideBarMenuComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    console.log(this.authService.currentUser.displayName);
 
     this.firestore
       .collection('channels')
@@ -58,11 +57,7 @@ export class SideBarMenuComponent implements OnInit {
       this.firestore.collection('users').valueChanges()
     );
 
-    console.log('users', this.users);
-
     this.removeUserFromSelectedValue();
-
-    console.log('selected users', this.selectedUsers);
 
     this.firestore
       .collection('directMessages', (ref) =>
@@ -121,6 +116,7 @@ export class SideBarMenuComponent implements OnInit {
   }
 
   removeUserFromSelectedValue() {
+    // for not showing the currentUser in the selectbox
     if (this.authService.currentUser)
       this.selectedUsers = this.users.filter(
         (item: any) =>

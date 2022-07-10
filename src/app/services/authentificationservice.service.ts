@@ -95,9 +95,7 @@ export class AuthentificationserviceService {
 
   guestSignIn() {
     this.fireAuth.signInAnonymously().then(async () => {
-      console.log(this.currentUser);
       const uid = this.currentUser.uid;
-      console.log(uid);
       await updateProfile(this.currentUser, { displayName: 'Guest' });
       this.firestore
         .collection('users')
@@ -128,19 +126,6 @@ export class AuthentificationserviceService {
     }
   }
 
-  // deleteGuestUser() {
-  //   this.firestore
-  //     .collection('users', (ref) => ref.where('authorId', '==', this.currentUser.uid))
-  //     .get()
-  //     .subscribe((querySnapshot) => {
-  //       querySnapshot.forEach((doc) => {
-  //         doc.ref.delete().then(() => {
-  //           console.log('Document successfully deleted!');
-  //         });
-  //       });
-  //     });
-  // }
-
   deleteGuestChat() {
     this.firestore
       .collection('chats', (ref) =>
@@ -150,11 +135,9 @@ export class AuthentificationserviceService {
       .subscribe((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           doc.ref.delete().then(() => {
-            console.log('chat successfully deleted!');
           });
         });
       });
-    console.log(this.currentUser.uid);
   }
 
   deleteGuestThread() {
@@ -166,7 +149,6 @@ export class AuthentificationserviceService {
       .subscribe((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           doc.ref.delete().then(() => {
-            console.log('thread successfully deleted!');
           });
         });
       });
@@ -181,7 +163,6 @@ export class AuthentificationserviceService {
       .subscribe((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           doc.ref.delete().then(() => {
-            console.log('directmessage successfully deleted!');
           });
         });
       });
@@ -196,25 +177,9 @@ export class AuthentificationserviceService {
       .subscribe((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           doc.ref.delete().then(() => {
-            console.log('directchat successfully deleted!');
           });
         });
       });
   }
 }
 
-//   const auth = getAuth();
-// setPersistence(auth, browserSessionPersistence)
-//   .then(() => {
-// Existing and future Auth states are now persisted in the current
-// session only. Closing the window would clear any existing state even
-// if a user forgets to sign out.
-// ...
-// New sign-in will be persisted with session persistence.
-//   return signInWithEmailAndPassword(auth, email, password);
-// })
-// .catch((error) => {
-//   // Handle Errors here.
-//   const errorCode = error.code;
-//   const errorMessage = error.message;
-// });

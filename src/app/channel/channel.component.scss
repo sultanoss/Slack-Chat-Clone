@@ -17,14 +17,13 @@ form {
   border: 1px solid;
   margin-bottom: 20px;
 
-  @media(max-width:1250px) {
+  @media (max-width: 1250px) {
     width: 75%;
   }
 
-  @media(max-width:630px) {
+  @media (max-width: 630px) {
     width: 100%;
   }
-
 
   button {
     // width: 50px;
@@ -60,18 +59,16 @@ textarea {
   padding: 16px;
   margin-bottom: 24px;
 
-  @media(max-width:1250px) {
+  @media (max-width: 1250px) {
     width: 75%;
   }
 
-  @media(max-width:630px) {
+  @media (max-width: 630px) {
     width: 100%;
   }
-
 }
 
 .chat {
-
   display: flex;
   flex-direction: column;
   background: #454545;
@@ -106,12 +103,12 @@ textarea {
     object-fit: cover;
     cursor: pointer;
 
-    @media(max-width:1120px) {
+    @media (max-width: 1120px) {
       width: 200px;
       height: 140px;
     }
 
-    @media(max-width:1050px) {
+    @media (max-width: 1050px) {
       width: 175px;
       height: 140px;
     }
@@ -124,11 +121,11 @@ textarea {
   justify-content: center;
   height: 100%;
 
-  @media(max-width:880px) {
+  @media (max-width: 880px) {
     border-top: 1px solid;
   }
 
-  @media(max-width:630px) {
+  @media (max-width: 630px) {
     flex-direction: column;
     align-items: center;
     justify-content: unset;
@@ -158,7 +155,7 @@ textarea {
   position: relative;
   height: 100%;
 
-  @media(max-width:880px) {
+  @media (max-width: 880px) {
     width: 75%;
     border: none;
   }
@@ -168,7 +165,6 @@ textarea {
     margin-bottom: 20px;
     font-size: 28px;
   }
-
 }
 
 .btns {
@@ -185,7 +181,6 @@ textarea {
 }
 
 .bigImg {
-
   z-index: 1;
   position: absolute;
   left: 0;
@@ -210,7 +205,6 @@ textarea {
     margin-top: 5px;
     display: none;
   }
-
 }
 
 .big-img:hover #delete {
@@ -239,9 +233,53 @@ textarea {
 }
 
 .edit-chat-container {
-
   button {
     margin-right: 16px;
   }
+}
 
+// .activatedCodeBlock {
+//   background-color: #7b7a7a;
+// }
+
+.img-code {
+  height: 32px;
+  width: 32px;
+  cursor: pointer;
+  align-self: baseline;
+  margin-bottom: 28px;
+  margin-right: 18px;
+}
+
+.code {
+  background-color: #f44336;
+  min-height: 50px;
+  padding: 4px;
+  margin-top: 14px;
+  border-radius: 6px;
+}
+.code-btns {
+  display: flex;
+  justify-content: center;
+  align-self: baseline;
+}
+
+.code-block {
+  background-color: #f44336;
+  height: 40px;
+  min-width: 50px;
+  border: 1px solid black;
+  margin-left: 10px;
+}
+
+.code-content{
+  height: 40px;
+  display: flex;
+}
+
+.chat-message {
+  height: 50px;
+  background-color: lightgray;
+  color: black;
+  padding: 6px;
 }

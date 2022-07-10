@@ -34,8 +34,6 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.email);
-    console.log(this.password);
 
     if (!this.loginForm.valid) {
       return;
