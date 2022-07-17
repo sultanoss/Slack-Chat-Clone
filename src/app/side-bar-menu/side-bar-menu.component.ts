@@ -29,7 +29,7 @@ export class SideBarMenuComponent implements OnInit {
   directMessage = new DirectMessage();
   directMessages: any[] = [];
 
-  selectedValue: any; // are the users from the selected box
+  selectedValue: any[] = []; // are the users from the selected box
 
   selectedUsers: any[] = [];
 
@@ -45,7 +45,6 @@ export class SideBarMenuComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-
     this.firestore
       .collection('channels')
       .valueChanges({ idField: 'customIdName' })
@@ -75,7 +74,7 @@ export class SideBarMenuComponent implements OnInit {
 
   addChannel() {
     if (this.authService.currentUser.isAnonymous) {
-      this.toast.info('Only available for registered users !')
+      this.toast.info('Only available for registered users !');
     } else {
       this.firestore
         .collection('channels')
@@ -90,6 +89,8 @@ export class SideBarMenuComponent implements OnInit {
   }
 
   addDirectMessage() {
+
+
     this.selectedValue.push({
       userId: this.authService.currentUser.uid,
       userName: this.authService.currentUser.displayName,
@@ -103,6 +104,7 @@ export class SideBarMenuComponent implements OnInit {
       directMessageName: this.selectedValue.map((sv: any) => sv.userName),
       usersData: this.selectedValue.map((sv: any) => sv.userId),
     });
+    console.log(`selectedValue:`, this.selectedValue);
     this.selectedValue = [];
   }
 

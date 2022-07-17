@@ -88,7 +88,7 @@ export class AuthentificationserviceService {
         this.route.navigate(['/']);
       },
       (err) => {
-        this.toast.error("This didn't work.");
+        this.toast.error("Email does not exist.");
       }
     );
   }
