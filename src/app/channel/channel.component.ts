@@ -125,8 +125,8 @@ export class ChannelComponent implements OnInit {
     this.firestore
       .collection('chats')
       .doc(chat['customIdName']) // hier um eine feld zu updaten bzw editieren
-      .update({ message: chat.editedMessage });
-    chat.editedMessage = '';
+      .update({ message: chat.message});
+    // chat.editedMessage = '';
   }
 
   deleteImg(chat: any) {

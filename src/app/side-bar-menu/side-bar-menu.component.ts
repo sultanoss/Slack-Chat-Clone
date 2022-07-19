@@ -94,7 +94,10 @@ export class SideBarMenuComponent implements OnInit {
     this.selectedValue.push({
       userId: this.authService.currentUser.uid,
       userName: this.authService.currentUser.displayName,
+
     });
+
+    console.log(this.selectedValue)
 
     let authorName = this.authService.currentUser.displayName;
     this.firestore.collection('directMessages').add({
