@@ -12,6 +12,7 @@ import { User } from 'src/models/user.class';
 import { AuthentificationserviceService } from '../services/authentificationservice.service';
 import { Auth } from '@angular/fire/auth';
 import { HotToastService } from '@ngneat/hot-toast';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-side-bar-menu',
@@ -89,25 +90,29 @@ export class SideBarMenuComponent implements OnInit {
   }
 
   addDirectMessage() {
-
-
+    let authorName = this.authService.currentUser.displayName;
     this.selectedValue.push({
       userId: this.authService.currentUser.uid,
       userName: this.authService.currentUser.displayName,
-
     });
 
-    console.log(this.selectedValue)
-
-    let authorName = this.authService.currentUser.displayName;
-    this.firestore.collection('directMessages').add({
+    let toFirestoreDirectMessage = {
       author: authorName,
       authorId: this.authService.currentUser.uid,
       directMessageId: this.directMessage.customIdName,
       directMessageName: this.selectedValue.map((sv: any) => sv.userName),
       usersData: this.selectedValue.map((sv: any) => sv.userId),
-    });
-    console.log(`selectedValue:`, this.selectedValue);
+    };
+
+    let directMessageAlreadyExists = this.directMessages.find((dm: any) =>
+      _.isEqual(dm, toFirestoreDirectMessage)
+    );
+
+    if (!directMessageAlreadyExists) {
+      this.firestore.collection('directMessages').add(toFirestoreDirectMessage);
+    } else {
+      console.log('exist');
+    }
     this.selectedValue = [];
   }
 
