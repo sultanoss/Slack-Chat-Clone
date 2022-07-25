@@ -96,6 +96,9 @@ export class SideBarMenuComponent implements OnInit {
       userName: this.authService.currentUser.displayName,
     });
 
+    const newDirectMessages = this.directMessages.map(({author, authorId,directMessageId,directMessageName,usersData}) =>
+     ({author, authorId,directMessageId,directMessageName,usersData}));
+
     let toFirestoreDirectMessage = {
       author: authorName,
       authorId: this.authService.currentUser.uid,
@@ -104,16 +107,17 @@ export class SideBarMenuComponent implements OnInit {
       usersData: this.selectedValue.map((sv: any) => sv.userId),
     };
 
-    let directMessageAlreadyExists = this.directMessages.find((dm: any) =>
+    let directMessageAlreadyExists = newDirectMessages.find((dm: any) =>
       _.isEqual(dm, toFirestoreDirectMessage)
     );
 
     if (!directMessageAlreadyExists) {
       this.firestore.collection('directMessages').add(toFirestoreDirectMessage);
     } else {
-      console.log('exist');
+      this.toast.error('This DirectMessage exist')
     }
     this.selectedValue = [];
+    console.log(newDirectMessages, toFirestoreDirectMessage);
   }
 
   getMessageId(directMessage: any) {
@@ -133,4 +137,5 @@ export class SideBarMenuComponent implements OnInit {
           item.userName !== this.authService.currentUser.displayName
       );
   }
+
 }
