@@ -45,7 +45,7 @@ mat-label {
 }
 
 textarea {
-  height: 50px;
+  height: 25px;
   outline: none;
   resize: none !important;
   padding: 16px;
@@ -253,9 +253,10 @@ textarea {
 
 .code {
   background-color: #f44336;
-  min-height: 50px;
+  min-height: 25px;
   padding: 4px;
-  margin-top: 14px;
+  margin-top: 4px;
+  margin-bottom: 4px;
   border-radius: 6px;
 }
 .code-btns {
@@ -267,7 +268,7 @@ textarea {
 .code-block {
   background-color: #f44336;
   height: 40px;
-  min-width: 50px;
+  min-width: 25px;
   border: 1px solid black;
   margin-left: 10px;
 }
@@ -282,4 +283,14 @@ textarea {
   background-color: lightgray;
   color: black;
   padding: 6px;
+}
+
+.massege-container{
+  min-height: 100px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+code{
+  background-color: #f44336;
 }

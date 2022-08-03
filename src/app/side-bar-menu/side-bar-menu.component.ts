@@ -117,7 +117,6 @@ export class SideBarMenuComponent implements OnInit {
       this.toast.error('This DirectMessage exist')
     }
     this.selectedValue = [];
-    console.log(newDirectMessages, toFirestoreDirectMessage);
   }
 
   getMessageId(directMessage: any) {

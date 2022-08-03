@@ -10,7 +10,8 @@ import {
   getDownloadURL,
 } from '@angular/fire/storage';
 import { first } from 'rxjs';
-import { serverTimestamp } from "firebase/firestore";
+import { serverTimestamp } from 'firebase/firestore';
+import { style } from '@angular/animations';
 
 @Component({
   selector: 'app-channel',
@@ -43,7 +44,7 @@ export class ChannelComponent implements OnInit {
 
   channels: any = [];
 
-  codeBlock:boolean = false
+  codeBlock: boolean = false;
 
   constructor(
     private firestore: AngularFirestore,
@@ -99,9 +100,9 @@ export class ChannelComponent implements OnInit {
       author: userName,
       chatChannelId: this.channelId,
       img: this.imgUrl,
-      authorId:this.authService.currentUser.uid,
+      authorId: this.authService.currentUser.uid,
       chatDate: serverTimestamp(),
-      codeBlock:this.codeBlock
+      codeBlock: this.codeBlock,
     });
 
     this.clearInput();
@@ -125,7 +126,7 @@ export class ChannelComponent implements OnInit {
     this.firestore
       .collection('chats')
       .doc(chat['customIdName']) // hier um eine feld zu updaten bzw editieren
-      .update({ message: chat.message});
+      .update({ message: chat.message });
     // chat.editedMessage = '';
   }
 
@@ -211,10 +212,9 @@ export class ChannelComponent implements OnInit {
     this.chats.sort(function (a: any, b: any) {
       return b.chatDate - a.chatDate;
     });
-
   }
 
-  activateCodeBlock(){
+  activateCodeBlock() {
     this.codeBlock = !this.codeBlock;
   }
 }
