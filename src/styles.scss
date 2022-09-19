@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
-
+@import "~quill/dist/quill.core.css";
+@import "~quill/dist/quill.bubble.css";
+@import "~quill/dist/quill.snow.css";
 
 html,
 body {
@@ -12,7 +14,6 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
 
 .center {
     display: flex;
@@ -97,7 +98,7 @@ html {
     display: flex;
     width: 100%;
     justify-content: center;
-    min-height: calc(100vh - 215px);
+    min-height: calc(100vh - 140px);
 
     @media(max-width:880px){
       flex-direction:column;

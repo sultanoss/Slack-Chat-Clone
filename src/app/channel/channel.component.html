@@ -2,22 +2,24 @@
   <div class="channel-texts">
     <h2># {{ channelName }}</h2>
 
+
     <form #messageForm="ngForm">
-        <mat-form-field class="massage-title" appearance="fill">
-          <mat-label>Message</mat-label>
-          <textarea
-            contenteditable="true"
-            [class.code]="codeBlock"
-            type="text"
-            [(ngModel)]="chat.message"
-            name="message"
-            matInput
-            placeholder="Enter your Message"
-            required
-            spellcheck="true"
-          >
-          </textarea>
-        </mat-form-field>
+      <mat-form-field class="massage-title" appearance="fill">
+        <mat-label>Message</mat-label>
+        <textarea
+          contenteditable="true"
+          [class.code]="codeBlock"
+          type="text"
+          [(ngModel)]="chat.message"
+          name="message"
+          matInput
+          placeholder="Enter your Message"
+          required
+          spellcheck="true"
+        >
+        </textarea>
+
+      </mat-form-field>
       <div class="btns">
         <div (click)="uploadFile.click()">
           <button mat-raised-button color="primary">Add Picture</button>
