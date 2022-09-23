@@ -1,22 +1,29 @@
-mat-toolbar{
+mat-toolbar {
   display: flex;
   justify-content: space-between;
-  background-color:  #3F0E40;
+  background-color: #3f0e40;
+  color: white;
+  height: 50px;
 
-  a{
+  a {
     color: white;
   }
 }
-.user{
+.user {
   display: flex;
   justify-content: center;
   align-items: center;
 
-  @media(max-width:630px){
+  @media (max-width: 630px) {
     display: none;
   }
 
-  mat-icon{
+  mat-icon {
     margin-right: 10px;
   }
+}
+
+.bg-side-bar {
+  background-color: #3f0e40;
+  border-bottom: 1px solid #393939
 }

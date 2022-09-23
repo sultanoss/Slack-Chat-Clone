@@ -2,33 +2,17 @@
   flex: 1;
 }
 
-h2 {
-  color: white;
-}
-
 form {
-  background-color: #303030;
   border-radius: 16px;
   padding: 16px;
-  color: white;
+  color: black;
   display: flex;
   flex-direction: column;
-  width: 90%;
-  border: 1px solid;
-  margin-bottom: 20px;
-
-  @media (max-width: 1250px) {
-    width: 75%;
-  }
-
-  @media (max-width: 630px) {
-    width: 100%;
-  }
-
+  width: 82%;
+  border: 1px solid lightgrey;
   button {
     // width: 50px;
     align-self: flex-end;
-    margin-bottom: 16px;
   }
 }
 
@@ -48,7 +32,7 @@ textarea {
   height: 25px;
   outline: none;
   resize: none !important;
-  padding: 16px;
+  border: none;
 }
 
 .chats {
@@ -58,25 +42,18 @@ textarea {
   border-radius: 16px;
   padding: 16px;
   margin-bottom: 24px;
-
-  @media (max-width: 1250px) {
-    width: 75%;
-  }
-
-  @media (max-width: 630px) {
-    width: 100%;
-  }
+  background-color: #f7f7f7;
 }
 
 .chat {
   display: flex;
   flex-direction: column;
-  background: #454545;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 10px;
-  padding: 16px;
   border-radius: 16px;
   word-break: break-all;
+  min-height: 25px;
+  color: black;
 
   span {
     background: #69f0ae;
@@ -85,33 +62,16 @@ textarea {
     padding: 6px;
     border-radius: 16px;
   }
-
   p {
-    margin-top: 24px;
-  }
-
-  a {
-    align-self: flex-end;
-    color: white;
-    margin-top: 20px;
+    margin-bottom: 0;
   }
 
   img {
-    width: 280px;
-    height: 200px;
+    width: 180px;
+    height: 100px;
     border-radius: 16px;
     object-fit: cover;
     cursor: pointer;
-
-    @media (max-width: 1120px) {
-      width: 200px;
-      height: 140px;
-    }
-
-    @media (max-width: 1050px) {
-      width: 175px;
-      height: 140px;
-    }
   }
 }
 
@@ -120,56 +80,28 @@ textarea {
   display: flex;
   justify-content: center;
   height: 100%;
-
-  @media (max-width: 880px) {
-    border-top: 1px solid;
-  }
-
-  @media (max-width: 630px) {
-    flex-direction: column;
-    align-items: center;
-    justify-content: unset;
-    position: relative;
-    width: 100%;
-  }
-}
-
-.user-name {
-  background: #69f0ae;
-  display: flex;
-  width: 100px;
-  justify-content: center;
-  border-radius: 16px;
-  color: black;
-  font-weight: 500;
-  padding: 4px;
 }
 
 .channel-texts {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
+  width: 80%;
+  // border-left: 1px solid black;
+  // border-right: 1px solid black;
   position: relative;
-  height: 100%;
-
-  @media (max-width: 880px) {
-    width: 75%;
-    border: none;
-  }
+  min-height: calc(100vh - 50px);
 
   h2 {
     margin-top: 20px;
     margin-bottom: 20px;
-    font-size: 28px;
+    font-size: 24px;
+    color: black;
   }
 }
 
 .btns {
   display: flex;
-  margin-top: 16px;
   align-items: center;
   width: 100%;
   justify-content: space-between;
@@ -217,6 +149,8 @@ textarea {
 
 .show {
   display: flex;
+  flex: 1;
+  border-left: 1px solid lightgrey;
 }
 
 .show-btn {
@@ -228,13 +162,22 @@ textarea {
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
-  margin-top: 16px;
+  color: black;
+  button {
+    margin-right: 10px;
+  }
+  a {
+    margin-right: 8px;
+    &:hover {
+      transform: scale(1.1);
+      transition: all 225ms ease-in-out;
+    }
+  }
 }
 
 .edit-chat-container {
   button {
-    margin-right: 16px;
+    margin-left: 16px;
   }
 }
 
@@ -273,7 +216,7 @@ textarea {
   margin-left: 10px;
 }
 
-.code-content{
+.code-content {
   height: 40px;
   display: flex;
 }
@@ -285,12 +228,36 @@ textarea {
   padding: 6px;
 }
 
-.massege-container{
+.massege-container {
   min-height: 100px;
   width: 100%;
   display: flex;
   align-items: center;
 }
-code{
+code {
   background-color: #f44336;
+}
+
+.all-messages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  height: 70vh;
+  overflow: auto;
+}
+
+.edit-chat-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  textarea {
+    color: black;
+    width: 50%;
+    border: 1px solid lightgrey;
+    outline: none;
+    border-radius: 4px;
+    height: 40px;
+  }
 }

@@ -8,7 +8,7 @@
   flex-wrap: wrap;
   height: 100%;
   border-left: 1px solid black;
-  color: white;
+  color: black;
 
   @media (max-width: 880px) {
     display: none;
@@ -28,7 +28,7 @@
   align-items: center;
   position: relative;
   width: 100%;
-  min-height: calc(100vh - 140px)
+  min-height: calc(100vh - 50px)
 }
 
 .full-height {

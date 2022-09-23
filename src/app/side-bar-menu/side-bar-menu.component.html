@@ -2,53 +2,58 @@
   <div class="side-menu">
     <form #channelForm="ngForm">
       <h2>Add Channel</h2>
-      <mat-form-field class="todo-title" appearance="fill">
-        <mat-label>Channel Name</mat-label>
-        <input
-          type="text"
-          [(ngModel)]="channel.name"
-          name="name"
-          matInput
-          placeholder="Enter your Channel Name"
-          required
-        />
-      </mat-form-field>
+      <input
+        type="text"
+        [(ngModel)]="channel.name"
+        name="name"
+        placeholder="Enter your channel name"
+        required
+      />
       <button
-        mat-flat-button
-        color="accent"
+        mat-raised-button
+        color="primary"
         type="submit"
         (click)="addChannel()"
-        [class.disabled]="channelForm.invalid"
-        [disabled]="channelForm.invalid"
       >
-        New Channel
+        <mat-icon>add</mat-icon>
       </button>
     </form>
 
-    <div class="channels-name" *ngFor="let channel of channels">
-      <a [routerLink]="['/channel/' + channel.customIdName]"
-        ><span>#{{ channel.name }}</span></a
-      >
+    <div
+      class="channels-name"
+      *ngFor="let channel of channels"
+    >
+      <a [routerLink]="['/channel/' + channel.customIdName]"><span># {{ channel.name }}</span></a>
     </div>
   </div>
 
-  <button
+  <span
+    class="dashboard"
     *ngIf="route.url !== '/dashboard'"
-    mat-flat-button
     color="accent"
     routerLink="/dashboard"
   >
-    Dashboard
-  </button>
+    # Dashboard
+  </span>
 </div>
 
 <div class="select-container">
   <h2>Direct Messages</h2>
 
-  <mat-form-field appearance="fill" class="select">
+  <mat-form-field
+    appearance="fill"
+    class="select"
+  >
     <mat-label>Select User</mat-label>
-    <mat-select multiple [(value)]="selectedValue">
-      <mat-option *ngFor="let user of selectedUsers" [value]="user" required>
+    <mat-select
+      multiple
+      [(value)]="selectedValue"
+    >
+      <mat-option
+        *ngFor="let user of selectedUsers"
+        [value]="user"
+        required
+      >
         {{ user.userName }}
       </mat-option>
     </mat-select>
@@ -56,10 +61,18 @@
 </div>
 
 <div class="dm-users">
-  <button mat-raised-button color="warn" (click)="addDirectMessage()">
-    Add DirectMessages
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    (click)="addDirectMessage()"
+  >
+    <mat-icon>add</mat-icon>
   </button>
-  <div class="dm-container" *ngFor="let directMessage of directMessages">
+  <div
+    class="dm-container"
+    *ngFor="let directMessage of directMessages"
+  >
     <a [routerLink]="['/directMessage/' + directMessage.customIdName]">
       {{ directMessage.directMessageName }}
     </a>

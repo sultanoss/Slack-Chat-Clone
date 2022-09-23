@@ -3,24 +3,19 @@
   flex-direction: column;
   align-items: center;
   color: white;
-
-  @media(max-width:880px) {
-    border-left: 1px solid black;
-  }
-
-  @media(max-width:630px) {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #303030;
-  }
-
+  width: 100%;
+  min-height: calc(100vh - 226px);
+  // textarea {
+  //   color: black;
+  //   width: 90%;
+  //   border: 1px solid lightgrey;
+  //   outline: none;
+  //   border-radius: 4px;
+  //   margin-bottom: 20px;
+  // }
   h2 {
-
     margin-top: 20px;
-    font-size: 28px;
+    font-size: 24px;
   }
 }
 
@@ -28,27 +23,26 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
-  border: 1px solid white;
+  border: 1px solid lightgray;
   border-radius: 16px;
   padding: 16px;
-  margin-left: 20px;
-  margin-right: 20px;
   min-height: 50px;
-  width: 400px;
+  width: 80%;
   word-break: break-all;
+  color: black;
+  background-color: #f7f7f7;
 
-  @media(max-width:1250px) {
+  @media (max-width: 1250px) {
     width: 300px;
   }
 
-  @media(max-width:1050px) {
+  @media (max-width: 1050px) {
     width: 200px;
   }
 
-  @media(max-width:630px) {
+  @media (max-width: 630px) {
     width: 80%;
   }
-
 
   span {
     margin-bottom: 20px;
@@ -61,11 +55,14 @@
 }
 
 form {
+  border-radius: 16px;
+  padding: 16px;
+  color: black;
   display: flex;
   flex-direction: column;
-  margin-bottom: 50px;
-  width: 90%;
-  margin-top: 16px;
+  width: 80%;
+  border: 1px solid lightgrey;
+  margin-top: 14px;
 
   button {
     width: 50px;
@@ -86,52 +83,24 @@ mat-label {
 .current-chat {
   display: flex;
   flex-direction: column;
+  width: 80%;
   margin-bottom: 20px;
-  border: 1px solid white;
+  border: 1px solid lightgray;
   border-radius: 16px;
   padding: 16px;
-  margin-left: 20px;
-  margin-right: 20px;
-  min-height: 100px;
-  width: 400px;
-  background-color: #69f0ae;
+  min-height: 50px;
   color: black;
   font-size: 16px;
-  font-weight: 500;
   word-break: break-all;
 
-  @media(max-width:1250px) {
-    width: 300px;
-  }
-
-  @media(max-width:1050px) {
-    width: 200px;
-  }
-
-  @media(max-width:630px) {
-    width: 80%;
-  }
-
-
   img {
-    width: 280px;
-    height: 200px;
+    width: 180px;
+    height: 100px;
     border-radius: 16px;
     margin-top: 10px;
     object-fit: cover;
     cursor: pointer;
-
-    @media(max-width:1120px) {
-      width: 200px;
-      height: 140px;
-    }
-
-    @media(max-width:1050px) {
-      width: 175px;
-      height: 140px;
-    }
   }
-
 }
 
 .thread-header {
@@ -139,15 +108,30 @@ mat-label {
   justify-content: space-between;
   align-items: center;
   width: 90%;
+  color: black;
+}
+
+.all-threads {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 69.5vh;
+  overflow: auto;
+  width: 100%;
 }
 
 .author {
-  background: #69f0ae;
   display: flex;
-  width: 100px;
-  justify-content: center;
+  min-width: 100px;
   border-radius: 16px;
   color: black;
   font-weight: 500;
-  padding: 4px;
 }
+
+textarea{
+  height: 25px;
+  outline: none;
+  resize: none !important;
+  border: none;
+}
+

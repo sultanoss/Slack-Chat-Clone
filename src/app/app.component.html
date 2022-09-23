@@ -19,7 +19,7 @@
 
 <div class="content">
 
-  <app-side-bar-menu
+  <app-side-bar-menu class="bg-side-bar"
   *ngIf="( route.url !== '/' && route.url !=='/signup'
    && route.url !=='/imprint' && route.url !=='/legalnotice')
    && ( authService.currentUser$ | async) as user"></app-side-bar-menu>
@@ -28,4 +28,4 @@
 
 </div>
 
-<app-footer></app-footer>
+<!-- <app-footer></app-footer> -->

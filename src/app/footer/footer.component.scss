@@ -1,15 +1,14 @@
-
-
 .footer-content {
   height: 75px;
-  background-color: #3F0E40;
+  background-color: #3f0e40;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 460px) {
+  @media (max-width: 600px) {
     flex-direction: column;
     justify-content: space-around;
+    height: 150px;
   }
 }
 

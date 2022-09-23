@@ -1,25 +1,11 @@
 <div class="threads">
   <div class="thread-header">
-    <h2>Threads</h2>
+    <h2># Threads</h2>
     <button (click)="hideThread()" mat-mini-fab><mat-icon>close</mat-icon></button>
   </div>
-
-
-  <form #answerForm="ngForm">
-    <mat-form-field class="massage-title" appearance="fill">
-      <mat-label>Answer</mat-label>
-      <textarea type="text" [(ngModel)]="thread.answer" name="answer" matInput placeholder="Enter your Message"
-        required contenteditable="true" spellcheck="true">
-  </textarea>
-    </mat-form-field>
-    <button mat-flat-button color="accent" type="submit" (click)="addThread()"
-      [class.disabled]="answerForm.invalid" [disabled]="answerForm.invalid">
-      Send
-    </button>
-  </form>
-
+  <div class="all-threads">
   <div class="current-chat">
-    <span>{{ chat.author }}</span>
+    <span class="author">{{ chat.author }}</span>
     <span>{{ chat.message }}</span>
     <img *ngIf="chat.img" [src]="chat.img" (click)="openImg(chat)">
   </div>
@@ -28,4 +14,17 @@
     <span class="author">{{thread.author}}</span>
     <p>{{ thread.answer }}</p>
   </div>
+</div>
+
+
+  <form #answerForm="ngForm">
+    <label>Thread</label>
+    <textarea type="text" [(ngModel)]="thread.answer" name="answer" matInput placeholder="Enter your Message"
+      required contenteditable="true" spellcheck="true">
+</textarea>
+  <button mat-flat-button color="accent" type="submit" (click)="addThread()"
+    [class.disabled]="answerForm.invalid" [disabled]="answerForm.invalid">
+    Send
+  </button>
+</form>
 </div>
