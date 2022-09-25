@@ -1,30 +1,49 @@
 <div class="threads">
   <div class="thread-header">
     <h2># Threads</h2>
-    <button (click)="hideThread()" mat-mini-fab><mat-icon>close</mat-icon></button>
+    <img
+      src="assets/img/icons8-close-24.png"
+      (click)="hideThread()"
+    >
   </div>
   <div class="all-threads">
-  <div class="current-chat">
-    <span class="author">{{ chat.author }}</span>
-    <span>{{ chat.message }}</span>
-    <img *ngIf="chat.img" [src]="chat.img" (click)="openImg(chat)">
-  </div>
+    <div class="current-chat">
+      <span class="author">{{ chat.author }}</span>
+      <span>{{ chat.message }}</span>
+      <img
+        *ngIf="chat.img"
+        [src]="chat.img"
+        (click)="openImg(chat)"
+      >
+    </div>
 
-  <div class="thread" *ngFor="let thread of threads">
-    <span class="author">{{thread.author}}</span>
-    <p>{{ thread.answer }}</p>
+    <div
+      class="thread"
+      *ngFor="let thread of threads"
+    >
+      <span class="author">{{thread.author}}</span>
+      <p>{{ thread.answer }}</p>
+    </div>
   </div>
-</div>
 
 
   <form #answerForm="ngForm">
     <label>Thread</label>
-    <textarea type="text" [(ngModel)]="thread.answer" name="answer" matInput placeholder="Enter your Message"
-      required contenteditable="true" spellcheck="true">
+    <textarea
+      type="text"
+      [(ngModel)]="thread.answer"
+      name="answer"
+      matInput
+      placeholder="Enter your Message"
+      required
+      contenteditable="true"
+      spellcheck="true"
+    >
 </textarea>
-  <button mat-flat-button color="accent" type="submit" (click)="addThread()"
-    [class.disabled]="answerForm.invalid" [disabled]="answerForm.invalid">
-    Send
-  </button>
-</form>
+    <img
+      id="thread-send-img"
+      src="assets/img/icons8-send-30.png"
+      (click)="addThread()"
+    >
+  </form>
 </div>

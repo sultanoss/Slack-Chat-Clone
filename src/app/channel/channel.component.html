@@ -2,8 +2,14 @@
   class="channel-content"
   id="channel-content"
 >
-  <div class="channel-texts">
-    <h2># {{ channelName }}</h2>
+  <div
+    class="channel-texts"
+    [class.hide-chat-channel]="show"
+  >
+    <div class="channel-header">
+      <h2># {{ channelName }}</h2>
+    </div>
+
 
     <div class="all-messages">
 
@@ -32,20 +38,14 @@
         </div>
         <div class="edit-delete-btn">
           <div>
-            <button
-              mat-mini-fab
-              color="primary"
+            <img
+              src="assets/img/icons8-edit-32.png"
               (click)="showEditContainer(chat)"
             >
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button
-              mat-mini-fab
-              color="warn"
+            <img
+              src="assets/img/icons8-delete-32.png"
               (click)="deleteChat(chat)"
             >
-              <mat-icon>delete</mat-icon>
-            </button>
           </div>
           <a (click)="showThread(chat)">Antworten</a>
         </div>
@@ -64,21 +64,15 @@
           >
           </textarea>
 
-          <div>
-            <button
-              mat-mini-fab
-              color="primary"
+          <div class="save-close-chat">
+            <img
+              src="assets/img/icons8-save-24.png"
               (click)="editChat(chat)"
             >
-              <mat-icon>save</mat-icon>
-            </button>
-            <button
-              mat-mini-fab
-              color="warn"
+            <img
+              src="assets/img/icons8-close-24.png"
               (click)="CloseEditChat(chat)"
             >
-              <mat-icon>close</mat-icon>
-            </button>
           </div>
         </div>
       </div>
@@ -101,10 +95,14 @@
 
       <div class="btns">
         <div (click)="uploadFile.click()">
-          <button
+          <!-- <button
             mat-raised-button
             color="primary"
-          >Add Picture</button>
+          >Add Picture</button> -->
+          <img
+            id="img-folder"
+            src="assets/img/icons8-pictures-folder-32.png"
+          >
           <span>{{ file?.name }}</span>
           <input
             #uploadFile
@@ -114,23 +112,10 @@
             style="display: none"
           />
         </div>
-        <!-- <div class="code-btns">
-      <img
-        class="img-code"
-        src="assets/img/code-48.png"
-        (click)="activateCodeBlock()"
-      />
-    </div> -->
-        <button
-          mat-flat-button
-          color="primary"
-          type="submit"
+        <img id="send-message"
+          src="assets/img/icons8-send-30.png"
           (click)="sendMessage()"
-          [class.disabled]="messageForm.invalid"
-          [disabled]="messageForm.invalid"
         >
-          Send
-        </button>
       </div>
     </form>
   </div>

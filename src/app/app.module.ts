@@ -30,6 +30,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ImprintComponent } from './imprint/imprint.component';
 import { LeagalNoticeComponent } from './leagal-notice/leagal-notice.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {TooltipPosition} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,7 @@ import { LeagalNoticeComponent } from './leagal-notice/leagal-notice.component';
     BrowserAnimationsModule,
     HotToastModule.forRoot(),
     provideStorage(() => getStorage()),
+    MatTooltipModule,
   ],
 
   providers: [],

@@ -1,31 +1,56 @@
 <mat-toolbar>
-  <a routerLink="/dashboard"><span>Slack Clone</span></a>
+  <div class="header-menu">
+    <a routerLink="/dashboard"><span>Slack Clone</span></a>
+    <!-- Show if User logged in -->
+    <ng-container *ngIf="authService.currentUser$ | async as user">
+      <div class="user">
+        <mat-icon>account_circle</mat-icon>
+        {{ user.displayName | uppercase }}
+      </div>
 
-  <!-- Show if User logged in -->
-  <ng-container *ngIf="authService.currentUser$ | async as user">
-    <div class="user">
-      <mat-icon>account_circle</mat-icon>
-      {{ user.displayName | uppercase }}
+      <button
+        mat-button
+        (click)="logout()"
+      >
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </ng-container>
+  </div>
+
+  <div class="mobile-menu">
+    <div class="menu-arrow">
+      <img
+        src="assets/img/icons8-arrow-32.png"
+        (click)="showSideBarMenu()"
+      />
+      <span>Menu</span>
     </div>
 
-    <button mat-button (click)="logout()">
+    <button
+      mat-button
+      (click)="logout()"
+    >
       <mat-icon>logout</mat-icon>
       <span>Logout</span>
     </button>
-  </ng-container>
-
+  </div>
 </mat-toolbar>
 
-
 <div class="content">
-
-  <app-side-bar-menu class="bg-side-bar"
-  *ngIf="( route.url !== '/' && route.url !=='/signup'
-   && route.url !=='/imprint' && route.url !=='/legalnotice')
-   && ( authService.currentUser$ | async) as user"></app-side-bar-menu>
+  <app-side-bar-menu
+    [class.showSideBar]="sideBarVisible"
+    class="bg-side-bar"
+    *ngIf="
+      route.url !== '/' &&
+      route.url !== '/signup' &&
+      route.url !== '/imprint' &&
+      route.url !== '/legalnotice' &&
+      (authService.currentUser$ | async) as user
+    "
+  ></app-side-bar-menu>
 
   <router-outlet></router-outlet>
-
 </div>
 
 <!-- <app-footer></app-footer> -->

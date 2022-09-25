@@ -9,14 +9,20 @@
         placeholder="Enter your channel name"
         required
       />
-      <button
+      <img
+        src="assets/img/icons8-add-32.png"
+        (click)="addChannel()"
+        matTooltip="Add Channel"
+        matTooltipPosition="right"
+      />
+      <!-- <button
         mat-raised-button
         color="primary"
         type="submit"
-        (click)="addChannel()"
+
       >
         <mat-icon>add</mat-icon>
-      </button>
+      </button> -->
     </form>
 
     <div
@@ -61,14 +67,20 @@
 </div>
 
 <div class="dm-users">
-  <button
+  <img
+    src="assets/img/icons8-add-32.png"
+    (click)="addDirectMessage()"
+    matTooltip="Add DM"
+    matTooltipPosition="right"
+  />
+  <!-- <button
     mat-raised-button
     color="primary"
     type="submit"
-    (click)="addDirectMessage()"
+
   >
     <mat-icon>add</mat-icon>
-  </button>
+  </button> -->
   <div
     class="dm-container"
     *ngFor="let directMessage of directMessages"

@@ -4,16 +4,26 @@
 
 form {
   border-radius: 16px;
-  padding: 16px;
+  padding: 8px;
   color: black;
   display: flex;
   flex-direction: column;
-  width: 82%;
+  width: 94%;
   border: 1px solid lightgrey;
   button {
     // width: 50px;
     align-self: flex-end;
   }
+  // @media(max-width: 1024px){
+  //   width: 94%;
+  // }
+}
+
+#img-folder{
+  cursor: pointer;
+}
+#send-message{
+  cursor: pointer;
 }
 
 .width {
@@ -29,7 +39,7 @@ mat-label {
 }
 
 textarea {
-  height: 25px;
+  margin-bottom: 10px;
   outline: none;
   resize: none !important;
   border: none;
@@ -40,7 +50,7 @@ textarea {
   color: white;
   border: 1px solid lightgray;
   border-radius: 16px;
-  padding: 16px;
+  padding: 8px;
   margin-bottom: 24px;
   background-color: #f7f7f7;
 }
@@ -64,6 +74,7 @@ textarea {
   }
   p {
     margin-bottom: 0;
+    word-break: break-word;
   }
 
   img {
@@ -80,6 +91,12 @@ textarea {
   display: flex;
   justify-content: center;
   height: 100%;
+    @media (max-width: 650px) {
+    width: 100vw;
+  }
+  @media (min-width: 650px) {
+    width: 100%;
+  }
 }
 
 .channel-texts {
@@ -90,12 +107,15 @@ textarea {
   // border-left: 1px solid black;
   // border-right: 1px solid black;
   position: relative;
-  min-height: calc(100vh - 50px);
+  min-height: calc(100vh - 71px);
+  @media(max-width:1024px){
+    width: 100%;
+  }
 
   h2 {
     margin-top: 20px;
     margin-bottom: 20px;
-    font-size: 24px;
+    font-size: 18px;
     color: black;
   }
 }
@@ -167,17 +187,35 @@ textarea {
     margin-right: 10px;
   }
   a {
-    margin-right: 8px;
     &:hover {
       transform: scale(1.1);
       transition: all 225ms ease-in-out;
     }
+  }
+  img{
+    cursor: pointer;
+    margin-right: 10px;
+    height: 24px;
+    width: 24px;
+  }
+}
+
+.save-close-chat{
+  display: flex;
+  align-items: center;
+  img{
+    margin-left: 10px;
+    cursor: pointer;
   }
 }
 
 .edit-chat-container {
   button {
     margin-left: 16px;
+    @media(max-width: 1024px){
+      margin-left: 0;
+      margin-right: 10px;
+    }
   }
 }
 
@@ -243,7 +281,7 @@ code {
   flex-direction: column;
   align-items: center;
   width: 90%;
-  height: 70vh;
+  height: 60vh;
   overflow: auto;
 }
 
@@ -259,5 +297,34 @@ code {
     outline: none;
     border-radius: 4px;
     height: 40px;
+    padding: 10px;
+    @media(max-width: 1024px){
+      width: 83%;
+    }
+  }
+  @media(max-width: 1024px){
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.channel-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 82%;
+}
+
+.d-none{
+  display: none;
+}
+
+.d-show{
+  display: block;
+}
+
+.hide-chat-channel{
+  @media(max-width:1024px){
+    display: none;
   }
 }

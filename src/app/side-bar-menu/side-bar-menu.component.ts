@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -71,6 +71,7 @@ export class SideBarMenuComponent implements OnInit {
       .subscribe((changesss: any) => {
         this.directMessages = changesss;
       });
+
   }
 
   addChannel() {

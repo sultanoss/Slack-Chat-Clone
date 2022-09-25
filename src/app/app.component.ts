@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { AuthentificationserviceService } from './services/authentificationservice.service';
@@ -10,7 +10,8 @@ import { AuthentificationserviceService } from './services/authentificationservi
 })
 export class AppComponent {
   title = 'slackClone';
-
+  sideBarVisible: boolean = false;
+  hideSideBar :boolean = false;
   constructor(
     public authService: AuthentificationserviceService,
     public route: Router,
@@ -21,5 +22,9 @@ export class AppComponent {
     this.authService.logout().subscribe(async () => {
       this.route.navigate(['/']);
     });
+  }
+
+  showSideBarMenu() {
+    this.sideBarVisible = !this.sideBarVisible;
   }
 }

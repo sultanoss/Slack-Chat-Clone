@@ -5,62 +5,37 @@
   color: white;
   width: 100%;
   min-height: calc(100vh - 226px);
-  // textarea {
-  //   color: black;
-  //   width: 90%;
-  //   border: 1px solid lightgrey;
-  //   outline: none;
-  //   border-radius: 4px;
-  //   margin-bottom: 20px;
-  // }
   h2 {
     margin-top: 20px;
-    font-size: 24px;
+    font-size: 18px;
   }
 }
 
 .thread {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   margin-bottom: 20px;
   border: 1px solid lightgray;
   border-radius: 16px;
-  padding: 16px;
-  min-height: 50px;
+  padding: 8px;
   width: 80%;
   word-break: break-all;
   color: black;
   background-color: #f7f7f7;
 
-  @media (max-width: 1250px) {
-    width: 300px;
-  }
-
-  @media (max-width: 1050px) {
-    width: 200px;
-  }
-
-  @media (max-width: 630px) {
-    width: 80%;
-  }
-
-  span {
-    margin-bottom: 20px;
-  }
-
   p {
-    margin-bottom: 20px;
-    margin-left: 6px;
+    word-break: break-word;
   }
 }
 
 form {
   border-radius: 16px;
-  padding: 16px;
+  padding: 8px;
   color: black;
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 85%;
   border: 1px solid lightgrey;
   margin-top: 14px;
 
@@ -71,13 +46,9 @@ form {
 }
 
 textarea {
-  height: 50px;
+  margin-bottom: 10px;
   outline: none;
   resize: none !important;
-}
-
-mat-label {
-  color: #69f0ae;
 }
 
 .current-chat {
@@ -87,11 +58,10 @@ mat-label {
   margin-bottom: 20px;
   border: 1px solid lightgray;
   border-radius: 16px;
-  padding: 16px;
-  min-height: 50px;
+  padding: 8px;
   color: black;
   font-size: 16px;
-  word-break: break-all;
+  word-break: break-word;
 
   img {
     width: 180px;
@@ -109,13 +79,16 @@ mat-label {
   align-items: center;
   width: 90%;
   color: black;
+  img{
+    cursor: pointer;
+  }
 }
 
 .all-threads {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 69.5vh;
+  height: 60vh;
   overflow: auto;
   width: 100%;
 }
@@ -127,11 +100,16 @@ mat-label {
   color: black;
   font-weight: 500;
 }
-
-textarea{
+textarea {
   height: 25px;
   outline: none;
   resize: none !important;
   border: none;
 }
 
+#thread-send-img{
+  height: 30px;
+  width: 30px;
+  align-self: flex-end;
+  cursor: pointer;
+}

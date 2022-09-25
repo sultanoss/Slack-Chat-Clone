@@ -1,23 +1,32 @@
 .form-container {
-
-  margin-top: 16px;
-  margin-bottom: 16px;
-  color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+  background-color: white;
 }
 
 .sign-up-link {
-
   font-size: 16px;
   text-decoration: none;
-  color: black;
+  color: white;
 }
 
 .sign-up-btn {
-
-  width: 140px;
   margin-top: 16px;
 }
 
-a{
-  color: white;
+a {
+  color:black;
+  font-weight: 500;
+  @media (max-width:600px){
+    font-size: 12px;
+  }
+}
+
+.center-column{
+  span{
+    font-weight: 400;
+  }
 }

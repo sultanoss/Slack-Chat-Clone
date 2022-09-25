@@ -1,75 +1,88 @@
 :host {
   flex: 1;
 }
-
 .user-chat-container {
-  color: white;
-  height: 100%;
-  border-left: 1px solid black;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-form {
-  margin-top: 24px;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 50px;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-
-  button {
-    width: 50px;
-    align-self: flex-end;
+  height: calc(100vh - 50px);
+  @media (max-width: 650px) {
+    width: 100vw;
   }
 }
 
-.direct-chat {
-  color: white;
-  border: 1px solid lightgray;
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 24px;
+.dm-header {
   display: flex;
   flex-direction: column;
-  width: 90%;
+  align-items: center;
+  width: 80%;
 }
 
-.direct-message {
+h2 {
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+h3 {
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.all-dms {
   display: flex;
   flex-direction: column;
-  background: #454545;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  padding: 16px;
+  align-items: center;
+  width: 90%;
+  height: 62vh;
+  overflow: auto;
+}
+form {
   border-radius: 16px;
-  word-break: break-all;
+  padding: 8px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  border: 1px solid lightgrey;
+  margin-top: 14px;
+  @media (max-width: 650px) {
+    width: 92%;
+  }
+}
+
+button {
+  width: 50px;
+  align-self: flex-end;
+}
+textarea {
+  height: 50px;
+  outline: none;
+  resize: none !important;
+}
+
+.direct-chat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 20px;
+  border: 1px solid lightgray;
+  border-radius: 16px;
+  padding: 8px;
+  width: 80%;
+  word-break: break-word;
+  color: black;
+  background-color: #f7f7f7;
+
+  p {
+    margin-bottom: 0;
+  }
 }
 
 .author {
   display: flex;
-  color: black;
-  span {
-    background: #69f0ae;
-    text-align: center;
-    padding: 6px;
-    border-radius: 16px;
-    width: 100px;
-  }
-}
-
-.users-name {
-  background-color: #f44336;
-  color: black;
-  font-size: 16px;
-  padding: 6px;
+  min-width: 100px;
   border-radius: 16px;
-  display: flex;
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
-  justify-content: center;
+  color: black;
   font-weight: 500;
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Chat } from 'src/models/chat.class';
 import { AuthentificationserviceService } from '../services/authentificationservice.service';
