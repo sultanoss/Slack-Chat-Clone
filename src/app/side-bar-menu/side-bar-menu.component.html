@@ -1,6 +1,6 @@
 <div class="side-bar-container">
   <div class="side-menu">
-    <form #channelForm="ngForm">
+    <form>
       <h2>Add Channel</h2>
       <input
         type="text"
@@ -14,17 +14,8 @@
         (click)="addChannel()"
         matTooltip="Add Channel"
         matTooltipPosition="right"
-      />
-      <!-- <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-
       >
-        <mat-icon>add</mat-icon>
-      </button> -->
     </form>
-
     <div
       class="channels-name"
       *ngFor="let channel of channels"
@@ -73,14 +64,6 @@
     matTooltip="Add DM"
     matTooltipPosition="right"
   />
-  <!-- <button
-    mat-raised-button
-    color="primary"
-    type="submit"
-
-  >
-    <mat-icon>add</mat-icon>
-  </button> -->
   <div
     class="dm-container"
     *ngFor="let directMessage of directMessages"

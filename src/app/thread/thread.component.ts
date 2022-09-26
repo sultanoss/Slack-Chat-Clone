@@ -15,6 +15,7 @@ import { Chat } from 'src/models/chat.class';
 import { Thread } from 'src/models/thread.class';
 import { AuthentificationserviceService } from '../services/authentificationservice.service';
 import { serverTimestamp } from 'firebase/firestore';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-thread',
@@ -24,7 +25,8 @@ import { serverTimestamp } from 'firebase/firestore';
 export class ThreadComponent implements OnInit, OnChanges {
   constructor(
     private firestore: AngularFirestore,
-    public authService: AuthentificationserviceService
+    public authService: AuthentificationserviceService,
+    private toast: HotToastService
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
     this.firestore
@@ -53,6 +55,10 @@ export class ThreadComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
 
   addThread() {
+    if(this.thread.answer == ''){
+      this.toast.info('Please enter a message !');
+      return
+    }
     let userName = this.authService.currentUser.displayName;
     this.firestore.collection('threads').add({
       answer: this.thread.answer,

@@ -12,6 +12,7 @@ import {
 import { first } from 'rxjs';
 import { serverTimestamp } from 'firebase/firestore';
 import { style } from '@angular/animations';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-channel',
@@ -51,7 +52,8 @@ export class ChannelComponent implements OnInit {
     public authService: AuthentificationserviceService,
     private activatedRoute: ActivatedRoute,
     public storage: Storage,
-    private route: Router
+    private route: Router,
+    private toast: HotToastService
   ) {}
 
   ngOnInit(): void {
@@ -94,6 +96,10 @@ export class ChannelComponent implements OnInit {
   }
 
   addMessage() {
+    if(this.chat.message == ''){
+      this.toast.info('Please enter a message !');
+      return
+    }
     let userName = this.authService.currentUser.displayName;
     this.firestore.collection('chats').add({
       message: this.chat.message,

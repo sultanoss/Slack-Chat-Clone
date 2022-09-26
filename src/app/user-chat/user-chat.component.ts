@@ -5,7 +5,8 @@ import { AuthentificationserviceService } from '../services/authentificationserv
 import { first } from 'rxjs';
 import { Auth } from '@angular/fire/auth';
 import { DirectChat } from 'src/models/directChat.class';
-import { serverTimestamp } from "firebase/firestore";
+import { serverTimestamp } from 'firebase/firestore';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-user-chat',
@@ -31,7 +32,8 @@ export class UserChatComponent implements OnInit {
     private firestore: AngularFirestore,
     public authService: AuthentificationserviceService,
     private activatedRoute: ActivatedRoute,
-    private auth: Auth
+    private auth: Auth,
+    private toast: HotToastService
   ) {}
 
   ngOnInit(): void {
@@ -64,11 +66,15 @@ export class UserChatComponent implements OnInit {
   }
 
   sendDirectMessage() {
+    if(this.directChat.directChatMessage == ''){
+      this.toast.info('Please enter a message !');
+      return
+    }
     this.firestore.collection('directChats').add({
       directChatMessage: this.directChat.directChatMessage,
       directMessageId: this.directMessageId,
       directChatAuthor: this.authService.currentUser.displayName,
-      directChatDate: serverTimestamp()
+      directChatDate: serverTimestamp(),
     });
     this.directChat.directChatMessage = '';
   }

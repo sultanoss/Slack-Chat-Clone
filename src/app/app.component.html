@@ -8,29 +8,27 @@
         {{ user.displayName | uppercase }}
       </div>
 
-      <button
-        mat-button
-        (click)="logout()"
-      >
+      <button mat-button (click)="logout()">
         <mat-icon>logout</mat-icon>
         <span>Logout</span>
       </button>
     </ng-container>
   </div>
 
-  <div class="mobile-menu">
+  <div
+    class="mobile-menu"
+    *ngIf="
+      route.url !== '/' &&
+      route.url !== '/signup' &&
+      route.url !== '/forgotPassword'
+    "
+  >
     <div class="menu-arrow">
-      <img
-        src="assets/img/icons8-arrow-32.png"
-        (click)="showSideBarMenu()"
-      />
+      <img src="assets/img/icons8-arrow-32.png" (click)="showSideBarMenu()" />
       <span>Menu</span>
     </div>
 
-    <button
-      mat-button
-      (click)="logout()"
-    >
+    <button mat-button (click)="logout()">
       <mat-icon>logout</mat-icon>
       <span>Logout</span>
     </button>

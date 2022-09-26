@@ -77,7 +77,11 @@ export class SideBarMenuComponent implements OnInit {
   addChannel() {
     if (this.authService.currentUser.isAnonymous) {
       this.toast.info('Only available for registered users !');
-    } else {
+    }
+    if(this.channel.name == ''){
+      this.toast.info('Please enter a channel name !');
+    }
+    else {
       this.firestore
         .collection('channels')
         .add(this.channel.toJson())
@@ -115,7 +119,7 @@ export class SideBarMenuComponent implements OnInit {
     if (!directMessageAlreadyExists) {
       this.firestore.collection('directMessages').add(toFirestoreDirectMessage);
     } else {
-      this.toast.error('This DirectMessage exist')
+      this.toast.error('This direct message exists')
     }
     this.selectedValue = [];
   }

@@ -47,14 +47,16 @@ mat-toolbar {
   background-color: #3f0e40;
   border-bottom: 1px solid #393939;
   overflow: auto;
-  max-height: calc(100vh - 51px);
+  height: calc(100vh - 51px);
   @media (max-width: 650px) {
-    transform: translateX(-200px);
-    transition: all 225ms ease-in-out;
+    // transform: translateX(-220px);
+    // transition: all 225ms ease-in-out;
+    display: none;
   }
   @media (min-width: 650px) {
-    transform: translateX(0);
-    transition: all 225ms ease-in-out;
+    // transform: translateX(0);
+    // transition: all 225ms ease-in-out;
+
   }
 }
 
@@ -62,7 +64,6 @@ mat-toolbar {
   background-color: #3f0e40;
   overflow: auto;
   position: absolute;
-  height: calc(100vh - 50px);
   z-index: 999;
   left: 0;
   top: 0;
@@ -70,6 +71,7 @@ mat-toolbar {
   flex-direction: column;
   transform: translateX(0);
   transition: all 225ms ease-in-out;
+  max-height: calc(100vh - 51px);
 }
 
 .menu-arrow {

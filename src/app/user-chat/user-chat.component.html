@@ -31,7 +31,7 @@
       spellcheck="true"
     >
 </textarea>
-    <button
+    <!-- <button
       mat-flat-button
       color="accent"
       type="submit"
@@ -40,6 +40,10 @@
       [disabled]="directchatForm.invalid"
     >
       Send
-    </button>
+    </button> -->
+    <img id="send-message-dm"
+    src="assets/img/icons8-send-30.png"
+    (click)="sendDirectMessage()"
+  >
   </form>
 </div>
