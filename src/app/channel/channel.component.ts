@@ -96,9 +96,9 @@ export class ChannelComponent implements OnInit {
   }
 
   addMessage() {
-    if(this.chat.message == ''){
+    if (this.chat.message == '') {
       this.toast.info('Please enter a message !');
-      return
+      return;
     }
     let userName = this.authService.currentUser.displayName;
     this.firestore.collection('chats').add({
@@ -121,6 +121,10 @@ export class ChannelComponent implements OnInit {
   }
 
   deleteChat(chat: any) {
+    if (this.authService.currentUser.isAnonymous) {
+      this.toast.info('Only available for registered users !');
+      return;
+    }
     this.firestore.collection('chats').doc(chat['customIdName']).delete();
   }
 
@@ -129,6 +133,10 @@ export class ChannelComponent implements OnInit {
   }
 
   editChat(chat: any) {
+    if (this.authService.currentUser.isAnonymous) {
+      this.toast.info('Only available for registered users !');
+      return;
+    }
     this.firestore
       .collection('chats')
       .doc(chat['customIdName']) // hier um eine feld zu updaten bzw editieren
@@ -137,6 +145,10 @@ export class ChannelComponent implements OnInit {
   }
 
   deleteImg(chat: any) {
+    if (this.authService.currentUser.isAnonymous) {
+      this.toast.info('Only available for registered users !');
+      return;
+    }
     this.firestore
       .collection('chats')
       .doc(chat['customIdName']) // hier um eine feld zu updaten bzw editieren

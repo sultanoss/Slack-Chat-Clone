@@ -77,8 +77,9 @@ export class SideBarMenuComponent implements OnInit {
   addChannel() {
     if (this.authService.currentUser.isAnonymous) {
       this.toast.info('Only available for registered users !');
+      return
     }
-    if(this.channel.name == ''){
+    if( this.channel.name == ''){
       this.toast.info('Please enter a channel name !');
     }
     else {

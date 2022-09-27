@@ -19,10 +19,10 @@ form {
   // }
 }
 
-#img-folder{
+#img-folder {
   cursor: pointer;
 }
-#send-message{
+#send-message {
   cursor: pointer;
 }
 
@@ -92,7 +92,7 @@ textarea {
   display: flex;
   justify-content: center;
   height: 100%;
-    @media (max-width: 650px) {
+  @media (max-width: 650px) {
     width: 100vw;
   }
   @media (min-width: 650px) {
@@ -105,12 +105,34 @@ textarea {
   flex-direction: column;
   align-items: center;
   width: 80%;
-  // border-left: 1px solid black;
-  // border-right: 1px solid black;
   position: relative;
   max-height: calc(100vh - 50px);
-  @media(max-width:1024px){
+  @media (max-width: 1024px) {
+    animation: slide2 225ms ease-in-out;
     width: 100%;
+  }
+  @media (min-width: 1024px) {
+    animation: slide 225ms ease-in-out;
+  }
+
+  @keyframes slide {
+    0% {
+      width: 100%;
+    }
+
+    100% {
+     width: 80%;
+    }
+  }
+
+  @keyframes slide2 {
+    0% {
+      width: 80%;
+    }
+
+    100% {
+     width: 100%;
+    }
   }
 
   h2 {
@@ -193,7 +215,7 @@ textarea {
       transition: all 225ms ease-in-out;
     }
   }
-  img{
+  img {
     cursor: pointer;
     margin-right: 10px;
     height: 24px;
@@ -201,13 +223,13 @@ textarea {
   }
 }
 
-.save-close-chat{
+.save-close-chat {
   display: flex;
   align-items: center;
-  img{
+  img {
     margin-left: 10px;
     cursor: pointer;
-    @media(max-width:1024px){
+    @media (max-width: 1024px) {
       margin-left: 0;
       margin-right: 10px;
     }
@@ -217,7 +239,7 @@ textarea {
 .edit-chat-container {
   button {
     margin-left: 16px;
-    @media(max-width: 1024px){
+    @media (max-width: 1024px) {
       margin-left: 0;
       margin-right: 10px;
     }
@@ -304,33 +326,33 @@ code {
     height: 40px;
     padding: 10px;
     font-family: inherit;
-    @media(max-width: 1024px){
+    @media (max-width: 1024px) {
       width: 83%;
     }
   }
-  @media(max-width: 1024px){
+  @media (max-width: 1024px) {
     flex-direction: column;
     align-items: flex-start;
   }
 }
 
-.channel-header{
+.channel-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 82%;
 }
 
-.d-none{
+.d-none {
   display: none;
 }
 
-.d-show{
+.d-show {
   display: block;
 }
 
-.hide-chat-channel{
-  @media(max-width:1024px){
+.hide-chat-channel {
+  @media (max-width: 1024px) {
     display: none;
   }
 }

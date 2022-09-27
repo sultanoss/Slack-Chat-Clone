@@ -37,7 +37,8 @@ form {
   flex-direction: column;
   width: 85%;
   border: 1px solid lightgrey;
-  margin-top: 14px;
+  margin-top: 10px;
+  height: 103px;
 
   button {
     width: 50px;
@@ -89,7 +90,7 @@ textarea {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 61vh;
+  height: 59vh;
   overflow: auto;
   width: 100%;
 }
