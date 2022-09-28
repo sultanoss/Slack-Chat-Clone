@@ -13,10 +13,15 @@ mat-toolbar {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 14px;
 
   mat-icon {
     margin-right: 10px;
   }
+}
+
+#logoutBtn{
+  padding-right: 0;
 }
 
 .header-menu {

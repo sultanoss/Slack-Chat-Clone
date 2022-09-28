@@ -129,14 +129,14 @@ export class ChannelComponent implements OnInit {
   }
 
   showEditContainer(chat: any) {
-    chat.schowEditContainer = true;
-  }
-
-  editChat(chat: any) {
     if (this.authService.currentUser.isAnonymous) {
       this.toast.info('Only available for registered users !');
       return;
     }
+    chat.schowEditContainer = true;
+  }
+
+  editChat(chat: any) {
     this.firestore
       .collection('chats')
       .doc(chat['customIdName']) // hier um eine feld zu updaten bzw editieren

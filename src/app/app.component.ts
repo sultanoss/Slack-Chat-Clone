@@ -28,12 +28,28 @@ export class AppComponent implements OnInit {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
+  onResize() {
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
     if (window.innerWidth >= 650) {
       this.sideBarVisible = false;
     }
+  }
+
+  @HostListener('window:beforeunload')
+  beforeunload() {
+    if (window.top?.close) {
+      this.logout;
+    }
+  }
+
+  // @HostListener('body:click', ['$event'])
+  // clickInside() {
+  //   this.clickBody();
+  // }
+
+  clickOutside() {
+    this.sideBarVisible = false;
   }
 
   logout() {

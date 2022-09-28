@@ -61,14 +61,14 @@ export class UserChatComponent implements OnInit {
       .pipe(first())
       .subscribe((res) => {
         this.directMessagesData = res.data();
-        this.usersName = this.directMessagesData.directMessageName;
+        this.usersName =  this.directMessagesData.directMessageName;
       });
   }
 
   sendDirectMessage() {
-    if(this.directChat.directChatMessage == ''){
+    if (this.directChat.directChatMessage == '') {
       this.toast.info('Please enter a message !');
-      return
+      return;
     }
     this.firestore.collection('directChats').add({
       directChatMessage: this.directChat.directChatMessage,

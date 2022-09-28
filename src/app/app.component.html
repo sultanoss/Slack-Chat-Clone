@@ -1,6 +1,12 @@
 <mat-toolbar>
+  <a
+  routerLink="/dashboard" *ngIf="!authService.currentUser"
+><span>Slack Clone</span></a>
   <div class="header-menu">
-    <a routerLink="/dashboard"><span>Slack Clone</span></a>
+    <a
+      routerLink="/dashboard"
+      *ngIf="(authService.currentUser$ | async) as user"
+    ><span>Slack Clone</span></a>
     <!-- Show if User logged in -->
     <ng-container *ngIf="authService.currentUser$ | async as user">
       <div class="user">
@@ -8,7 +14,10 @@
         {{ user.displayName | uppercase }}
       </div>
 
-      <button mat-button (click)="logout()">
+      <button id="logoutBtn"
+        mat-button
+        (click)="logout()"
+      >
         <mat-icon>logout</mat-icon>
         <span>Logout</span>
       </button>
@@ -24,19 +33,25 @@
     "
   >
     <div class="menu-arrow">
-      <img src="assets/img/icons8-arrow-32.png" (click)="showSideBarMenu()" />
+      <img
+        src="assets/img/icons8-arrow-32.png"
+        (click)="showSideBarMenu()"
+      />
       <span>Menu</span>
     </div>
-
-    <button mat-button (click)="logout()">
+    <button
+      mat-button
+      (click)="logout()"
+    >
       <mat-icon>logout</mat-icon>
       <span>Logout</span>
     </button>
   </div>
 </mat-toolbar>
 
-<div class="content">
-  <app-side-bar-menu id="sideBar"
+<div class="content" (click)="clickOutside()">
+  <app-side-bar-menu
+    id="sideBar"
     [class.showSideBar]="sideBarVisible"
     class="bg-side-bar"
     *ngIf="
